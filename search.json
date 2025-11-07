@@ -1,0 +1,114 @@
+[
+  {
+    "objectID": "slides/decomposition/index.html#section",
+    "href": "slides/decomposition/index.html#section",
+    "title": "Exploratory time series analysis",
+    "section": "",
+    "text": "Forecast combinations\n\n\nTBC\n\n\n28th June 2026 @ ISF\n\nMitchell O’Hara-Wild, Nectric\n\n\n\n\n\n\n\nUseful links\n\n\n social.mitchelloharawild.com\n workshop.nectric.com.au/isf2026/\n mitchelloharawild/workshop-isf2026"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-1",
+    "href": "slides/decomposition/index.html#section-1",
+    "title": "Exploratory time series analysis",
+    "section": "",
+    "text": "🎯 Today’s goals\n\n\n\nDecompose time series into trend, seasonal, and remainder components\nLearn how to probablistically combine forecasts from:\n\nA set of components (decomposition forecasting),\nMultiple models (ensemble), and\nRelated time series (reconciliation)\n\nUnderstand the distributional statistics underpinning forecast combinations\n\n\n\n\n\n\n\n\n🌻 Expectations\n\n\n\nFollow the code of conduct.\nBe kind and respectful.\nAsk relevant questions any time, Q&A during breaks.\nMake mistakes and learn!\n\n\n\n\n\nhttps://workshop.nectric.com.au/isf2026/"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#time-for-a-break",
+    "href": "slides/decomposition/index.html#time-for-a-break",
+    "title": "Exploratory time series analysis",
+    "section": "⏰ Time for a break!",
+    "text": "⏰ Time for a break!\n\n\n\n\n\n\n\n\nUp next…\n\n\n…\n\n\n\n\n\n\n\n\n\n\nUseful links\n\n\n social.mitchelloharawild.com\n workshop.nectric.com.au/isf2026/\n mitchelloharawild/workshop-isf2026"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#unsplash-credits",
+    "href": "slides/decomposition/index.html#unsplash-credits",
+    "title": "Exploratory time series analysis",
+    "section": "Unsplash credits",
+    "text": "Unsplash credits\n\n\n\n\n\n\n\nThanks to these Unsplash contributors for their photos\n\n\n\n\n\nSander Weeteling: Photo\nBalint Mendlik: Photo\nJohn Fowler: Taken near sunset at White Sands National Monumen…\nDavid Pisnoy: Photo\nChris Lee: Behind the leaves.\nJon Tyson: Photo\nRandy Fath: Photo\nNathan Dumlao: Photo\nSander Weeteling: Photo"
+  },
+  {
+    "objectID": "license.html",
+    "href": "license.html",
+    "title": "License",
+    "section": "",
+    "text": "This work is licensed under a Creative Commons Attribution 4.0 International License."
+  },
+  {
+    "objectID": "exercises.html",
+    "href": "exercises.html",
+    "title": "Exercises",
+    "section": "",
+    "text": "The pedestrian dataset contains hourly pedestrian counts from 2015-01-01 to 2016-12-31 at 4 sensors in the city of Melbourne.\nThe data is shown below:\n\n\n# A tibble: 66,037 × 5\n   Sensor         Date_Time           Date        Time Count\n   &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;\n 1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630\n 2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826\n 3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567\n 4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264\n 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139\n 6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77\n 7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44\n 8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56\n 9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113\n10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166\n# ℹ 66,027 more rows\n\n\n\n\n\n\n\n\nYour turn!\n\n\n\nIdentify the index variable, key variable(s), and measured variable(s) of this dataset.\n\n\n\n\n\n\n\n\nHint\n\n\n\n\nThe index variable contains the complete time information\nThe key variable(s) identify each time series\nThe measured variable(s) are what you want to explore/forecast."
+  },
+  {
+    "objectID": "exercises.html#exercise-1",
+    "href": "exercises.html#exercise-1",
+    "title": "Exercises",
+    "section": "",
+    "text": "The pedestrian dataset contains hourly pedestrian counts from 2015-01-01 to 2016-12-31 at 4 sensors in the city of Melbourne.\nThe data is shown below:\n\n\n# A tibble: 66,037 × 5\n   Sensor         Date_Time           Date        Time Count\n   &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;\n 1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630\n 2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826\n 3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567\n 4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264\n 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139\n 6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77\n 7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44\n 8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56\n 9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113\n10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166\n# ℹ 66,027 more rows\n\n\n\n\n\n\n\n\nYour turn!\n\n\n\nIdentify the index variable, key variable(s), and measured variable(s) of this dataset.\n\n\n\n\n\n\n\n\nHint\n\n\n\n\nThe index variable contains the complete time information\nThe key variable(s) identify each time series\nThe measured variable(s) are what you want to explore/forecast."
+  },
+  {
+    "objectID": "index.html#course-overview",
+    "href": "index.html#course-overview",
+    "title": "Forecast combinations",
+    "section": "Course Overview",
+    "text": "Course Overview\nCombining forecasts from multiple models, time series, or components is a proven strategy for enhancing the accuracy and reliability of time series forecasts. This workshop provides an introduction to three forecast combination techniques: decomposition forecasting, ensembling, and forecast reconciliation. Decomposition forecasting combines independent forecasts of each component (often trend, seasonal, and remainder) enabling simpler models to quickly produce forecasts at scale. Ensemble forecasting leverages the strengths of multiple models to create a more robust and accurate forecast, while forecast reconciliation utilises information across structurally related time series to improve accuracy with coherent forecasting. Learn the theory and practice of combining forecasts with hands-on exercises in R with packages from the tidy time series forecasting ecosystem (featuring tsibble, fable, feasts, and distributional).\nThis workshop will run in-person at ISF 2026 in Montreal, Canada on June 28th 2026."
+  },
+  {
+    "objectID": "index.html#learning-outcomes",
+    "href": "index.html#learning-outcomes",
+    "title": "Forecast combinations",
+    "section": "Learning Outcomes",
+    "text": "Learning Outcomes\n\nDecompose time series into trend, seasonal, and remainder components\nLearn how to probablistically combine forecasts from:\n\nA set of components (decomposition forecasting),\nMultiple models (ensemble), and\nRelated time series (reconciliation)\n\nUnderstand the distributional statistics underpinning forecast combinations"
+  },
+  {
+    "objectID": "index.html#instructor",
+    "href": "index.html#instructor",
+    "title": "Forecast combinations",
+    "section": "Instructor",
+    "text": "Instructor\n Mitchell O’Hara-Wild (he/him) is a PhD candidate at Monash University, creating new techniques and tools for forecasting large collections of time series with Rob Hyndman and George Athanasopoulos. He is the lead developer of the tidy time-series forecasting tools fable and feasts, and has co-developed the widely used forecast package since 2015. He is an award-winning educator, and has taught applied forecasting at Monash University and various forecasting workshops around the world."
+  },
+  {
+    "objectID": "index.html#required-equipment",
+    "href": "index.html#required-equipment",
+    "title": "Forecast combinations",
+    "section": "Required equipment",
+    "text": "Required equipment\nPlease bring your own laptop capable of running R."
+  },
+  {
+    "objectID": "index.html#required-software",
+    "href": "index.html#required-software",
+    "title": "Forecast combinations",
+    "section": "Required software",
+    "text": "Required software\nTo be able to complete the exercises of this workshop, please install a suitable IDE (such as RStudio), a recent version of R (4.1+) and the following packages.\n\nTime series packages and extensions\n\nfpp3\nggtime\n\n\nThe following code will install the main packages needed for the workshop.\ninstall.packages(c(\"fpp3\", \"ggtime\"))\nPlease have the required software installed and pre-work completed before attending the workshop."
+  },
+  {
+    "objectID": "slides/combination/index.html#section",
+    "href": "slides/combination/index.html#section",
+    "title": "Exploratory time series analysis",
+    "section": "",
+    "text": "Forecast combinations\n\n\nTBC\n\n\n28th June 2026 @ ISF\n\nMitchell O’Hara-Wild, Nectric\n\n\n\n\n\n\n\nUseful links\n\n\n social.mitchelloharawild.com\n workshop.nectric.com.au/isf2026/\n mitchelloharawild/workshop-isf2026"
+  },
+  {
+    "objectID": "slides/combination/index.html#section-1",
+    "href": "slides/combination/index.html#section-1",
+    "title": "Exploratory time series analysis",
+    "section": "",
+    "text": "…"
+  },
+  {
+    "objectID": "slides/combination/index.html#thats-all-for-now",
+    "href": "slides/combination/index.html#thats-all-for-now",
+    "title": "Exploratory time series analysis",
+    "section": "⏰ That’s all for now!",
+    "text": "⏰ That’s all for now!\n\n\n\n\n\n\n\n\nFinal remarks\n\n\n…\n\n\n\n\n\n\n\n\n\n\nUseful links\n\n\n social.mitchelloharawild.com\n workshop.nectric.com.au/isf2026/\n mitchelloharawild/workshop-isf2026"
+  },
+  {
+    "objectID": "slides/combination/index.html#unsplash-credits",
+    "href": "slides/combination/index.html#unsplash-credits",
+    "title": "Exploratory time series analysis",
+    "section": "Unsplash credits",
+    "text": "Unsplash credits\n\n\n\n\n\n\n\nThanks to these Unsplash contributors for their photos\n\n\n\n\n\nSander Weeteling: Photo\nKasia Gajek: Photo\nNASA: United States seen from orbit\nBalint Mendlik: Photo\nSander Weeteling: Photo"
+  }
+]
