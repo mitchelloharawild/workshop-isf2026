@@ -2,86 +2,91 @@
 
 <!-- README.md is generated from README.qmd. Please edit that file -->
 
-# ISF 2025: Exploratory time series analysis
+## ISF 2026: Forecast combinations: decomposition, ensembles, and reconciliation
 
 <!-- badges: start -->
 
 <!-- badges: end -->
 
-Slides and notes for a workshop at the ISF 2025 (29th June 2025) in
-Beijing, China.
+Slides and notes for a workshop at the ISF 2026 (28th June 2026) in
+Montreal, Canada.
 
 <!-- A recording of this workshop is available on YouTube here: <https://www.youtube.com/watch?v=> -->
 
 <!-- [![](preview.jpg)](https://www.youtube.com/watch?v=) -->
 
-#### Description
+#### Abstract
 
-Understanding how data changes over time is essential for specifying
-suitable forecasting models. Comprehensively exploring modern
-time-series datasets is challenging, where a large number of frequently
-observed time series contains many patterns. This workshop introduces
-new exploratory techniques to uncover meaningful temporal patterns in
-time series data.
+Combining forecasts from multiple models, time series, or components is
+a proven strategy for enhancing the accuracy and reliability of time
+series forecasts. This workshop provides an introduction to three
+forecast combination techniques: decomposition forecasting, ensembling,
+and forecast reconciliation. Decomposition forecasting combines
+independent forecasts of each component (often trend, seasonal, and
+remainder) enabling simpler models to quickly produce forecasts at
+scale. Ensemble forecasting leverages the strengths of multiple models
+to create a more robust and accurate forecast, while forecast
+reconciliation utilises information across structurally related time
+series to improve accuracy with coherent forecasting. Learn the theory
+and practice of combining forecasts with hands-on exercises in R with
+packages from the tidy time series forecasting ecosystem (featuring
+tsibble, fable, feasts, and distributional).
 
-We’ll explore how to compare patterns across many series using
-feature-based summaries. Visualizing these features reveals common
-temporal patterns, cluster related time series, and see how these
-patterns vary throughout the hierarchical structure of the data.
+#### Learning Outcomes
 
-We’ll then use a grammar of time series graphics to produce plots that
-clearly show the shape and variability in these patterns. Special
-attention will be given to the complexities of sub-daily data (such as
-timezones), allowing us to create stunning calendar plots which uncovers
-holiday effects and complex seasonalities.
-
-This practical workshop features live demonstrations and hands-on
-exercises using real-world data, equipping participants with the skills
-to effectively manipulate and visualize time series data in R.
-
-## Learning Outcomes
-
-1.  How to use the tidyverse to wrangle and manipulate time series data
-2.  Visualise data and identify common time series patterns
-3.  Use time series features to find patterns in many time series
-4.  Apply the grammar of time series graphics to visualize complex
-    seasonalities
+1.  Decompose time series into trend, seasonal, and remainder components
+2.  Learn how to probablistically combine forecasts from:
+    - A set of components (decomposition forecasting),
+    - Multiple models (ensemble), and
+    - Related time series (reconciliation)
+3.  Understand the distributional statistics underpinning forecast
+    combinations
 
 #### Structure
 
 <!-- 
-Hour 1: Time series data, aggregations, and visualization basics 
-Hour 2: Time series decomposition and features 
-Hour 3: The grammar of time series graphics 
+Hour 1: Software basics, decomposition, and decomposition forecasting
+Hour 2: Ensemble forecasting with mixture distributions
+Hour 3: Forecast reconciliation
 -->
 
-**Session 1** (13:00 - 14:20)
+**Session 1 (13:00 – 14:20)**
 
-The first session explores common time series patterns. Starting with
-identifying trend and seasonality in a single time series, we will work
-toward summarising patterns across a large collections of time series.
+This session introduces the foundation necessary to follow along with
+the practical exercises in R using fable. It introduces time series
+decomposition, component forecasting and combination to produce
+decomposition forecasts.
 
-- Time series data
-- Temporal granularity, statistics, and aggregation
-- Time series patterns and time plots
-- STL decomposition
-- Feature analysis
+- **Tidy time series forecasting primer**
+  - Using tsibble to represent time series data
+  - Producing time plots with ggtime
+  - Some basic forecasting with fable
+- **Time series decomposition**
+  - Overview of commonly used decomposition techniques
+  - STL decomposition from feasts to obtain trend, seasonality, and
+    remainder
+- **Decomposition-based forecasting**
+  - Independent forecasting of trend, seasonal, and remainder
+    components  
+  - Combining component forecasts into probabilistic decomposition
+    forecasts
 
-**Session 2** (14:30 - 15:50)
+**Session 2 (14:30 – 16:00)**
 
-The second session focuses on calendrical patterns such as seasonality
-and holidays. We will start with visualising seasonal patterns in highly
-aggregated quarterly data and work toward visualising complex seasonal
-patterns in sub-daily data.
+The second session focuses on combining multiple models and time series,
+starting with ensemble forecasting and finishing with cross-sectional
+forecast reconciliation.
 
-- Seasonal plots (aes/data -\> scale -\> coord)
-- Seasonal sub-series plots
-- Exploring seasonality after STL decomposition
-- Multiple seasonality in daily and sub-daily data
-- Local/civil and global/absolute time
-- Calendar plots
-
-**User-study** (15:50 - 16:00)
+- **Ensemble forecasting**
+  - Understand the forecast combination problem (and its solution)
+  - Constructing probabilistic ensembles using mixture distributions
+  - Advanced ensemble techniques (FFORMS, FFORMA)
+- **Forecast reconciliation**
+  - Understanding hierarchical and grouped structures
+  - Produce an coherent set of time series from raw data
+  - Reconcile incoherent forecasts from independent models of each
+    series
+  - Advanced reconciliation techniques (graph, pruning, non-negativity)
 
 ### Format
 
