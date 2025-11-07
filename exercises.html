@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Exercises – Exploratory time series analysis</title>
+<title>Exercises – Forecast combinations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -69,8 +69,8 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<meta name="twitter:title" content="Exercises – Exploratory time series analysis">
-<meta name="twitter:image" content="https://workshop.nectric.com.au/isf2025/images/opengraph.png">
+<meta name="twitter:title" content="Exercises – Forecast combinations">
+<meta name="twitter:image" content="https://workshop.nectric.com.au/isf2026/images/opengraph.png">
 <meta name="twitter:creator" content="@mitchoharawild">
 <meta name="twitter:image-height" content="654">
 <meta name="twitter:image-width" content="1250">
@@ -85,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Exploratory time series analysis</span>
+    <span class="navbar-title">Forecast combinations</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -100,23 +100,15 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-slides">    
         <li>
-    <a class="dropdown-item" href="./slides/patterns/">
- <span class="dropdown-text">Time series data and patterns</span></a>
+    <a class="dropdown-item" href="./slides/decomposition/">
+ <span class="dropdown-text">Decomposition forecasting</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./slides/seasons/">
- <span class="dropdown-text">Seasonality and calendrical patterns</span></a>
+    <a class="dropdown-item" href="./slides/combination/">
+ <span class="dropdown-text">Ensembles and reconciliation</span></a>
   </li>  
     </ul>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="https://feedback.nectric.com.au/w0rw"> 
-<span class="menu-text">Feedback</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="./exercises.html" aria-current="page"> 
-<span class="menu-text">Exercises</span></a>
-  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item dropdown ">
@@ -127,7 +119,7 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-downloads">    
         <li>
-    <a class="dropdown-item" href="https://github.com/mitchelloharawild/workshop-etsa-isf2025/archive/refs/heads/main.zip">
+    <a class="dropdown-item" href="https://github.com/mitchelloharawild/workshop-isf2026/archive/refs/heads/main.zip">
  <span class="dropdown-text">Everything</span></a>
   </li>  
         <li>
@@ -142,7 +134,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">License</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/mitchelloharawild/workshop-etsa-isf2025"> <i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/mitchelloharawild/workshop-isf2026"> <i class="bi bi-github" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -167,7 +159,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1">Exercise 1</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/mitchelloharawild/workshop-etsa-isf2025/edit/main/exercises.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/mitchelloharawild/workshop-etsa-isf2025/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/mitchelloharawild/workshop-isf2026/edit/main/exercises.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/mitchelloharawild/workshop-isf2026/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -535,7 +527,7 @@ Hint
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/workshop\.nectric\.com\.au\/isf2025");
+        var filterRegex = new RegExp("https:\/\/workshop\.nectric\.com\.au\/isf2026");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -870,9 +862,9 @@ Hint
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/mitchelloharawild/workshop-etsa-isf2025/edit/main/exercises.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/mitchelloharawild/workshop-etsa-isf2025/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/mitchelloharawild/workshop-isf2026/edit/main/exercises.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/mitchelloharawild/workshop-isf2026/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
-<p>© Copyright 2024, Mitchell O’Hara-Wild</p>
+<p>© Copyright 2026, Mitchell O’Hara-Wild</p>
 </div>
   </div>
 </footer>

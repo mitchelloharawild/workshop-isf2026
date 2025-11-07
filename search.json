@@ -2,28 +2,28 @@
   {
     "objectID": "slides/decomposition/index.html#section",
     "href": "slides/decomposition/index.html#section",
-    "title": "Exploratory time series analysis",
+    "title": "Forecast combinations",
     "section": "",
     "text": "Forecast combinations\n\n\nTBC\n\n\n28th June 2026 @ ISF\n\nMitchell O’Hara-Wild, Nectric\n\n\n\n\n\n\n\nUseful links\n\n\n social.mitchelloharawild.com\n workshop.nectric.com.au/isf2026/\n mitchelloharawild/workshop-isf2026"
   },
   {
     "objectID": "slides/decomposition/index.html#section-1",
     "href": "slides/decomposition/index.html#section-1",
-    "title": "Exploratory time series analysis",
+    "title": "Forecast combinations",
     "section": "",
     "text": "🎯 Today’s goals\n\n\n\nDecompose time series into trend, seasonal, and remainder components\nLearn how to probablistically combine forecasts from:\n\nA set of components (decomposition forecasting),\nMultiple models (ensemble), and\nRelated time series (reconciliation)\n\nUnderstand the distributional statistics underpinning forecast combinations\n\n\n\n\n\n\n\n\n🌻 Expectations\n\n\n\nFollow the code of conduct.\nBe kind and respectful.\nAsk relevant questions any time, Q&A during breaks.\nMake mistakes and learn!\n\n\n\n\n\nhttps://workshop.nectric.com.au/isf2026/"
   },
   {
     "objectID": "slides/decomposition/index.html#time-for-a-break",
     "href": "slides/decomposition/index.html#time-for-a-break",
-    "title": "Exploratory time series analysis",
+    "title": "Forecast combinations",
     "section": "⏰ Time for a break!",
     "text": "⏰ Time for a break!\n\n\n\n\n\n\n\n\nUp next…\n\n\n…\n\n\n\n\n\n\n\n\n\n\nUseful links\n\n\n social.mitchelloharawild.com\n workshop.nectric.com.au/isf2026/\n mitchelloharawild/workshop-isf2026"
   },
   {
     "objectID": "slides/decomposition/index.html#unsplash-credits",
     "href": "slides/decomposition/index.html#unsplash-credits",
-    "title": "Exploratory time series analysis",
+    "title": "Forecast combinations",
     "section": "Unsplash credits",
     "text": "Unsplash credits\n\n\n\n\n\n\n\nThanks to these Unsplash contributors for their photos\n\n\n\n\n\nSander Weeteling: Photo\nBalint Mendlik: Photo\nJohn Fowler: Taken near sunset at White Sands National Monumen…\nDavid Pisnoy: Photo\nChris Lee: Behind the leaves.\nJon Tyson: Photo\nRandy Fath: Photo\nNathan Dumlao: Photo\nSander Weeteling: Photo"
   },
@@ -86,28 +86,28 @@
   {
     "objectID": "slides/combination/index.html#section",
     "href": "slides/combination/index.html#section",
-    "title": "Exploratory time series analysis",
+    "title": "Forecast combinations",
     "section": "",
     "text": "Forecast combinations\n\n\nTBC\n\n\n28th June 2026 @ ISF\n\nMitchell O’Hara-Wild, Nectric\n\n\n\n\n\n\n\nUseful links\n\n\n social.mitchelloharawild.com\n workshop.nectric.com.au/isf2026/\n mitchelloharawild/workshop-isf2026"
   },
   {
     "objectID": "slides/combination/index.html#section-1",
     "href": "slides/combination/index.html#section-1",
-    "title": "Exploratory time series analysis",
+    "title": "Forecast combinations",
     "section": "",
     "text": "…"
   },
   {
     "objectID": "slides/combination/index.html#thats-all-for-now",
     "href": "slides/combination/index.html#thats-all-for-now",
-    "title": "Exploratory time series analysis",
+    "title": "Forecast combinations",
     "section": "⏰ That’s all for now!",
     "text": "⏰ That’s all for now!\n\n\n\n\n\n\n\n\nFinal remarks\n\n\n…\n\n\n\n\n\n\n\n\n\n\nUseful links\n\n\n social.mitchelloharawild.com\n workshop.nectric.com.au/isf2026/\n mitchelloharawild/workshop-isf2026"
   },
   {
     "objectID": "slides/combination/index.html#unsplash-credits",
     "href": "slides/combination/index.html#unsplash-credits",
-    "title": "Exploratory time series analysis",
+    "title": "Forecast combinations",
     "section": "Unsplash credits",
     "text": "Unsplash credits\n\n\n\n\n\n\n\nThanks to these Unsplash contributors for their photos\n\n\n\n\n\nSander Weeteling: Photo\nKasia Gajek: Photo\nNASA: United States seen from orbit\nBalint Mendlik: Photo\nSander Weeteling: Photo"
   }
