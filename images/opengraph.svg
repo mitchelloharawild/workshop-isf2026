@@ -8,8 +8,8 @@
    version="1.1"
    id="svg5"
    sodipodi:docname="opengraph.svg"
-   inkscape:version="1.4 (1:1.4+202410161351+e7c3feb100)"
-   inkscape:export-filename="twitter-card.png"
+   inkscape:version="1.4.2 (1:1.4.2+202505120737+ebf0e940d0)"
+   inkscape:export-filename="opengraph.png"
    inkscape:export-xdpi="100"
    inkscape:export-ydpi="100"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -27,7 +27,7 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="0.6"
-     inkscape:cx="600"
+     inkscape:cx="600.83333"
      inkscape:cy="314.16667"
      inkscape:window-width="1870"
      inkscape:window-height="1052"
@@ -85,7 +85,7 @@
     <rect
        x="574.27863"
        y="342.28162"
-       width="682.99175"
+       width="649.65842"
        height="443.13515"
        id="rect74729-3" />
     <clipPath
@@ -123,42 +123,40 @@
        style="font-weight:300;font-size:80px;line-height:0;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu Light';letter-spacing:0px;word-spacing:2.09px;white-space:pre;shape-inside:url(#rect74729-3);display:inline;fill:#ca5906;fill-opacity:1"><tspan
          x="574.2793"
          y="405.07126"
-         id="tspan2"><tspan
+         id="tspan5"><tspan
            dx="0 0 0 -2.0899999 2.0899963 0 0 0 -2.0899999"
            style="font-weight:600;line-height:1;font-family:'Open Sans';-inkscape-font-specification:'Open Sans Semi-Bold'"
-           id="tspan1">ISF 2025
+           id="tspan4">ISF 2026
 </tspan></tspan><tspan
          x="574.2793"
          y="485.07126"
-         id="tspan16"><tspan
+         id="tspan9"><tspan
            style="font-weight:600;line-height:1;font-family:'Open Sans';-inkscape-font-specification:'Open Sans Semi-Bold'"
-           id="tspan4">Workshop</tspan><tspan
+           id="tspan6">Workshop</tspan><tspan
            dx="-2.0899999"
            style="font-weight:normal;line-height:1;font-family:'Open Sans';-inkscape-font-specification:'Open Sans'"
-           id="tspan8">
+           id="tspan7">
 </tspan></tspan><tspan
          x="574.2793"
          y="565.07126"
-         id="tspan18"><tspan
+         id="tspan11"><tspan
            style="font-weight:normal;line-height:1;font-family:'Open Sans';-inkscape-font-specification:'Open Sans'"
-           id="tspan17">
+           id="tspan10">
 </tspan></tspan><tspan
          x="574.2793"
-         y="637.70798"
-         id="tspan20"><tspan
-           dx="0 0 0 0 0 0 0 0 0 0 0 -2.0900056"
-           style="font-size:66.6667px;line-height:1;fill:#0f558e"
-           id="tspan19">Exploratory 
-</tspan></tspan><tspan
+         y="644.35919"
+         id="tspan13"><tspan
+           dx="0 0 0 0 0 0 0 0 -2.0899942"
+           style="font-size:74.6667px"
+           id="tspan12">Forecast </tspan></tspan><tspan
          x="574.2793"
-         y="704.37467"
-         id="tspan23"><tspan
-           dx="0 0 0 0 -2.0899961 2.0899887 0 0 0 0 0 -2.0899999"
+         y="719.02587"
+         id="tspan16"><tspan
+           style="font-size:74.6667px"
+           id="tspan14">combinations</tspan><tspan
+           dx="-2.0900152"
            style="font-size:66.6667px;line-height:1;fill:#0f558e"
-           id="tspan21">time series </tspan><tspan
-           dx="2.0899734"
-           style="font-size:66.6667px;line-height:1;fill:#0f558e"
-           id="tspan22">analysis</tspan></tspan></text>
+           id="tspan15"> </tspan></tspan></text>
     <rect
        style="fill:#ca5906;fill-opacity:1;stroke:none;stroke-width:0.668302;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:0.839216;paint-order:markers fill stroke"
        id="rect126999"
