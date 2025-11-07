@@ -10,11 +10,11 @@ project:
 
 website:
   page-navigation: true
-  title: "Exploratory time series analysis"
-  description: "Homepage for the exploratory time series analysis workshop at ISF 2025"
-  site-url: "https://workshop.nectric.com.au/isf2025"
+  title: "Forecast combinations"
+  description: "Homepage for the forecast combinations workshop at ISF 2026"
+  site-url: "https://workshop.nectric.com.au/isf2026"
 
-  repo-url: https://github.com/mitchelloharawild/workshop-etsa-isf2025
+  repo-url: https://github.com/mitchelloharawild/workshop-isf2026
   repo-actions: [edit, issue]
 
   # opengraph: true
@@ -26,7 +26,7 @@ website:
 
   page-footer:
     left: "This page is built with ❤️ and [Quarto](https://quarto.org/)."
-    right: "&copy; Copyright 2024, Mitchell O'Hara-Wild"
+    right: "&copy; Copyright 2026, Mitchell O'Hara-Wild"
     background: "#426D98"
 
   navbar:
@@ -36,20 +36,20 @@ website:
     left:
     - text: Slides
       menu:
-        - text: Time series data and patterns
-          href: slides/patterns/
-        - text: Seasonality and calendrical patterns
-          href: slides/seasons/
-    - text: Feedback
-      href: https://feedback.nectric.com.au/w0rw
-    - text: Exercises
-      href: exercises.qmd
+        - text: Decomposition forecasting
+          href: slides/decomposition/
+        - text: Ensembles and reconciliation
+          href: slides/combination/
+    # - text: Feedback
+    #   href: https://feedback.nectric.com.au/w0rw
+    # - text: Exercises
+    #   href: exercises.qmd
     right:
       - icon: download
         text: Downloads
         menu:
           - text: Everything
-            href: 'https://github.com/mitchelloharawild/workshop-etsa-isf2025/archive/refs/heads/main.zip'
+            href: 'https://github.com/mitchelloharawild/workshop-isf2026/archive/refs/heads/main.zip'
           # - text: Slides
             # href: 'slides.zip'
           - text: Lab sessions
@@ -57,7 +57,7 @@ website:
       - icon: file-certificate
         href: license.qmd
       - icon: github
-        href: https://github.com/mitchelloharawild/workshop-etsa-isf2025
+        href: https://github.com/mitchelloharawild/workshop-isf2026
 
 format:
   html:
