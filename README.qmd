@@ -1,0 +1,77 @@
+---
+format: gfm
+---
+
+<!-- README.md is generated from README.qmd. Please edit that file -->
+
+# ISF 2026: Forecast combinations: decomposition, ensembles, and reconciliation
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+Slides and notes for a workshop at the ISF 2026 (28th June 2026) in Montreal, Canada.
+
+<!-- A recording of this workshop is available on YouTube here: <https://www.youtube.com/watch?v=> -->
+
+<!-- [![](preview.jpg)](https://www.youtube.com/watch?v=) -->
+
+#### Description
+
+Combining forecasts from multiple models, time series, or components is a proven strategy for enhancing the accuracy and reliability of time series forecasts. This workshop provides an introduction to three forecast combination techniques: decomposition forecasting, ensembling, and forecast reconciliation. Decomposition forecasting combines independent forecasts of each component (often trend, seasonal, and remainder) enabling simpler models to quickly produce forecasts at scale. Ensemble forecasting leverages the strengths of multiple models to create a more robust and accurate forecast, while forecast reconciliation utilises information across structurally related time series to improve accuracy with coherent forecasting. Learn the theory and practice of combining forecasts with hands-on exercises in R with packages from the tidy time series forecasting ecosystem (featuring tsibble, fable, feasts, and distributional).
+
+## Learning Outcomes
+
+1.  Decompose time series into trend, seasonal, and remainder components
+2.  Learn how to probablistically combine forecasts from:
+    * A set of components (decomposition forecasting),
+    * Multiple models (ensemble), and 
+    * Related time series (reconciliation)
+3.  Understand the distributional statistics underpinning forecast combinations
+
+#### Structure
+
+<!-- 
+Hour 1: Software basics, decomposition, and decomposition forecasting
+Hour 2: Ensemble forecasting with mixture distributions
+Hour 3: Forecast reconciliation
+-->
+
+## **Session 1**  
+**(13:00 – 14:20)**  
+
+This session introduces the foundation necessary to follow along with the software. It covers the basics of time series decomposition and forecasting using fable for R.
+
+- **Tidy time series data and forecasting (background)**  
+  * Using tsibble to represent time series data
+  * Producing time plots with ggtime
+  * Some basic forecasting with fable
+
+- **Time series decomposition**  
+  * Overview of commonly used decomposition techniques
+  * STL decomposition from feasts to obtain trend, seasonality, and remainder  
+
+- **Decomposition-based forecasting**  
+  * Independent forecasting of trend, seasonal, and remainder components  
+  * Combining component forecasts into probabilistic decomposition forecasts
+
+---
+
+## **Session 2**  
+**(14:30 – 16:00)**  
+
+The second session showcases more advanced forecast combination techniques. It starts with ensemble forecasting, then finishes with forecast reconciliation for hierarchical and grouped time series.
+
+- **Ensemble forecasting**  
+  * Understand the forecast combination problem (and its solution)
+  * Constructing probabilistic ensembles using mixture distributions
+  * Advanced ensemble techniques (FFORMS, FFORMA)
+
+- **Forecast reconciliation**  
+  * Understanding hierarchical and grouped structures
+  * Produce an coherent set of time series from raw data
+  * Reconcile incoherent forecasts from independent models of each series
+  * Advanced reconciliation techniques (graph, pruning, non-negativity)
+
+### Format
+
+3 hour workshop.

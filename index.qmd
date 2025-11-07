@@ -1,0 +1,66 @@
+---
+title: "Forecast combinations"
+---
+
+![](images/fable.svg){style="float:right;padding: 0 0 0 10px;" fig-alt="Fable Hex Logo" width="175"}
+
+## Course Overview
+
+Combining forecasts from multiple models, time series, or components is a proven strategy for enhancing the accuracy and reliability of time series forecasts. This workshop provides an introduction to three forecast combination techniques: decomposition forecasting, ensembling, and forecast reconciliation. Decomposition forecasting combines independent forecasts of each component (often trend, seasonal, and remainder) enabling simpler models to quickly produce forecasts at scale. Ensemble forecasting leverages the strengths of multiple models to create a more robust and accurate forecast, while forecast reconciliation utilises information across structurally related time series to improve accuracy with coherent forecasting. Learn the theory and practice of combining forecasts with hands-on exercises in R with packages from the tidy time series forecasting ecosystem (featuring tsibble, fable, feasts, and distributional).
+
+This workshop will run in-person at [ISF 2026](https://isf.forecasters.org/program/workshops/) in Montreal, Canada on June 28th 2026.
+
+<!-- ## Registration -->
+
+## Learning Outcomes
+
+1.  Decompose time series into trend, seasonal, and remainder components
+2.  Learn how to probablistically combine forecasts from:
+    * A set of components (decomposition forecasting),
+    * Multiple models (ensemble), and 
+    * Related time series (reconciliation)
+3.  Understand the distributional statistics underpinning forecast combinations
+
+# Educators
+
+## Instructor
+
+![](images/mitch.jpg){style="float:right;padding: 0 0 0 10px;" fig-alt="Headshot of Mitchell O'Hara-Wild" width="200"}
+[**Mitchell O'Hara-Wild**](https://mitchelloharawild.com/) (he/him) is a PhD candidate at [Monash University](https://www.monash.edu), creating new techniques and tools for forecasting large collections of time series with Rob Hyndman and George Athanasopoulos. He is the lead developer of the tidy time-series forecasting tools fable and feasts, and has co-developed the widely used forecast package since 2015. He is an award-winning educator, and has taught applied forecasting at Monash University and various forecasting workshops around the world.
+
+<div align="center">
+<a href="https://www.mitchelloharawild.com"><img border="0" alt="Blog" src="https://assets.dryicons.com/uploads/icon/svg/4926/home.svg" width="35" height="35"></a>&ensp;
+<a href="https://github.com/mitchelloharawild"><img border="0" alt="Github" src="https://assets.dryicons.com/uploads/icon/svg/8312/cc33248a-e56e-4e7f-93f4-0e16350e5768.svg" width="35" height="35"></a>&ensp; 
+<a href="https://www.linkedin.com/in/mitchelloharawild/"><img border="0" alt="LinkedIn" src="https://assets.dryicons.com/uploads/icon/svg/8337/a347cd89-1662-4421-be90-58e5e8004eae.svg" width="35" height="35"></a>&ensp;&emsp;
+</div>
+
+
+# Preparation
+
+This workshop builds on univariate forecasting concepts and skills to combine forecasts using decomposition, ensembles, and reconciliation. To get the most out of this workshop, you should be familiar with the basics of statistical time series forecasting.
+
+The workshop features hands-on exercises in R using tidy data analysis principles, to follow along with the practical exercises you will need to have R and the required packages installed (see below).
+
+The coding exercises will be challenging for non-R users, although the concepts are transferable to other languages and forecasting libraries (the workshop materials will also link to equivalent Python implementations). If you are unfamiliar with tidy forecasting in R and want to complete the exercises, I recommend working through the startr materials (<https://startr.numbat.space/>) and my forecasting basics workshop (<https://workshop.nectric.com.au/fable-2025/>).
+
+Some familiarity with statistical concepts including probability distributions, mean, variance, quantiles, and densities would be helpful to better understand the theory of combination forecasting.
+
+## Required equipment
+
+Please bring your own laptop capable of running R.
+
+## Required software
+
+To be able to complete the exercises of this workshop, please install a suitable IDE (such as RStudio), a recent version of R (4.1+) and the following packages.
+
+-   **Time series packages and extensions**
+    -   fpp3
+    -   ggtime
+
+The following code will install the main packages needed for the workshop.
+
+```r
+install.packages(c("fpp3", "ggtime"))
+```
+
+Please have the required software installed and pre-work completed before attending the workshop.
