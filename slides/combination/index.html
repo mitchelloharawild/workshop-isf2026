@@ -7,9 +7,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <link href="../../site_libs/quarto-contrib/custom-callouts-0.1.0/custom-callouts.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.32">
+  <meta name="generator" content="quarto-1.8.26">
 
   <title>Forecast combinations – index</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -30,7 +30,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-f4adcf63cfe9dd666a64f4d67d722b7f.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-8e28095ca6dd81caf6e8869d2af3eae1.css">
   <link rel="stylesheet" href="theme.css">
   <link rel="stylesheet" href="hex.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -124,6 +124,11 @@
       margin-right: 0; 
     }
   </style>
+<meta property="og:title" content="Forecast combinations">
+<meta property="og:image" content="https://workshop.nectric.com.au/isf2026/images/opengraph.png">
+<meta property="og:site_name" content="Forecast combinations (ISF 2026 workshop)">
+<meta property="og:image:height" content="654">
+<meta property="og:image:width" content="1250">
 <meta name="twitter:title" content="Forecast combinations">
 <meta name="twitter:image" content="https://workshop.nectric.com.au/isf2026/images/opengraph.png">
 <meta name="twitter:creator" content="@mitchoharawild">
@@ -217,35 +222,6 @@
 </div></div>
 <p><img data-src="../backgrounds/sander-weeteling-KABfjuSOx74-unsplash.jpg" class="image-right"></p>
 <!-- Made with :heart: and [Quarto](https://quarto.org/). -->
-</section>
-<section id="unsplash-credits" class="slide level2">
-<h2>Unsplash credits</h2>
-<div class="callout-unsplash">
-<div class="callout callout-unsplash callout-titled callout-style-simple">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Thanks to these Unsplash contributors for their photos</strong></p>
-</div>
-<div class="callout-content">
-<div class="cell">
-<div class="cell-output-display">
-<ul>
-<li>Sander Weeteling: <a href="https://unsplash.com/photos/KABfjuSOx74">Photo</a></li>
-<li>Kasia Gajek: <a href="https://unsplash.com/photos/UMne1WKuesY">Photo</a></li>
-<li>NASA: <a href="https://unsplash.com/photos/1lfI7wkGWZ4">United States seen from orbit</a></li>
-<li>Balint Mendlik: <a href="https://unsplash.com/photos/4-ORHffEh3I">Photo</a></li>
-<li>Sander Weeteling: <a href="https://unsplash.com/photos/KABfjuSOx74">Photo</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
 <!-- ## References -->
 
 
@@ -439,7 +415,7 @@
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -687,13 +663,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
