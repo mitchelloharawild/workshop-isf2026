@@ -17,10 +17,12 @@ website:
   repo-url: https://github.com/mitchelloharawild/workshop-isf2026
   repo-actions: [edit, issue]
 
-  # opengraph: true
+  open-graph:
+    image: "/images/opengraph.png"
+    site-name: "Forecast combinations (ISF 2026 workshop)"
   twitter-card:
     creator: "@mitchoharawild"
-  image: "/images/opengraph.png"
+    image: "/images/opengraph.png"
 
   favicon: "/images/fable.svg"
 
