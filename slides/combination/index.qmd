@@ -105,43 +105,4 @@ TBC
 
 <!-- Made with :heart: and [Quarto](https://quarto.org/). -->
 
-
-## Unsplash credits
-
-::: {.callout-unsplash}
-
-## Thanks to these Unsplash contributors for their photos
-
-```{r unsplash}
-#| echo: FALSE
-#| cache: TRUE
-library(httr)
-library(purrr)
-unsplash_pattern <- ".*-(.{11})-unsplash\\.jpg.*"
-slides <- readLines("index.qmd")
-backgrounds <- slides[grepl("../backgrounds/.+?unsplash.jpg", slides)]
-images <- unique(sub(".*\\(backgrounds/(.+?)\\).*", "\\1", backgrounds))
-images <- images[grepl(unsplash_pattern, images)]
-ids <- sub(unsplash_pattern, "\\1", images)
-
-get_unsplash_credit <- function(id) {
-  unsplash_url <- "https://api.unsplash.com/" 
-  my_response <- httr::GET(unsplash_url, path = c("photos", id), query = list(client_id=Sys.getenv("UNSPLASH_ACCESS")))
-  xml <- content(my_response)
-  
-  name <- xml$user$name
-  desc <- xml$description%||%"Photo"
-  sprintf(
-    "* %s: [%s%s](%s)",
-    name,
-    strtrim(desc,60-nchar(name)),
-    if(nchar(desc)>(60-nchar(name))) "..." else "",
-    modify_url("https://unsplash.com/", path = file.path("photos", xml$id))
-  )
-}
-htmltools::includeMarkdown(paste0(map_chr(ids, get_unsplash_credit), collapse = "\n"))
-```
-
-:::
-
 <!-- ## References -->
