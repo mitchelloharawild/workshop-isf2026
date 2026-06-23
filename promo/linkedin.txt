@@ -1,0 +1,19 @@
+Forecast combinations improve the accuracy and reliability of forecasts by bringing together information across multiple models, components, and related series 📈🔗
+
+Next month at #ISFconf2026 I'm instructing a new workshop on forecast combinations in decomposition, ensembles, and reconciliation. The workshop will feature a 'combination' of some probabilistic theory and lots of practical applications and exercises on real data in R with tsibble, fable, feasts, and distributional.
+
+Key topics:
+🧩 Decomposition forecasting: combining forecasts of trend, seasonality, and the rest.
+🤖 Ensemble forecasting: averaging multiple models for better forecasts
+🕸️ Forecast reconciliation: share information between related time series
+📊 The distributional statistics behind probabilistic forecast combinations
+
+It's one of eight fantastic workshops to choose at the 46th International Symposium on Forecasting by the International Institute of Forecasters: https://isf.forecasters.org/program/workshops/
+
+Key details:
+🌏 Montreal, Canada (ISF 2026)
+🕰 Sunday 28th June, 13:00 - 16:00 EDT
+🔗 Workshop info: https://workshop.nectric.com.au/isf2026/
+🎓 Registration: https://isf.forecasters.org/registration/
+
+#Forecasting #TimeSeries #DataScience #RStats #opensource

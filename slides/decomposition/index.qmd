@@ -20,6 +20,7 @@ editor_options:
 ```{r}
 #| include: false
 library(fpp3)
+library(tidyr)
 ```
 
 ## {}
@@ -34,11 +35,11 @@ Forecast combinations
 :::
 
 ::: {.subtitle data-id="subtitle"}
-TBC
+Decomposition
 :::
 
 ::: {.dateplace}
-28th June 2026 @ ISF
+28th June 2026 @ ISF - Montreal, Canada
 :::
 
 ##### Mitchell O'Hara-Wild, Nectric
@@ -60,40 +61,195 @@ TBC
 
 ![](../backgrounds/sander-weeteling-KABfjuSOx74-unsplash.jpg){.image-left}
 
-
 ## {}
-
 
 ::: columns
 ::: {.column width="60%"}
 
-::: {.callout}
-## :dart: Today's goals
+### Decomposition forecasts
 
-1.  Decompose time series into trend, seasonal, and remainder components
-2.  Learn how to probablistically combine forecasts from:
-    * A set of components (decomposition forecasting),
-    * Multiple models (ensemble), and 
-    * Related time series (reconciliation)
-3.  Understand the distributional statistics underpinning forecast combinations
+Decomposition forecasts combine forecasts from:
+
+* a **single** model, of each
+* **decomposed** series.
+
+
+:::{.fragment .fade-up}
+
+:::{.callout-tip}
+## Simpler forecasting
+
+This can simplify the modelling challenge, since each pattern can be forecasted separately.
 :::
 
-::: {.callout .fragment}
-## :sunflower: Expectations
-
-1. Follow the code of conduct.
-2. Be kind and respectful.
-3. Ask relevant questions any time, Q&A during breaks.
-4. Make mistakes and learn!
 :::
 
-[<https://workshop.nectric.com.au/isf2026/>]{.fragment}
 
 :::
 :::
 
-![](../backgrounds/balint-mendlik-4-ORHffEh3I-unsplash.jpg){.image-right}
+![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
 
+
+## {}
+
+::: columns
+
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### PBS Cost
+
+```{r}
+#| fig-height: 6
+#| fig-width: 7
+
+pbs_cost <- tsibbledata::PBS |> 
+  summarise(Cost = sum(Cost))
+pbs_cost |> 
+  autoplot(Cost)
+```
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-left}
+
+
+
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Decomposition methods
+
+There are many models available for separating patterns from a time series.
+
+This process is commonly used for seasonal adjustment.
+
+I'll be showing decomposition via a STL model.
+
+:::
+:::
+
+![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### PBS Cost
+
+```{r}
+#| fig-height: 6
+#| fig-width: 7
+
+library(feasts)
+pbs_cost |> 
+  model(STL(sqrt(Cost))) |> 
+  components() |> 
+  autoplot()
+```
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-left}
+
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Decomposition forecasting
+
+Combine individual forecasts of the each decomposed series based on the decomposition structure.
+
+For example,
+
+$$
+y_{T+h|T} = (T+R)_{T+h|T} + S_{T+h|T}
+$$
+
+:::{.callout-tip}
+## Seasonal adjustment
+
+We usually model/forecast trend ($T$) and remainder ($R$) together with a single model.
+:::
+
+:::
+:::
+
+![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### PBS Cost
+
+```{r}
+#| fig-height: 6
+#| fig-width: 7
+
+library(tidyr)
+pbs_components <- pbs_cost |> 
+  model(STL(sqrt(Cost))) |> 
+  components() |> 
+  select(season_adjust, season_year) |> 
+  pivot_longer(c(season_adjust, season_year), names_to = "component")
+
+pbs_components |> 
+  model(ETS(value)) |> 
+  forecast(h = "5 years") |> 
+  autoplot(pbs_components) + 
+  facet_grid(vars(component), scales = "free_y")
+```
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-left}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### PBS Cost
+
+```{r}
+#| fig-height: 6
+#| fig-width: 7
+
+pbs_cost |> 
+  model(
+    decomposition_model(
+      dcmp = STL(sqrt(Cost)),
+      ETS(season_adjust),
+      ETS(season_year)
+    )
+  ) |> 
+  forecast(h = "5 years") |> 
+  autoplot(pbs_cost)
+```
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-left}
 
 ## :alarm_clock: Time for a break!
 

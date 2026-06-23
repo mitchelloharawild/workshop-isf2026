@@ -1,0 +1,94 @@
+---
+from: markdown+emoji
+execute:
+  cache: true
+format:
+  letterbox-revealjs:
+    theme: [default]
+    css: [theme.css]
+    progress: false
+    menu: false
+    width: 1280
+    height: 720
+filters:
+  - custom-callouts
+callout-appearance: simple
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| include: false
+library(fpp3)
+```
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+::: {.title data-id="title"}
+Forecast combinations
+:::
+
+::: {.subtitle data-id="subtitle"}
+Summary
+:::
+
+::: {.dateplace}
+28th June 2026 @ ISF - Montreal, Canada
+:::
+
+##### Mitchell O'Hara-Wild, Nectric
+
+::: {.callout-link}
+
+## Useful links
+
+![](resources/forum.svg){.icon} [social.mitchelloharawild.com](https://social.mitchelloharawild.com/)
+
+![](resources/projector-screen-outline.svg){.icon} [workshop.nectric.com.au/isf2026/](https://workshop.nectric.com.au/isf2026/)
+
+![](resources/github.svg){.icon} [mitchelloharawild/workshop-isf2026](https://github.com/mitchelloharawild/workshop-isf2026)
+
+:::
+
+:::
+:::
+
+![](../backgrounds/sander-weeteling-KABfjuSOx74-unsplash.jpg){.image-left}
+
+
+## :alarm_clock: That's all for now!
+
+::: columns
+::: {.column width="60%"}
+
+
+::: {.callout-tip}
+## Final remarks
+
+...
+:::
+
+::: {.callout-link}
+## Useful links
+
+![](resources/forum.svg){.icon} [social.mitchelloharawild.com](https://social.mitchelloharawild.com/)
+
+![](resources/projector-screen-outline.svg){.icon} [workshop.nectric.com.au/isf2026/](https://workshop.nectric.com.au/isf2026/)
+
+![](resources/github.svg){.icon} [mitchelloharawild/workshop-isf2026](https://github.com/mitchelloharawild/workshop-isf2026)
+
+:::
+
+:::
+:::
+
+![](../backgrounds/sander-weeteling-KABfjuSOx74-unsplash.jpg){.image-right}
+
+<!-- Made with :heart: and [Quarto](https://quarto.org/). -->
+
+<!-- ## References -->

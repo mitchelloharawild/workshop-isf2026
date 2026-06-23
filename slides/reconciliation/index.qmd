@@ -1,0 +1,273 @@
+---
+from: markdown+emoji
+execute:
+  cache: true
+format:
+  letterbox-revealjs:
+    theme: [default]
+    css: [theme.css]
+    progress: false
+    menu: false
+    width: 1280
+    height: 720
+filters:
+  - custom-callouts
+callout-appearance: simple
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| include: false
+library(fpp3)
+```
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+::: {.title data-id="title"}
+Forecast combinations
+:::
+
+::: {.subtitle data-id="subtitle"}
+Reconciliation
+:::
+
+::: {.dateplace}
+28th June 2026 @ ISF - Montreal, Canada
+:::
+
+##### Mitchell O'Hara-Wild, Nectric
+
+::: {.callout-link}
+
+## Useful links
+
+![](resources/forum.svg){.icon} [social.mitchelloharawild.com](https://social.mitchelloharawild.com/)
+
+![](resources/projector-screen-outline.svg){.icon} [workshop.nectric.com.au/isf2026/](https://workshop.nectric.com.au/isf2026/)
+
+![](resources/github.svg){.icon} [mitchelloharawild/workshop-isf2026](https://github.com/mitchelloharawild/workshop-isf2026)
+
+:::
+
+:::
+:::
+
+![](../backgrounds/sander-weeteling-KABfjuSOx74-unsplash.jpg){.image-left}
+
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Forecast reconciliation
+
+Forecast reconciliation combine forecasts from:
+
+* a **single** model, for
+* **each related** series.
+
+:::{.fragment .fade-up}
+
+:::{.callout-tip}
+## Improved accuracy
+
+This improves forecasting accuracy by sharing information between related series by adhering to 'coherency constraints'.
+:::
+
+:::
+
+
+:::
+:::
+
+![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-right}
+
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Coherency constraints
+
+The relationships between each time series form constraints.
+
+:::{.fragment .fade-up}
+
+:::{.callout-note}
+## For example...
+
+The **total Australian infections** must equal the **sum of infections by jurisdiction**.
+:::
+:::
+
+:::{.fragment .fade-up}
+
+:::{.callout-tip}
+## Imposing constraints
+
+Forecasts of each series (total infections, and infections in each jurisdiction) won't add up!
+
+We use reconciliation to adjust forecasts for *coherency*.
+:::
+
+:::
+
+:::
+:::
+
+![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-right}
+
+
+
+## {}
+
+### PBS scripts by ATC 1 classification
+
+```{r}
+pbs_atc1 <- tsibbledata::PBS |> 
+  aggregate_key(ATC1, Scripts = sum(Scripts))
+pbs_atc1 |> 
+  autoplot(Scripts) + 
+  facet_wrap(vars(ATC1), scales = "free_y")
+```
+
+## {}
+
+### Produce forecasts on each series
+
+```{r}
+pbs_atc1_fc <- pbs_atc1 |> 
+  model(ETS(Scripts)) |> 
+  forecast(h = "5 years")
+pbs_atc1_fc |> 
+  autoplot(pbs_atc1 |> filter(Month > yearmonth("2000 Jan"))) + 
+  facet_wrap(vars(ATC1), scales = "free_y")
+```
+
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Forecasts aren't coherent
+
+```{r}
+#| fig-height: 6
+#| fig-width: 7
+pbs_atc1_fc |> 
+  filter(!is_aggregated(ATC1)) |> 
+  summarise(.model = "Sum of ATC1", Scripts = sum(Scripts)) |> 
+  # sum() is invalid somehow? recreate it.
+  mutate(Scripts = dist_normal(mean(Scripts), sqrt(variance(Scripts)))) |> 
+  as_fable(key = .model) |> 
+  bind_rows(pbs_atc1_fc |> filter(is_aggregated(ATC1)) |> transmute(.model = "Forecast of total", Scripts)) |> 
+  autoplot(pbs_atc1 |> filter(is_aggregated(ATC1), Month > yearmonth("2000 Jan")) |> as_tsibble(key = NULL)) + 
+  facet_grid(vars(.model), scales = "free_y") + 
+  theme(legend.position = "bottom")
+```
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-left}
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Adjust all forecasts for coherency
+
+$$\tilde{\mathbf{y}}_h=\mathbf{S}(\mathbf{S}'\mathbf{W}_h^{-1}\mathbf{S})^{-1}\mathbf{S}'\mathbf{W}_h^{-1}\hat{\mathbf{y}}_h.$$
+
+Where:
+
+* $\mathbf{S}$ defines the coherency structure, and
+* $\mathbf{W}_h$ are weights for each forecast
+
+  (usually based on in-sample fits)
+
+:::
+:::
+
+![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-right}
+
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Coherent (reconciled) forecasts
+
+```{r}
+#| fig-height: 6
+#| fig-width: 7
+pbs_coherent_fc <- pbs_atc1 |> 
+  model(ets = ETS(Scripts)) |> 
+  reconcile(ets = min_trace(ets)) |> 
+  forecast(h = "5 years")
+pbs_coherent_fc |> 
+  filter(is_aggregated(ATC1)) |> 
+  autoplot(pbs_atc1 |> filter(Month > yearmonth("2000 Jan")))
+```
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-left}
+
+## {}
+
+### All forecasts are adjusted for coherency
+
+```{r}
+pbs_coherent_fc |> 
+  autoplot(pbs_atc1 |> filter(Month > yearmonth("2000 Jan"))) + 
+  facet_wrap(vars(ATC1), scales = "free_y")
+```
+
+## :alarm_clock: That's all for now!
+
+::: columns
+::: {.column width="60%"}
+
+
+::: {.callout-tip}
+## Final remarks
+
+...
+:::
+
+::: {.callout-link}
+## Useful links
+
+![](resources/forum.svg){.icon} [social.mitchelloharawild.com](https://social.mitchelloharawild.com/)
+
+![](resources/projector-screen-outline.svg){.icon} [workshop.nectric.com.au/isf2026/](https://workshop.nectric.com.au/isf2026/)
+
+![](resources/github.svg){.icon} [mitchelloharawild/workshop-isf2026](https://github.com/mitchelloharawild/workshop-isf2026)
+
+:::
+
+:::
+:::
+
+![](../backgrounds/sander-weeteling-KABfjuSOx74-unsplash.jpg){.image-right}
+
+<!-- Made with :heart: and [Quarto](https://quarto.org/). -->
+
+<!-- ## References -->

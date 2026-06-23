@@ -9,3 +9,5 @@ index_cache
 index_files
 
 **/*.quarto_ipynb
+/content/
+/.posit/

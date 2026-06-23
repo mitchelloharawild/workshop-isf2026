@@ -1,0 +1,147 @@
+---
+from: markdown+emoji
+execute:
+  cache: true
+format:
+  letterbox-revealjs:
+    theme: [default]
+    css: [theme.css]
+    progress: false
+    menu: false
+    width: 1280
+    height: 720
+filters:
+  - custom-callouts
+callout-appearance: simple
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| include: false
+library(fpp3)
+```
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+::: {.title data-id="title"}
+Forecast combinations
+:::
+
+::: {.subtitle data-id="subtitle"}
+Welcome
+:::
+
+::: {.dateplace}
+28th June 2026 @ ISF - Montreal, Canada
+:::
+
+##### Mitchell O'Hara-Wild, Nectric
+
+::: {.callout-link}
+
+## Useful links
+
+![](resources/forum.svg){.icon} [social.mitchelloharawild.com](https://social.mitchelloharawild.com/)
+
+![](resources/projector-screen-outline.svg){.icon} [workshop.nectric.com.au/isf2026/](https://workshop.nectric.com.au/isf2026/)
+
+![](resources/github.svg){.icon} [mitchelloharawild/workshop-isf2026](https://github.com/mitchelloharawild/workshop-isf2026)
+
+:::
+
+:::
+:::
+
+![](../backgrounds/sander-weeteling-KABfjuSOx74-unsplash.jpg){.image-left}
+
+
+## {}
+
+
+::: columns
+::: {.column width="60%"}
+
+::: {.callout}
+## :dart: Today's goals
+
+1.  Learn how to probabilistically combine forecasts from:
+    * A set of components (decomposition forecasting),
+    * Multiple models (ensembles), and 
+    * Related time series (reconciliation).
+2.  Understand the distributional statistics underpinning probabilistic forecast combinations.
+:::
+
+::: {.callout .fragment}
+## :sunflower: Expectations
+
+1. Follow the code of conduct.
+2. Be kind and respectful.
+3. Ask relevant questions any time, Q&A during breaks.
+4. Make mistakes and learn!
+:::
+
+[<https://workshop.nectric.com.au/isf2026/>]{.fragment}
+
+:::
+:::
+
+![](../backgrounds/balint-mendlik-4-ORHffEh3I-unsplash.jpg){.image-right}
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Software
+
+This workshop uses packages from the tidy time series forecasting ecosystem.
+
+* **`tsibble`** — temporal data structures
+* **`feasts`** — feature extraction and decomposition
+* **`fable`** — forecasting models
+* **`distributional`** — distribution objects
+
+These are all loaded via `library(fpp3)`.
+
+:::
+:::
+
+![](../backgrounds/isabela-kronemberger-OegFhZfw6Ok-unsplash.jpg){.image-right}
+
+## :alarm_clock: That's all for now!
+
+::: columns
+::: {.column width="60%"}
+
+
+::: {.callout-tip}
+## Final remarks
+
+...
+:::
+
+::: {.callout-link}
+## Useful links
+
+![](resources/forum.svg){.icon} [social.mitchelloharawild.com](https://social.mitchelloharawild.com/)
+
+![](resources/projector-screen-outline.svg){.icon} [workshop.nectric.com.au/isf2026/](https://workshop.nectric.com.au/isf2026/)
+
+![](resources/github.svg){.icon} [mitchelloharawild/workshop-isf2026](https://github.com/mitchelloharawild/workshop-isf2026)
+
+:::
+
+:::
+:::
+
+![](../backgrounds/sander-weeteling-KABfjuSOx74-unsplash.jpg){.image-right}
+
+<!-- Made with :heart: and [Quarto](https://quarto.org/). -->
+
+<!-- ## References -->

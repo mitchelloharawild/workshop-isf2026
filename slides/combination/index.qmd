@@ -5,7 +5,7 @@ execute:
 format:
   letterbox-revealjs:
     theme: [default]
-    css: [theme.css, hex.css]
+    css: [theme.css]
     progress: false
     menu: false
     width: 1280
@@ -34,7 +34,7 @@ Forecast combinations
 :::
 
 ::: {.subtitle data-id="subtitle"}
-TBC
+Ensembles
 :::
 
 ::: {.dateplace}
@@ -63,16 +63,460 @@ TBC
 
 ## {}
 
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Forecast combinations
+
+There are many ways in which multiple forecasts can be combined to produce more better forecasts.
+
+1. **Ensemble forecasts**
+
+   (this is what we currently do at ACEFA)
+   
+2. Decomposition forecasting
+
+3. Forecast reconciliation
+
+
+
+<!-- ::: {.fragment .fade-up} -->
+<!-- ::: {.callout-note} -->
+
+<!-- ## Today's presentation -->
+
+<!-- ... -->
+
+<!-- ::: -->
+<!-- ::: -->
+
+
+:::
+:::
+
+![](../backgrounds/wolf-zimmermann-6sf5rf8QYFE-unsplash.jpg){.image-left}
+
+
+
+## {}
 
 ::: columns
 ::: {.column width="60%"}
 
-...
+### Ensemble forecasts
+
+Ensemble forecasts average forecasts from:
+
+* **multiple** models, of the
+* **same** time-series.
+
+
+:::{.fragment .fade-up}
+
+:::{.callout-tip}
+## Model uncertainty
+
+This is well known to improve forecast accuracy.
+
+Uncertainty over which model is closest to the data generating process is averaged over.
+:::
+
+:::
+
 
 :::
 :::
 
-![](../backgrounds/balint-mendlik-4-ORHffEh3I-unsplash.jpg){.image-right}
+![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Australian ambulance costs
+
+```{r}
+#| include: false
+library(fable)
+library(tsibble)
+library(ggplot2)
+ambulance <- tsibble(
+  Year = 2005:2024, 
+  Revenue = c(2.25, 2.38, 2.47, 2.67, 2.9, 2.99, 3.09, 
+              3.25, 3.45, 3.48, 3.44, 3.66, 3.96, 4.26,
+              4.46, 4.64, 5, 5.29, 5.74, 5.64),
+  index = Year
+)
+```
+
+
+```{r}
+#| fig-height: 4
+#| fig-width: 7
+ambulance |> 
+  ggplot(aes(x = Year, y = Revenue)) + 
+  geom_line()
+```
+
+:::{.fragment .fade-up}
+
+:::{.callout-caution}
+## Future trend?
+
+The trend changed in 2015 after a drop.
+
+Will it change again following the 2024 drop?
+:::
+
+:::
+
+:::
+:::
+
+![](../backgrounds/mpho-mojapelo-s6Vv9u2qZyc-unsplash.jpg){.image-left}
+
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+
+::: {.column width="60%"}
+
+### Australian ambulance costs
+
+```{r}
+#| fig-height: 6
+#| fig-width: 7
+ambulance_fc <- ambulance |>
+  model(
+    ETS = ETS(Revenue),
+    `TSLM Piecewise` = TSLM(Revenue ~ trend(knots = 2015))
+  ) |>
+  forecast(h = "10 years")
+ambulance_fc |>
+  autoplot(ambulance) +
+  theme(legend.position = "bottom")
+```
+
+:::
+:::
+
+![](../backgrounds/mpho-mojapelo-s6Vv9u2qZyc-unsplash.jpg){.image-left}
+
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Ensemble forecasts
+
+Ensemble forecasts combine these forecasts.
+
+Ensembling uses a weighted average of forecasts.
+
+Finding the best weights is **very hard**.
+
+:::{.fragment .fade-up}
+
+:::{.callout-tip}
+## Probabilistic ensemble forecasts
+
+Combining probabilistic forecasts is done in two ways:
+
+* Probability mixtures
+* Quantile mixtures
+:::
+
+:::
+
+
+:::
+:::
+
+![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Australian ambulance costs
+
+```{r}
+#| fig-height: 6
+#| fig-width: 7
+library(ggdist)
+ambulance_fc |> 
+  filter(Year == 2030) |> 
+  ggplot(aes(y = .model, xdist = Revenue)) + 
+  stat_slab() + 
+  labs(x = "Revenue", y = NULL, title = "Forecasts of ambulance costs in 2030")
+```
+
+:::
+:::
+
+![](../backgrounds/mpho-mojapelo-s6Vv9u2qZyc-unsplash.jpg){.image-left}
+
+
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Australian ambulance costs
+
+```{r}
+#| fig-height: 6
+#| fig-width: 7
+library(ggdist)
+library(distributional)
+ambulance_fc |> 
+  filter(Year == 2030) |> 
+  group_by(.model) |> 
+  rowwise() |> 
+  reframe(x = seq(5, 8.3, by = 0.01), cdf = cdf(Revenue, x)) |> 
+  ggplot(aes(colour = .model, x = x, y = cdf)) + 
+  geom_line() + 
+  labs(x = "Revenue", y = "Probability", title = "Forecasts of ambulance costs in 2030") +
+  theme(legend.position = "bottom")
+```
+
+:::
+:::
+
+![](../backgrounds/mpho-mojapelo-s6Vv9u2qZyc-unsplash.jpg){.image-left}
+
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Probabilistic ensemble forecasts
+
+These forecast distributions can be combined mixture distributions which averages probabilities or quantiles.
+
+:::{.callout-note}
+## Probability mixtures
+
+$$ F(x) = \sum_{i=1}^{n} w_i \cdot F_i(x), \hspace{1em} f(x) = \sum_{i=1}^{n} w_i \cdot f_i(x) $$
+:::
+
+:::{.callout-note}
+## Quantile mixtures
+
+$$ F^{-1}(p) = \sum_{i=1}^{n} w_i \cdot F_i^{-1}(p) $$
+:::
+
+
+:::
+:::
+
+![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+
+
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Probability mixtures
+
+```{r}
+#| fig-height: 6
+#| fig-width: 7
+fc_2030 <- ambulance_fc |> 
+  filter(Year == 2030) |> 
+  as_tibble()
+
+prob_ensemble <- fc_2030 |>
+  group_by(Year) |> 
+  summarise(
+    .model = "Probability Mixture",
+    Revenue = `dimnames<-`(do.call(dist_mixture, c(as.list(Revenue), weights = list(c(0.5, 0.5)), type = "probability")), "Revenue")
+  )
+
+prob_ensemble |> 
+  bind_rows(fc_2030) |> 
+  rowwise() |> 
+  reframe(.model, x = seq(5, 8.3, by = 0.01), cdf = cdf(Revenue, x)) |> 
+  ggplot(aes(colour = .model, x = x, y = cdf)) + 
+  geom_line() + 
+  labs(x = "Revenue", y = "Probability", title = "Forecasts of ambulance costs in 2030") +
+  theme(legend.position = "bottom") + 
+  annotate("segment", x = 7.2, xend = 7.2, y = 0, yend = 1, linetype = "dashed") + 
+  geom_segment(aes(y = cdf(Revenue, 7.2), yend = cdf(Revenue, 7.2)), x = 0, xend = 7.2, linetype = "dashed", data = bind_rows(prob_ensemble, fc_2030))
+```
+
+:::
+:::
+
+![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Probability mixtures
+
+```{r}
+#| fig-height: 6
+#| fig-width: 7
+
+bind_rows(prob_ensemble, fc_2030) |> 
+  ggplot(aes(y = .model, xdist = Revenue)) + 
+  stat_slab() + 
+  labs(x = "Revenue", y = NULL, title = "Forecasts of ambulance costs in 2030")
+```
+
+:::
+:::
+
+![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+
+
+
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Quantile mixtures
+
+```{r}
+#| fig-height: 6
+#| fig-width: 7
+quant_ensemble <- fc_2030 |>
+  group_by(Year) |> 
+  summarise(
+    .model = "Quantile Mixture",
+    Revenue = `dimnames<-`(do.call(dist_mixture, c(as.list(Revenue), weights = list(c(0.5, 0.5)), type = "quantile")), "Revenue")
+  )
+
+quant_ensemble |> 
+  bind_rows(fc_2030) |> 
+  rowwise() |> 
+  reframe(.model, x = seq(5, 8.3, by = 0.01), cdf = cdf(Revenue, x)) |> 
+  ggplot(aes(colour = .model, x = x, y = cdf)) + 
+  geom_line() + 
+  labs(x = "Revenue", y = "Probability", title = "Forecasts of ambulance costs in 2030") +
+  theme(legend.position = "bottom") + 
+  annotate("segment", y = 0.5, yend = 0.5, x = 5, xend = 8.3, linetype = "dashed") + 
+  geom_segment(aes(x = quantile(Revenue, 0.5), yend = quantile(Revenue, 0.5)), y = 0, yend = 0.5, linetype = "dashed", data = bind_rows(quant_ensemble, fc_2030))
+```
+
+:::
+:::
+
+![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Quantile mixtures
+
+```{r}
+#| fig-height: 6
+#| fig-width: 7
+
+bind_rows(quant_ensemble, fc_2030) |> 
+  ggplot(aes(y = .model, xdist = Revenue)) + 
+  stat_slab() + 
+  labs(x = "Revenue", y = NULL, title = "Forecasts of ambulance costs in 2030")
+```
+
+:::
+:::
+
+![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Ensemble mixtures
+
+```{r}
+#| fig-height: 6
+#| fig-width: 7
+
+bind_rows(quant_ensemble, prob_ensemble) |> 
+  ggplot(aes(y = .model, xdist = Revenue)) + 
+  stat_slab() + 
+  labs(x = "Revenue", y = NULL, title = "Forecasts of ambulance costs in 2030")
+```
+
+:::
+:::
+
+![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+
+
+
+
+## {}
+
+::: columns
+
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Ensemble mixtures
+
+```{r}
+#| fig-height: 6
+#| fig-width: 7
+
+
+quant_fc <- as_tibble(ambulance_fc) |>
+  group_by(Year) |> 
+  summarise(
+    .model = "Quantile Mixture",
+    Revenue = `dimnames<-`(do.call(dist_mixture, c(as.list(Revenue), weights = list(c(0.5, 0.5)), type = "quantile")), "Revenue")
+  )
+prob_fc <- as_tibble(ambulance_fc) |>
+  group_by(Year) |> 
+  summarise(
+    .model = "Probability Mixture",
+    Revenue = `dimnames<-`(do.call(dist_mixture, c(as.list(Revenue), weights = list(c(0.5, 0.5)), type = "probability")), "Revenue")
+  )
+
+bind_rows(prob_fc, quant_fc) |> 
+  as_fable(index = Year, key = .model, distribution = Revenue, response = "Revenue") |> 
+  autoplot(ambulance) +
+  facet_grid(vars(.model)) +
+  theme(legend.position = "bottom")
+```
+
+:::
+:::
+
+![](../backgrounds/mpho-mojapelo-s6Vv9u2qZyc-unsplash.jpg){.image-left}
 
 
 ## :alarm_clock: That's all for now!
