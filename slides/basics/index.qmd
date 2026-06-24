@@ -4,8 +4,7 @@ execute:
   cache: true
 format:
   letterbox-revealjs:
-    theme: [default]
-    css: [theme.css]
+    theme: custom.scss
     progress: false
     menu: false
     width: 1280
@@ -63,6 +62,7 @@ Welcome
 
 ## {}
 
+### Welcome! :wave:
 
 ::: columns
 ::: {.column width="60%"}
@@ -90,65 +90,137 @@ Welcome
 
 ![](../backgrounds/balint-mendlik-4-ORHffEh3I-unsplash.jpg){.image-right}
 
+## {.fragment-remove style="font-size: 125%;"}
+
+### Why should we combine forecasts?
+
+<canvas id="confetti-canvas" class="image-full"></canvas>
+
+::: {.fragment .fade-out fragment-index=2 #better-accuracy-fragment-rm}
+::: {.fragment .fade-in fragment-index=1 #better-accuracy-fragment}
+::: {.center style="font-size: 3em; font-weight: 900; padding-top: 1em;"}
+
+Better accuracy
+
+:::
+:::
+:::
+
+[:dart: **Better accuracy**: averaging reduces forecast error]{.fragment .fade-up fragment-index=2}  
+[:shield: **More robust**: less sensitive single model failures]{.fragment .fade-up fragment-index=3}  
+[:mag: **Interpretability**: explain forecasts by components]{.fragment .fade-up fragment-index=4}  
+[:thinking: **Model uncertainty**: average over many models]{.fragment .fade-up fragment-index=5}  
+[:bar_chart: **Coherent forecasts**: consistency across hierarchies]{.fragment .fade-up fragment-index=6}  
+
+
+## {.fragment-remove}
+
+::: {.center .r-fit-text style="font-weight: 900; padding-top: 0.5em;"}
+How do we combine forecasts?
+:::
+
+::: {.fragment .fade-out fragment-index=2}
+::: {.fragment .fade-up fragment-index=1 style="text-align: center; font-size: 1.5em; padding-top: 0.5em;"}
+
+A simple average?
+
+$$\hat{Y}_t = \frac{1}{n}\left(\hat{Y}_{1,t} + \hat{Y}_{2,t} + \cdots + \hat{Y}_{n,t}\right)$$
+:::
+:::
+
+::: {.fragment .fade-up fragment-index=2 style="text-align: center; font-size: 1.5em; padding-top: 0.5em;"}
+
+A weighted average?
+
+$$\hat{Y}_t = w_1\hat{Y}_{1,t} + w_2\hat{Y}_{2,t} + \cdots + w_n\hat{Y}_{n,t}$$
+
+where $\sum_{i=1}^{n} w_i = 1$.
+:::
+
+
+
+
 ## {}
 
-<!-- 
-: full size slide
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
 
-Why should we combine forecasts?
+### Many types of combinations
 
-Hero fragment reveal - better accuracy (centered, with excessive css animation emphasis)
+Forecasts combinations appear in:
 
-fragment remove hero, replaced with fade up additional reasons in a callout
+::: {.fragment .fade-up fragment-index=1}
+::: {.callout}
+## :jigsaw: Decomposition forecasting
 
-* better accuracy
-* more robust
-* interpretability
-* model uncertainty
-* coherent forecasts
--->
+Combine separate forecasts of **decomposed components**.
+:::
+:::
+
+::: {.fragment .fade-up fragment-index=2}
+::: {.callout}
+## :abacus: Ensembles
+
+Combine forecasts from **multiple models**.
+:::
+:::
+
+::: {.fragment .fade-up fragment-index=3}
+::: {.callout}
+## :link: Reconciliation
+
+Ensure forecast coherency across **related time series**.
+:::
+:::
+
+::: {.fragment .fade-up fragment-index=4}
+Today we'll cover the basics of probabilistic forecast combination for each type of combination model.
+:::
+
+:::
+:::
+
+![](../backgrounds/isabela-kronemberger-OegFhZfw6Ok-unsplash.jpg){.image-left}
+
 
 ## {}
 
-<!-- 
-: full size slide, centered
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
 
-How do we combine forecasts? (large font, emphasis.)
+### Probabilistic forecast combinations
 
-fragment reveal up basic math for 'combinations'
+::: {.callout-important}
+## It's 2026 📅
 
-Y = 1/n(Y1 + Y2 + ... + Yn)
-
--->
-
-## {}
-
-<!-- 
-Many types of combinations
-
-fragment:
-* A set of components (decomposition forecasting),
-* Multiple models (ensembles), and 
-* Related time series (reconciliation). 
--->
-
-
-## {}
-
-<!-- 
-Probabilistic forecast combinations
-
-callout: It's 2026
 Hopefully we've all moved on from point forecasting.
 
 We need to combine forecasts *probabilistically*.
+:::
 
+::: {.fragment .fade-up fragment-index=2}
 For this, we'll learn about:
 
-* Convolutions
-* Mixtures
-* Copulas
--->
+::: {.fragment .fade-up fragment-index=2}
+➕ **Convolutions**: sums of random variables
+:::
+::: {.fragment .fade-up fragment-index=3}
+:cocktail: **Mixtures**: averaging distribution statistics
+:::
+::: {.fragment .fade-up fragment-index=4}
+:chains: **Copulas**: joint distribution from marginals
+:::
+:::
+
+:::
+:::
+
+![](../backgrounds/balint-mendlik-4-ORHffEh3I-unsplash.jpg){.image-left}
+
 
 ## {}
 
@@ -157,26 +229,33 @@ For this, we'll learn about:
 
 ### Software
 
-<!-- The examples and exercises will focus on tidy R tools.
+Examples \& exercises focus on tidy R tools.
 
-callout: R packages
-* `fpp3`: tidy forecasting tools for R
-  * Which bundles together:
-    * `tsibble`: temporal data structures
-    * `feasts`: features \& decomposition models
-    * `fable`: forecasting models
-    * `fabletools`: combination tools
+::: {.fragment .fade-up fragment-index=1}
+::: {.callout}
+## :package: R packages
+
+* `fpp3`: tidy forecasting tools for R  
+  Which bundles together:  
+  * `tsibble`: temporal data structures
+  * `feasts`: features \& decomposition models
+  * `fable`: forecasting models
+  * `fabletools`: combination tools
 * `distributional`: probability distributions 
--->
+:::
+:::
 
-<!--
-Where possible, I'll also point to the equivalent tools in Python.
+::: {.fragment .fade-up fragment-index=2}
+Where possible, I'll also point to the equivalent tools in Python :snake:.
 
-callout: Python packages
+<!-- ::: {.callout}
+## :snake: Python packages
+
 * `statsforecast` + `HierarchicalForecast`
 * `darts`
 * `sktime`
--->
+::: -->
+:::
 
 :::
 :::
@@ -213,6 +292,69 @@ callout: Python packages
 
 ![](../backgrounds/sander-weeteling-KABfjuSOx74-unsplash.jpg){.image-right}
 
-<!-- Made with :heart: and [Quarto](https://quarto.org/). -->
+```{=html}
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script>
+  (function() {
+    var canvas = document.getElementById('confetti-canvas');
+    var myConfetti = confetti.create(canvas, { resize: true, useWorker: true });
 
-<!-- ## References -->
+    var _defaults = {
+      ticks: 72,
+      decay: 0.94,
+      startVelocity: 20,
+      colors: ['FFE400', 'FFBD00', 'E89400', 'FFCA6C', 'FDFFB8']
+    };
+
+    var _active = false;
+
+    function shootConfetti() {
+      _active = true;
+      var end = Date.now() + (15 * 1000);
+      (function frame() {
+        if (!_active) return;
+        myConfetti({
+          ..._defaults,
+          particleCount: 2,
+          angle: 60,
+          spread: 55,
+          scalar: 1.2,
+          shapes: ['star'],
+          origin: { x: 0 }
+        });
+        myConfetti({
+          ..._defaults,
+          particleCount: 2,
+          angle: 120,
+          spread: 55,
+          scalar: 1.2,
+          shapes: ['star'],
+          origin: { x: 1 }
+        });
+        if (_active && Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      }());
+    }
+
+    function attachListener() {
+      Reveal.on('fragmentshown', function(event) {
+        if (!event.fragment) return;
+        if (event.fragment.id === 'better-accuracy-fragment') {
+          shootConfetti();
+        }
+        if (event.fragment.id === 'better-accuracy-fragment-rm') {
+          _active = false;
+          myConfetti.reset();
+        }
+      });
+    }
+
+    if (typeof Reveal !== 'undefined' && Reveal.isReady()) {
+      attachListener();
+    } else {
+      window.addEventListener('load', attachListener);
+    }
+  }());
+</script>
+```
