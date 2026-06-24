@@ -70,11 +70,8 @@ Welcome
 ::: {.callout}
 ## :dart: Today's goals
 
-1.  Learn how to probabilistically combine forecasts from:
-    * A set of components (decomposition forecasting),
-    * Multiple models (ensembles), and 
-    * Related time series (reconciliation).
-2.  Understand the distributional statistics underpinning probabilistic forecast combinations.
+1.  Learn how to combine forecasts in three ways
+2.  Understand the underlying probability theory
 :::
 
 ::: {.callout .fragment}
@@ -95,35 +92,109 @@ Welcome
 
 ## {}
 
+<!-- 
+: full size slide
+
+Why should we combine forecasts?
+
+Hero fragment reveal - better accuracy (centered, with excessive css animation emphasis)
+
+fragment remove hero, replaced with fade up additional reasons in a callout
+
+* better accuracy
+* more robust
+* interpretability
+* model uncertainty
+* coherent forecasts
+-->
+
+## {}
+
+<!-- 
+: full size slide, centered
+
+How do we combine forecasts? (large font, emphasis.)
+
+fragment reveal up basic math for 'combinations'
+
+Y = 1/n(Y1 + Y2 + ... + Yn)
+
+-->
+
+## {}
+
+<!-- 
+Many types of combinations
+
+fragment:
+* A set of components (decomposition forecasting),
+* Multiple models (ensembles), and 
+* Related time series (reconciliation). 
+-->
+
+
+## {}
+
+<!-- 
+Probabilistic forecast combinations
+
+callout: It's 2026
+Hopefully we've all moved on from point forecasting.
+
+We need to combine forecasts *probabilistically*.
+
+For this, we'll learn about:
+
+* Convolutions
+* Mixtures
+* Copulas
+-->
+
+## {}
+
 ::: columns
 ::: {.column width="60%"}
 
 ### Software
 
-This workshop uses packages from the tidy time series forecasting ecosystem.
+<!-- The examples and exercises will focus on tidy R tools.
 
-* **`tsibble`** — temporal data structures
-* **`feasts`** — feature extraction and decomposition
-* **`fable`** — forecasting models
-* **`distributional`** — distribution objects
+callout: R packages
+* `fpp3`: tidy forecasting tools for R
+  * Which bundles together:
+    * `tsibble`: temporal data structures
+    * `feasts`: features \& decomposition models
+    * `fable`: forecasting models
+    * `fabletools`: combination tools
+* `distributional`: probability distributions 
+-->
 
-These are all loaded via `library(fpp3)`.
+<!--
+Where possible, I'll also point to the equivalent tools in Python.
+
+callout: Python packages
+* `statsforecast` + `HierarchicalForecast`
+* `darts`
+* `sktime`
+-->
 
 :::
 :::
 
 ![](../backgrounds/isabela-kronemberger-OegFhZfw6Ok-unsplash.jpg){.image-right}
 
-## :alarm_clock: That's all for now!
+## :alarm_clock: Let's get started
 
 ::: columns
 ::: {.column width="60%"}
 
 
 ::: {.callout-tip}
-## Final remarks
+## Up next...
 
-...
+* Decomposing time series
+* Forecasting components
+* Convolutions of component forecasts
 :::
 
 ::: {.callout-link}
