@@ -45,22 +45,25 @@ The coding exercises will be challenging for non-R users, although the concepts 
 
 Some familiarity with statistical concepts including probability distributions, mean, variance, quantiles, and densities would be helpful to better understand the theory of combination forecasting.
 
-## Required equipment
+## Assumed Knowledge
 
-Please bring your own laptop capable of running R.
+- **Univariate time series forecasting**: some experience with common forecasting models (e.g. SNAIVE, ETS, ARIMA) is assumed, as the workshop combines forecasts from these models.
+- **Probability distributions**: familiarity with basic distributional concepts (mean, variance, quantiles, densities) will help you follow the theory behind probabilistic forecast combinations.
+- **R and the tidyverse**: some experience with R and tidyverse packages (dplyr, ggplot2, tibble) is needed to complete the hands-on exercises.
+- **Tidy forecasting with fable**: familiarity with tsibble and fable will help you get the most out of the practical exercises; see the preparation resources above if you need a refresher.
 
-## Required software
+## Requirements
 
-To be able to complete the exercises of this workshop, please install a suitable IDE (such as RStudio), a recent version of R (4.1+) and the following packages.
+To be able to complete the exercises of this workshop, please bring your own laptop with a suitable IDE (such as Positron or RStudio), a recent version of R (4.1+), and the following packages.
 
 -   **Time series packages and extensions**
     -   fpp3
-    -   ggtime
+    -   distributional
 
 The following code will install the main packages needed for the workshop.
 
 ```r
-install.packages(c("fpp3", "ggtime"))
+install.packages(c("fpp3", "distributional"))
 ```
 
 Please have the required software installed and pre-work completed before attending the workshop.
