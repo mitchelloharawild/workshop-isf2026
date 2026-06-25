@@ -300,3 +300,11 @@ span.term {
 .math.display .MathJax_Display {
   margin: 0;
 }
+
+.reveal .slides section .fragment.fragment-bold {
+  font-weight: normal;
+}
+
+.reveal .slides section .fragment.fragment-bold.visible {
+  font-weight: bold;
+}

@@ -4,8 +4,7 @@ execute:
   cache: true
 format:
   letterbox-revealjs:
-    theme: [default]
-    css: [theme.css, hex.css]
+    theme: ../custom.scss
     progress: false
     menu: false
     width: 1280
@@ -61,27 +60,26 @@ Decomposition
 
 ![](../backgrounds/sander-weeteling-KABfjuSOx74-unsplash.jpg){.image-left}
 
+
 ## {}
 
 ::: columns
 ::: {.column width="60%"}
 
-### Decomposition forecasts
+### Time series decomposition
 
-Decomposition forecasts combine forecasts from:
+A decomposition model decomposes a time series into multiple components.
 
-* a **single** model, of each
-* **decomposed** series.
+Usual components include:
 
+trend ($T$), seasonality ($S$), remainder ($R$)
 
-:::{.fragment .fade-up}
+::: {.callout-tip}
+## Why decompose data?
 
-:::{.callout-tip}
-## Simpler forecasting
-
-This can simplify the modelling challenge, since each pattern can be forecasted separately.
-:::
-
+* Explore constituent patterns in a time series
+* Seasonal adjustment for long-term decision making
+* Simplifies modelling of complex patterns
 :::
 
 
@@ -90,32 +88,189 @@ This can simplify the modelling challenge, since each pattern can be forecasted 
 
 ![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
 
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Decomposition structure
+
+Decomposition models are usually either
+
+* Additive: $Y = T + S + R$
+
+* Multiplicative: $Y = T \times S \times R$
+
+::: {.fragment .fade-up}
+::: {.callout}
+## :bulb: The sum of its parts
+
+We can forecast each component independently, then combine to forecast the original series.
+
+::: {.fragment}
+
+Probablistic forecasts are convolutions of additive parts.
+
+$$y_{T+h|T} = T_{T+h|T} + S_{T+h|T} + R_{T+h|T}$$
+:::
+:::
+:::
+
+
+:::
+:::
+
+![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
 
 ## {}
 
 ::: columns
-
-::: {.column width="40%"}
-:::
 ::: {.column width="60%"}
 
-### PBS Cost
+### Decomposition models
+
+* Classical decomposition
+* [STL decomposition]{.fragment .custom .fragment-bold}
+* X11 decomposition
+* SEATS decomposition
+* STR decomposition
+* ... and more.
+
+:::
+:::
+
+![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### (M)STL Decomposition
+
+**S**easonal and  
+**T**rend decomposition using  
+**L**oess
+
+::: callout-tip
+
+## Additive decomposition via STL
+
+$$ y_t = S_t + T_t + R_t $$
+
+* $y_t=$ data at time $t$
+* $T_t=$ trend-cycle component at time $t$
+* $S_t=$ seasonal component at time $t$
+* $R_t=$ remainder component at time $t$
+
+:::
+
+:::
+:::
+
+![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### (M)STL Decomposition
+
+::: callout-tip
+## Advantages
+
+* Handles any seasonality of any periodicity.
+* Allows seasonality and trend to change over time.
+* Change sensitivity can be tuned via window sizes.
+* Optionally robust to outliers.
+:::
+
+::: callout-important
+## Disadvantages
+
+* Additive decomposition only.
+* Simplistic model (no trading day or holiday effects).
+:::
+
+:::
+:::
+
+![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+### Time series components
+
+Consider these (synthetic) components.
 
 ```{r}
-#| fig-height: 6
-#| fig-width: 7
+#| echo: true
+#| code-fold: true
+library(ggplot2)
 
-pbs_cost <- tsibbledata::PBS |> 
-  summarise(Cost = sum(Cost))
-pbs_cost |> 
-  autoplot(Cost)
+i <- 1:119
+pattern_types_demo <- tsibble(
+  time = yearmonth(i),
+  season = sin(i*2*pi/12),
+  trend = i,
+  remainder = rnorm(length(i)),
+  index = time
+)
+pattern_types_demo |> 
+  tidyr::pivot_longer(c(season, trend, remainder)) |> 
+  ggplot(aes(x = time, y = value, group = name)) +
+  geom_line() +
+  facet_grid(vars(name), scales = "free_y") + 
+  labs(x = NULL, y = NULL)
 ```
 
 :::
 :::
 
-![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-left}
+![](../backgrounds/laura-geror-lGeAZjIhQyo-unsplash.jpg){.image-right}
 
+## {}
+
+::: columns
+::: {.column width="60%"}
+### Additive patterns
+$$y_t = S_t + T_t + R_t$$
+
+```{r}
+#| echo: true
+#| code-fold: true
+pattern_types_demo |>
+  autoplot(trend + 10 * season + 3 * remainder)
+```
+
+:::
+:::
+
+![](../backgrounds/laura-geror-lGeAZjIhQyo-unsplash.jpg){.image-right}
+
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+### Multiplicative patterns
+
+$$y_t = S_t \times T_t \times R_t$$
+
+```{r}
+#| echo: true
+#| code-fold: true
+pattern_types_demo |>
+  autoplot((2 + season) * trend * (5 + remainder))
+```
+
+:::
+:::
+
+![](../backgrounds/laura-geror-lGeAZjIhQyo-unsplash.jpg){.image-right}
 
 
 
@@ -123,36 +278,204 @@ pbs_cost |>
 
 ::: columns
 ::: {.column width="60%"}
+### Additive or multiplicative?
 
-### Decomposition methods
+Pharmaceutical benefit scheme (PBS) scripts.
 
-There are many models available for separating patterns from a time series.
+```{r}
+#| code-fold: true
+pbs_scripts <- PBS |>
+  summarise(Scripts = sum(Scripts))
+pbs_scripts |>
+  autoplot(Scripts)
+```
 
-This process is commonly used for seasonal adjustment.
+::: fragment
 
-I'll be showing decomposition via a STL model.
+::: callout-tip
+## Additive!
+
+The variation is roughly constant over time.
+
+:::
+
+:::
+
+:::
+:::
+
+![](../backgrounds/laura-geror-lGeAZjIhQyo-unsplash.jpg){.image-right}
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+### Additive or multiplicative?
+
+Total Australian retail turnover.
+
+```{r}
+#| code-fold: true
+aus_retail |>
+  summarise(Turnover = sum(Turnover)) |> 
+  autoplot(Turnover)
+```
+
+::: fragment
+
+::: callout-important
+## Multiplicative!
+
+The variation increases with the level of the series.
+
+:::
+
+:::
+
+
+:::
+:::
+
+![](../backgrounds/laura-geror-lGeAZjIhQyo-unsplash.jpg){.image-right}
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Decomposing multiplicative data
+
+STL can't decompose multiplicative patterns.
+
+This isn't a problem though, since we  
+have a *transformational* trick :magic_wand:
+
+::: {.fragment .fade-in}
+
+\begin{aligned}
+\log(Y) &= \log(T \times S \times R) \\
+        &= \log(T) + \log(S) + \log(R)
+\end{aligned}
+
+We must transform multiplicative patterns to additive patterns before STL decomposition.
+
+:::
 
 :::
 :::
 
 ![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
 
+
 ## {}
 
 ::: columns
-::: {.column width="40%"}
-:::
+
 ::: {.column width="60%"}
 
-### PBS Cost
+### Decomposing multiplicative data
+
+Total Australian retail turnover is multiplicative, so we cannot use STL directly.
 
 ```{r}
-#| fig-height: 6
-#| fig-width: 7
+#| echo: true
+aus_retail |>
+  summarise(Turnover = sum(Turnover)) |> 
+  autoplot(Turnover)
+```
 
-library(feasts)
-pbs_cost |> 
-  model(STL(sqrt(Cost))) |> 
+:::
+:::
+
+![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
+
+
+## {}
+
+::: columns
+
+::: {.column width="60%"}
+
+### Decomposing multiplicative data
+
+Log transform the data to make multiplicative patterns additive.
+
+```{r}
+#| echo: true
+aus_retail |>
+  summarise(Turnover = sum(Turnover)) |> 
+  autoplot(log(Turnover))
+```
+
+:::
+:::
+
+![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
+
+
+## {}
+
+::: columns
+
+::: {.column width="60%"}
+
+### Decomposing multiplicative data
+
+Box-Cox transformations are more flexible.  
+$\lambda = 0$ is $f(x) = \log(x)$, $\lambda = 1$ is $f(x) = x$.
+
+```{r}
+#| echo: true
+aus_retail |>
+  summarise(Turnover = sum(Turnover)) |> 
+  autoplot(box_cox(Turnover, lambda = 0.2))
+```
+
+:::
+:::
+
+![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
+
+
+## {}
+
+::: columns
+
+::: {.column width="60%"}
+
+### STL Decomposition
+
+The STL model decomposes a time series into trend, seasonal, and remainder components.
+
+```{r}
+#| echo: true
+aus_retail |>
+  summarise(Turnover = sum(Turnover)) |> 
+  model(STL(box_cox(Turnover, lambda = 0.2))) |> 
+  components()
+```
+
+:::
+:::
+
+![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
+
+
+## {}
+
+::: columns
+
+::: {.column width="60%"}
+
+### STL Decomposition
+
+`autoplot()` plots the components.
+
+```{r}
+#| echo: true
+aus_retail |>
+  summarise(Turnover = sum(Turnover)) |> 
+  model(STL(box_cox(Turnover, lambda = 0.2))) |> 
   components() |> 
   autoplot()
 ```
@@ -160,8 +483,222 @@ pbs_cost |>
 :::
 :::
 
-![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-left}
+![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
 
+
+## {}
+
+::: columns
+
+::: {.column width="60%"}
+
+### STL Decomposition
+
+`window` sizes adjust the fit.
+
+```{r}
+#| echo: true
+aus_retail |>
+  summarise(Turnover = sum(Turnover)) |> 
+  model(STL(box_cox(Turnover, lambda = 0.2) ~ season(window = Inf))) |> 
+  components() |> 
+  autoplot()
+```
+
+:::
+:::
+
+![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
+
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: STL Decomposition
+
+Decompose Australian Electricity production (`aus_production`).
+
+```r
+aus_production |> autoplot(Electricity)
+```
+
+::: {.callout-caution}
+## Your turn
+
+1. Find a suitable transformation if needed
+2. Estimate an STL decomposition model
+3. Extract and plot the components
+4. Tune the STL model as needed
+
+:::
+
+:::
+:::
+
+![](../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg){.image-left}
+
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: STL Decomposition
+
+Decompose Australian Electricity production. (`aus_production`).
+
+1. Find a suitable transformation if needed
+
+```{r}
+#| echo: true
+#| code-fold: true
+aus_production |> 
+  autoplot(Electricity)
+```
+
+:::
+:::
+
+![](../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg){.image-left}
+
+
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: STL Decomposition
+
+Decompose Australian Electricity production. (`aus_production`).
+
+1. Find a suitable transformation if needed
+
+```{r}
+#| echo: true
+#| code-fold: true
+aus_production |> 
+  autoplot(log(Electricity))
+```
+
+:::
+:::
+
+![](../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg){.image-left}
+
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: STL Decomposition
+
+Decompose Australian Electricity production. (`aus_production`).
+
+1. Find a suitable transformation if needed
+
+```{r}
+#| echo: true
+#| code-fold: true
+aus_production |> 
+  autoplot(box_cox(Electricity, 0.5))
+```
+
+:::
+:::
+
+![](../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg){.image-left}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: STL Decomposition
+
+Decompose Australian Electricity production. (`aus_production`).
+
+2. Estimate an STL decomposition model
+
+```{r}
+#| echo: true
+#| code-fold: true
+aus_production |> 
+  model(STL(box_cox(Electricity, 0.5)))
+```
+
+:::
+:::
+
+![](../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg){.image-left}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: STL Decomposition
+
+Decompose Australian Electricity production. (`aus_production`).
+
+3. Extract and plot the components
+
+```{r}
+#| echo: true
+#| code-fold: true
+aus_production |> 
+  model(STL(box_cox(Electricity, 0.5))) |> 
+  components() |> 
+  autoplot()
+```
+
+:::
+:::
+
+![](../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg){.image-left}
+
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: STL Decomposition
+
+Decompose Australian Electricity production. (`aus_production`).
+
+4. Tune the STL model as needed
+
+```{r}
+#| echo: true
+#| code-fold: true
+aus_production |> 
+  model(STL(box_cox(Electricity, 0.5), robust = TRUE)) |> 
+  components() |> 
+  autoplot()
+```
+
+:::
+:::
+
+![](../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg){.image-left}
 
 ## {}
 
@@ -170,18 +707,19 @@ pbs_cost |>
 
 ### Decomposition forecasting
 
-Combine individual forecasts of the each decomposed series based on the decomposition structure.
+Forecast components with simple models, then combine the component forecasts.
 
-For example,
+
+::: {.fragment .fade-up}
+:::{.callout-tip}
+## Seasonal adjustment
+
+We usually model/forecast trend ($T$) and remainder ($R$) together using a single model - this is known seasonally adjusted.
 
 $$
 y_{T+h|T} = (T+R)_{T+h|T} + S_{T+h|T}
 $$
-
-:::{.callout-tip}
-## Seasonal adjustment
-
-We usually model/forecast trend ($T$) and remainder ($R$) together with a single model.
+:::
 :::
 
 :::
@@ -189,78 +727,797 @@ We usually model/forecast trend ($T$) and remainder ($R$) together with a single
 
 ![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
 
+
 ## {}
 
 ::: columns
-::: {.column width="40%"}
-:::
+
 ::: {.column width="60%"}
 
-### PBS Cost
+### Decomposition forecasting
 
 ```{r}
-#| fig-height: 6
-#| fig-width: 7
-
-library(tidyr)
-pbs_components <- pbs_cost |> 
-  model(STL(sqrt(Cost))) |> 
+#| echo: true
+#| code-fold: true
+#| fig-height: 5.5
+#| fig-width: 7.5
+retail_components <- aus_retail |>
+  summarise(Turnover = sum(Turnover)) |> 
+  model(STL(box_cox(Turnover, lambda = 0.2) ~ season(window = Inf))) |> 
   components() |> 
-  select(season_adjust, season_year) |> 
-  pivot_longer(c(season_adjust, season_year), names_to = "component")
+  transmute(`box_cox(Turnover, lambda = 0.2)`, `Seasonally Adjusted (T + R)` = season_adjust, `Seasonality (S)` = season_year) |> 
+  pivot_longer(c(`box_cox(Turnover, lambda = 0.2)`, `Seasonally Adjusted (T + R)`, `Seasonality (S)`), names_to = "component")
 
-pbs_components |> 
-  model(ETS(value)) |> 
-  forecast(h = "5 years") |> 
-  autoplot(pbs_components) + 
-  facet_grid(vars(component), scales = "free_y")
+retail_components |> 
+  ggplot(aes(x = Month, y = value)) +
+  geom_line() +
+  facet_wrap(vars(component), ncol = 1, scales = "free_y")
 ```
 
+
 :::
 :::
 
-![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-left}
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
 
 ## {}
 
 ::: columns
-::: {.column width="40%"}
-:::
+
 ::: {.column width="60%"}
 
-### PBS Cost
+### Decomposition forecasting
 
 ```{r}
-#| fig-height: 6
-#| fig-width: 7
+#| echo: true
+#| code-fold: true
+#| fig-height: 5.5
+#| fig-width: 7.5
+retail_fc_snaive <- retail_components |> 
+  filter(component == "Seasonality (S)") |> 
+  model(SNAIVE(value)) |> 
+  forecast(h = "2 years") |> 
+  mutate(component = "Seasonality (S)")
 
-pbs_cost |> 
-  model(
+retail_components |> 
+  filter(Month > yearmonth("2010 Jan")) |>
+  ggplot(aes(x = Month, y = value)) +
+  geom_line() +
+  autolayer(retail_fc_snaive) +
+  facet_wrap(vars(component), ncol = 1, scales = "free_y")
+```
+
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+
+## {}
+
+::: columns
+
+::: {.column width="60%"}
+
+### Decomposition forecasting
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-height: 5.5
+#| fig-width: 7.5
+retail_fc_ets <- retail_components |> 
+  filter(component == "Seasonally Adjusted (T + R)") |> 
+  model(ETS(value)) |> 
+  forecast(h = "2 years") |> 
+  mutate(component = "Seasonally Adjusted (T + R)")
+
+retail_components |> 
+  filter(Month > yearmonth("2010 Jan")) |>
+  ggplot(aes(x = Month, y = value)) +
+  geom_line() +
+  autolayer(retail_fc_snaive) +
+  autolayer(retail_fc_ets) +
+  facet_wrap(vars(component), ncol = 1, scales = "free_y")
+```
+
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+
+
+## {}
+
+::: columns
+
+::: {.column width="60%"}
+
+### Decomposition forecasting
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-height: 5.5
+#| fig-width: 7.5
+retail_fc_dcmp <- retail_components |> 
+  filter(component == "box_cox(Turnover, lambda = 0.2)") |> 
+  model(    
     decomposition_model(
-      dcmp = STL(sqrt(Cost)),
+      dcmp = STL(value ~ season(window = Inf)),
       ETS(season_adjust),
-      ETS(season_year)
+      SNAIVE(season_year)
     )
   ) |> 
-  forecast(h = "5 years") |> 
-  autoplot(pbs_cost)
+  forecast(h = "2 years") |> 
+  mutate(component = "box_cox(Turnover, lambda = 0.2)")
+
+retail_components |> 
+  filter(Month > yearmonth("2010 Jan")) |>
+  ggplot(aes(x = Month, y = value)) +
+  geom_line() +
+  autolayer(retail_fc_snaive) +
+  autolayer(retail_fc_ets) +
+  autolayer(retail_fc_dcmp) +
+  facet_wrap(vars(component), ncol = 1, scales = "free_y")
+```
+
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+
+
+## {.fragment-remove}
+
+::: columns
+
+::: {.column width="60%"}
+
+### Convolutions of forecasts
+
+::: {.fragment .fade-out fragment-index=1}
+```{r}
+#| echo: true
+#| eval: false
+retail_fc_snaive
+```
+
+```{r}
+#| echo: false
+cat("# A fable: 24 x 4 [1M]
+# Key:     component, .model [1]
+   component      .model    Month       value
+   <chr>          <chr>     <mth>      <dist>
+ 1 Seasonality (… SNAIV… 2019 Jan N(-0.13, 0)
+ 2 Seasonality (… SNAIV… 2019 Feb N(-0.79, 0)
+ 3 Seasonality (… SNAIV… 2019 Mar N(-0.17, 0)
+ 4 Seasonality (… SNAIV… 2019 Apr N(-0.36, 0)
+# ℹ 20 more rows
+# ℹ 1 more variable: .mean <dbl>
+# ℹ Use `print(n = ...)` to see more rows")
+```
+:::
+
+::: {.fragment .fade-out fragment-index=2}
+::: {.fragment .fade-up fragment-index=1}
+```{r}
+#| echo: true
+#| eval: false
+retail_fc_ets
+```
+```{r}
+#| echo: false
+cat("# A fable: 24 x 5 [1M]
+# Key:     component, .model [1]
+   component      .model    Month        value
+   <chr>          <chr>     <mth>       <dist>
+ 1 Seasonally Ad… ETS(v… 2019 Jan N(39, 0.019)
+ 2 Seasonally Ad… ETS(v… 2019 Feb N(39, 0.021)
+ 3 Seasonally Ad… ETS(v… 2019 Mar N(39, 0.022)
+ 4 Seasonally Ad… ETS(v… 2019 Apr N(39, 0.023)
+# ℹ 20 more rows
+# ℹ 1 more variable: .mean <dbl>
+# ℹ Use `print(n = ...)` to see more rows")
+```
+:::
+:::
+
+::: {.fragment .fade-out fragment-index=4}
+::: {.fragment .fade-up fragment-index=2}
+These forecasts are normally distributed:
+
+$$S_{T+h|T} \sim N(\mu_{S,T+h}, \sigma_{S,T+h}^2)$$
+
+$$(T+R)_{T+h|T} \sim N(\mu_{T+R,T+h}, \sigma_{T+R,T+h}^2)$$
+:::
+:::
+
+::: {.fragment .fade-up fragment-index=3}
+The combined forecast is a convolution.
+
+$$Y_{T+h|T} = S_{T+h|T} + (T+R)_{T+h|T}$$
+:::
+
+::: {.fragment .fade-up fragment-index=4}
+If the forecasts are independent:
+$$Y_{T+h|T} \sim N(\mu_{T+R,T+h} + \mu_{S,T+h},\ \sigma_{T+R,T+h}^2 + \sigma_{S,T+h}^2)$$
+:::
+
+::: {.fragment .fade-up fragment-index=5}
+If they're **not** independent:
+
+$$E(Y_{T+h|T}) = \mu_{T+R,T+h} + \mu_{S,T+h}$$
+
+$$\text{Var}(Y_{T+h|T}) = \sigma_{T+R,T+h}^2 + \sigma_{S,T+h}^2 + 2\sigma_{T+R,S,T+h}$$
+:::
+
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+
+
+## {.fragment-remove}
+
+::: columns
+
+::: {.column width="60%"}
+
+### Convolutions of forecasts
+
+The PDF of $Z = X + Y$ is a convolution of:
+
+::: {.fragment .fade-up}
+::: callout
+## 🎲 Independent variables
+
+Marginal densities are sufficient:
+
+$$f_Z(z) = (f_X * f_Y)(z) = \int_{-\infty}^{\infty} f_X(x)\, f_Y(z - x)\, dx$$
+:::
+:::
+
+::: {.fragment .fade-up}
+::: callout
+## 🔗 Dependent variables
+
+The joint density is required:
+
+$$f_Z(z) = f_{X,Y}(z) = \int_{-\infty}^{\infty} f_{X,Y}(x,\, z - x)\, dx$$
+:::
+:::
+
+
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+
+
+## {.fragment-remove}
+
+::: columns
+
+::: {.column width="60%"}
+
+### Convolutions of forecasts
+
+When a single seasonal window is used, $S_{T+h|T}$ and $(T+R)_{T+h|T}$ are independent.
+
+[Since `window = Inf`, the seasonality is constant and seasonal naive exactly predicts the seasonal component (0 variance).]{.fragment .fade-up}
+
+::: {.fragment .fade-up}
+We can convolve these distributions together:
+
+::: {.columns}
+
+::: {.column}
+```{r}
+#| echo: true
+retail_fc_snaive$value[2]
+```
+:::
+
+::: {.column}
+```{r}
+#| echo: true
+retail_fc_ets$value[2]
+```
+:::
+
+:::
+
+
+:::
+::: {.fragment .fade-up}
+```{r}
+#| echo: true
+retail_fc_snaive$value[1] + retail_fc_ets$value[1]
+```
+:::
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+
+
+## {.fragment-remove}
+
+::: columns
+
+::: {.column width="60%"}
+
+### Convolutions of forecasts
+
+In `fable`, combinations of Gaussian forecasts use correlations between components.
+
+
+::: {.fragment .fade-up}
+::: callout
+## 🔢 Covariance structure
+
+$\Sigma = DRD$
+
+Where
+
+* $R$ is the correlation matrix, and
+* $D$ is a diagonal matrix of forecast standard deviations.
+
+:::
+:::
+
+::: {.fragment .fade-up}
+::: callout
+## 🔔 Gaussian copulas
+
+This is closely related to Gaussian copulas. 
+
+The correlation matrix is estimated from the joint response residuals of component models.
+:::
+
+:::
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+
+
+## {.fragment-remove}
+
+::: columns
+
+::: {.column width="60%"}
+
+### Back-transforming forecasts
+
+Lastly, we must undo the transformation to produce forecasts on the original scale.
+
+::: {.fragment .fade-up fragment-index=1}
+::: {.callout}
+## 🔄 Transforming distributions
+
+If $X \sim F$ and $X = g(Y)$, then the PDF of $Y$ is:
+
+$$f_Y(y) = f_X(g^{-1}(y)) \left| \frac{d}{dy} g^{-1}(y) \right|$$
+:::
+:::
+
+::: {.fragment .fade-up fragment-index=2}
+::: {.callout}
+
+## 📐 Example: back-transforming $log(Y) \sim N(\mu, \sigma^2)$
+
+If $X \sim N(\mu, \sigma^2)$ and $X = \log(Y)$, then $g^{-1}(y) = e^y$ and $\frac{d}{dy}e^y = e^y$,
+
+$$f_Y(y) = f_X(e^y) \cdot e^y = \frac{1}{y\sigma\sqrt{2\pi}} \exp\!\left(-\frac{(\log y - \mu)^2}{2\sigma^2}\right)$$
+
+i.e. $Y \sim \text{LogNormal}(\mu, \sigma^2)$.
+:::
+:::
+
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+
+
+## {.fragment-remove}
+
+::: columns
+
+::: {.column width="60%"}
+
+### Back-transforming forecasts
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-height: 5
+#| fig-width: 7
+library(ggdist)
+library(distributional)
+
+mu <- 0.3
+sigma2 <- 0.5
+
+data.frame(
+  dist = c(dist_normal(mu, sqrt(sigma2)), dist_lognormal(mu, sqrt(sigma2))),
+  label = c(
+    "X = log(Y) ~ N(\u03bc, \u03c3\u00b2)",
+    "Y ~ LogNormal(\u03bc, \u03c3\u00b2)"
+  )
+) |>
+  ggplot(aes(xdist = dist, y = label)) +
+  labs(x = NULL, y = NULL) +
+  stat_halfeye(point_interval = mean_qi, .width = c(0.5, 0.95)) +
+  geom_vline(xintercept = mu, linetype = "dashed", colour = "grey40") +
+  geom_vline(xintercept = exp(mu), linetype = "dashed", colour = "grey40") +
+  annotate(
+    "segment",
+    x = mu + 0.05, xend = exp(mu) - 0.05,
+    y = 1.5, yend = 1.5,
+    arrow = arrow(length = unit(0.2, "cm"), ends = "last", type = "closed")
+  ) +
+  annotate(
+    "text", x = (mu + exp(mu)) / 2, y = 1.56,
+    label = "Y = e^X",
+    hjust = 0.5, size = 4.5, colour = "grey20", fontface = "italic"
+  ) +
+  annotate(
+    "text", x = mu, y = 0.6,
+    label = sprintf("\u03bc = %.1f", mu),
+    hjust = 0.5, size = 4.5, colour = "grey20"
+  ) +
+  annotate(
+    "text", x = exp(mu), y = 0.6,
+    label = sprintf("e^\u03bc = %.2f", exp(mu)),
+    hjust = 0.5, size = 4.5, colour = "grey20"
+  ) +
+  coord_cartesian(xlim = c(-1.5, 5)) + 
+  theme_minimal(base_size = 14)
 ```
 
 :::
 :::
 
-![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-left}
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
 
-## :alarm_clock: Time for a break!
+
+
+## {.fragment-remove}
+
+::: columns
+
+::: {.column width="60%"}
+
+### Back-transforming forecasts
+
+```{=html}
+<style>
+.math {
+  padding-right: 0 !important;
+}
+</style>
+```
+
+::: {.callout}
+
+## ⚖️ "Bias adjustment"
+
+Quantiles (incl. medians) can be directly back-transformed:
+
+$$Q_p(Y) = g^{-1}(Q_p(X))$$
+
+**However**, the mean does not back-transform directly:
+
+$$E(Y) = E[g^{-1}(X)] \neq g^{-1}(E[X])$$
+
+::: {.fragment .fade-up fragment-index=1}
+For $X \sim N(\mu, \sigma^2)$, a 2nd-order Taylor expansion gives:
+
+$$E[g^{-1}(X)] \approx g^{-1}(\mu) + \frac{1}{2}\sigma^2 \cdot (g^{-1})''(\mu)$$
+
+For $g^{-1}(x) = e^x$, this is exact: $E(Y) = e^{\mu + \sigma^2/2}$
+
+Larger $\sigma^2$ $\Rightarrow$ bigger correction.
+
+:::
+
+:::
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+
+
+## {.fragment-remove}
+
+::: columns
+
+::: {.column width="60%"}
+
+### Back-transforming forecasts
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| fig-height: 5
+#| fig-width: 7
+library(ggdist)
+library(distributional)
+
+mu <- 0.3
+sigma2 <- 0.5
+
+data.frame(
+  dist = c(dist_normal(mu, sqrt(sigma2)), dist_lognormal(mu, sqrt(sigma2))),
+  label = c(
+    "X = log(Y) ~ N(\u03bc, \u03c3\u00b2)",
+    "Y ~ LogNormal(\u03bc, \u03c3\u00b2)"
+  )
+) |>
+  ggplot(aes(xdist = dist, y = label)) +
+  labs(x = NULL, y = NULL) +
+  stat_halfeye(point_interval = mean_qi, .width = c(0.5, 0.95)) +
+  geom_vline(xintercept = mu, linetype = "dashed", colour = "grey40") +
+  geom_vline(xintercept = exp(mu), linetype = "dashed", colour = "grey40") +
+  geom_vline(xintercept = exp(mu + sigma2/2), linetype = "dashed", colour = "steelblue") +
+  annotate(
+    "segment",
+    x = mu + 0.05, xend = exp(mu) - 0.05,
+    y = 1.5, yend = 1.5,
+    arrow = arrow(length = unit(0.2, "cm"), ends = "last", type = "closed")
+  ) +
+  annotate(
+    "text", x = (mu + exp(mu)) / 2, y = 1.56,
+    label = "Y = e^X",
+    hjust = 0.5, size = 4.5, colour = "grey20", fontface = "italic"
+  ) +
+  annotate(
+    "segment",
+    x = mu + 0.05, xend = exp(mu + sigma2/2) - 0.05,
+    y = 1.2, yend = 1.2,
+    arrow = arrow(length = unit(0.2, "cm"), ends = "last", type = "closed"),
+    colour = "steelblue"
+  ) +
+  annotate(
+    "text", x = (mu + exp(mu + sigma2/2)) / 2, y = 1.27,
+    label = "E(Y) == e^{mu + sigma^2/2}",
+    parse = TRUE,
+    hjust = 0.5, size = 4.5, colour = "steelblue", fontface = "italic"
+  ) +
+  annotate(
+    "text", x = mu, y = 0.6,
+    label = sprintf("\u03bc = %.1f", mu),
+    hjust = 0.5, size = 4.5, colour = "grey20"
+  ) +
+  annotate(
+    "text", x = exp(mu + sigma2/2), y = 0.6,
+    label = sprintf("E(Y) = %.2f", exp(mu + sigma2/2)),
+    hjust = 0.5, size = 4.5, colour = "steelblue"
+  ) +
+  coord_cartesian(xlim = c(-1.5, 5)) + 
+  theme_minimal(base_size = 14)
+```
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+
+
+
+## {.fragment-remove}
+
+::: columns
+
+::: {.column width="60%"}
+
+### Decomposition forecasting
+
+Decomposition forecasts are specified with:
+
+```{r}
+#| echo: true
+#| eval: false
+decomposition_model(
+  dcmp = `decomposition`,
+  ... # (models for each component)
+)
+```
+
+
+::: {.fragment .fade-up}
+::: {.callout}
+## 🔧 `decomposition_model()` handles everything
+
+* **decomposition** of the original series,
+* **forecasting** each decomposed component,
+* **convolution** to combine forecasts with covariance,
+* **back-transformation** of forecasts to original scale.
+:::
+:::
+
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+
+
+## {.fragment-remove}
+
+::: columns
+
+::: {.column width="60%"}
+
+
+The Australian retail forecasts were:
+
+```{r}
+#| echo: true
+#| eval: false
+decomposition_model(
+  dcmp = STL(box_cox(Turnover, lambda = 0.2) ~ season(window = Inf)),
+  ETS(season_adjust),
+  SNAIVE(season_year)
+)
+```
+
+```{r}
+#| echo: true
+#| code-fold: true
+aus_retail_tot <- aus_retail |>
+  summarise(Turnover = sum(Turnover))
+aus_retail_tot |> 
+  model(    
+    decomposition_model(
+      dcmp = STL(box_cox(Turnover, lambda = 0.2) ~ season(window = Inf)),
+      ETS(season_adjust),
+      SNAIVE(season_year)
+    )
+  ) |> 
+  forecast(h = "2 years") |> 
+  autoplot(aus_retail_tot)
+```
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: STL Decomposition
+
+Forecast Australian Electricity production (`aus_production`).
+
+```r
+aus_production |> 
+  model(STL(box_cox(Electricity, 0.5), robust = TRUE))
+```
+
+::: {.callout-caution}
+## Your turn
+
+1. Estimate a decomposition forecasting model  
+  
+   * Decomposed using the STL model found earlier,
+   * `SNAIVE()` for the seasonal component, and
+   * `ARIMA()` for the seasonally adjusted component.
+2. Produce forecasts and inspect the distribution
+3. Plot the forecasts with the historical values
+
+:::
+
+:::
+:::
+
+![](../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg){.image-left}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: STL Decomposition
+
+1. Estimate a decomposition forecasting model
+
+```{r}
+#| echo: true
+#| code-fold: true
+aus_elec_fit <- aus_production |>
+  model(
+    decomposition_model(
+      STL(box_cox(Electricity, 0.5), robust = TRUE),
+      ARIMA(season_adjust),
+      SNAIVE(season_year)
+    )
+  )
+aus_elec_fit
+```
+
+:::
+:::
+
+![](../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg){.image-left}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: STL Decomposition
+
+2. Produce forecasts and inspect them.
+
+```{r}
+#| echo: true
+#| code-fold: true
+aus_elec_fc <- aus_elec_fit |>
+  forecast(h = "5 years")
+aus_elec_fc
+```
+
+:::
+:::
+
+![](../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg){.image-left}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: STL Decomposition
+
+3. Plot the forecasts with the historical values
+
+```{r}
+#| echo: true
+#| code-fold: true
+aus_elec_fc |>
+  autoplot(aus_production)
+```
+
+:::
+:::
+
+![](../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg){.image-left}
+
+## :alarm_clock: Time for a break
 
 ::: columns
 ::: {.column width="60%"}
 
+Ask me questions!
 
 ::: {.callout-tip}
-## Up next...
+## Up next... ensembles
 
-...
+* 3 methods for averaging distributions
+* Weighting strategies for ensembles
 :::
 
 ::: {.callout-link}
