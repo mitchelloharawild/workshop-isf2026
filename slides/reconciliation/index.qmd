@@ -19,6 +19,43 @@ editor_options:
 ```{r}
 #| include: false
 library(fpp3)
+library(distributional)
+library(tidyverse)
+library(ggplot2)
+library(visNetwork)
+library(tidygraph)
+options(width = 75)
+
+visnetwork_hierarchy <- function(data, ...) {
+  nodes <- as_tibble(mutate(activate(data, "nodes"), id = row_number(), level = node_distance_from(node_is_root())))
+  edges <- as_tibble(activate(data, "edges"))
+  graph <- visNetwork(nodes, edges, ...) |> 
+    visHierarchicalLayout(direction = "UD", shakeTowards = "leaves") |> 
+    visOptions(
+      highlightNearest = list(enabled = TRUE, degree = list(from = 50000, to = 0), hover = FALSE, algorithm = "hierarchical"), 
+      collapse = list(enabled = TRUE, fit = FALSE, resetHighlight = TRUE, keepCoord = TRUE,
+                      clusterOptions = list(fixed = TRUE, physics = TRUE))
+    ) |> 
+    visEdges(scaling = list(label = list(enabled = FALSE)), arrows = "to") |> 
+    visNodes(font = list(size = 16))
+  
+  graph$x$tree <- list(updateShape = TRUE, shapeVar = "dot", shapeY = "square")
+  graph
+}
+visnetwork_graph <- function(data, layout = "layout_nicely", ...) {
+  nodes <- as_tibble(mutate(activate(data, "nodes"), id = row_number()))
+  edges <- as_tibble(activate(data, "edges"))
+  graph <- visNetwork(nodes, edges, ...) |> 
+    visIgraphLayout(layout = layout, randomSeed = 123091238) |> 
+    visOptions(
+      highlightNearest = list(enabled = TRUE, degree = list(from = 50000, to = 0), hover = FALSE)
+    ) |> 
+    visEdges(width = 3, scaling = list(label = list(enabled = FALSE)), arrows = "to") |> 
+    visNodes(size = 20)
+  
+  graph$x$tree <- list(updateShape = TRUE, shapeVar = "dot", shapeY = "square")
+  graph
+}
 ```
 
 ## {}
@@ -67,7 +104,7 @@ Reconciliation
 
 ### Forecast reconciliation
 
-Forecast reconciliation combine forecasts from:
+Forecast reconciliation combines forecasts from:
 
 * a **single** model, for
 * **each related** series.
@@ -77,7 +114,7 @@ Forecast reconciliation combine forecasts from:
 :::{.callout-tip}
 ## Improved accuracy
 
-This improves forecasting accuracy by sharing information between related series by adhering to 'coherency constraints'.
+This shares information across related series and enforces coherency.
 :::
 
 :::
@@ -112,9 +149,9 @@ The **total Australian infections** must equal the **sum of infections by jurisd
 :::{.callout-tip}
 ## Imposing constraints
 
-Forecasts of each series (total infections, and infections in each jurisdiction) won't add up!
+These forecasts do not add up.
 
-We use reconciliation to adjust forecasts for *coherency*.
+Reconciliation adjusts them for *coherency*.
 :::
 
 :::
@@ -124,7 +161,175 @@ We use reconciliation to adjust forecasts for *coherency*.
 
 ![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-right}
 
+## {}
 
+### Coherency structures
+
+There are three coherency structures of increasing generality.
+
+Related time series are described in three ways:
+
+::: columns
+
+::: {.column width="33%"}
+::: {.callout-note icon=false}
+## 🌳 Hierarchical
+
+One path from top to bottom.
+
+```{dot}
+//| fig-height: 3
+//| fig-width: 4
+digraph G {
+
+  rankdir = TD;
+  splines = line;
+  subgraph cluster_1 {
+    style = dashed;
+    color = grey60;
+    AX;
+    AY;
+    BX;
+    BY;
+    label = Bottom;
+  }
+
+  subgraph cluster_0 {
+    style = dashed;
+    color = grey60;
+    Total -> A;
+    Total -> B;
+    A -> AX;
+    A -> AY;
+    B -> BX;
+    B -> BY;
+    label = Upper;
+  }
+}
+```
+:::
+:::
+
+::: {.column width="33%"}
+::: {.callout-note icon=false}
+## 🧩 Grouped
+
+Many paths from top to bottom.
+
+```{dot}
+//| fig-height: 3
+//| fig-width: 4
+digraph G {
+  rankdir = TD;
+  splines = line;
+  
+  subgraph cluster_0 {
+    style = dashed;
+    color = grey60;
+    BY;
+    BX;
+    AY;
+    AX;
+    label = Bottom;
+  }
+  subgraph cluster_1 {
+    style = dashed;
+    color = grey60;
+    Total;
+    label = Top;
+  }
+  subgraph cluster_2 {
+    style = dashed;
+    color = grey60;
+    A;
+    B;
+    label = "Path AB";
+  }
+  subgraph cluster_3 {
+    style = dashed;
+    color = grey60;
+    X;
+    Y;
+    label = "Path XY";
+  }
+  
+  Total -> X [style=dashed];
+  Total -> Y [style=dashed];
+  X -> AX [style=dashed];
+  X -> BX [style=dashed];
+  Y -> AY [style=dashed];
+  Y -> BY [style=dashed];
+  Total -> A;
+  Total -> B;
+  A -> AX;
+  A -> AY;
+  B -> BX;
+  B -> BY;
+}
+```
+
+:::
+:::
+::: {.column width="33%"}
+::: {.callout-tip icon=false}
+## 🕸️ Graph
+
+Many paths from (many) top to (many) bottom series.
+
+```{dot}
+//| fig-height: 3
+//| fig-width: 4
+digraph G {
+
+  rankdir = TD;
+  splines = line;
+  subgraph cluster_1 {
+    style = dashed;
+    color = grey60;
+    X2;
+    X1;
+    Y;
+    label = "Unconstrained XY";
+  }
+  subgraph cluster_2 {
+    style = dashed;
+    color = grey60;
+    B2;
+    B1;
+    A3;
+    A2;
+    A1;
+    label = "Unconstrained AB";
+  }
+
+  subgraph cluster_0 {
+    style = dashed;
+    color = grey60;
+    Total;
+    X;
+    A;
+    B;
+    
+    Total -> A;
+    Total -> B;
+    A -> A1;
+    A -> A2;
+    A -> A3;
+    B -> B1;
+    B -> B2;
+    Total -> X [style=dashed];
+    Total -> Y [style=dashed];
+    X -> X1 [style=dashed];
+    X -> X2 [style=dashed];
+    label = Constrained;
+  }
+  
+}
+```
+:::
+:::
+
+:::
 
 ## {}
 
@@ -134,7 +339,9 @@ We use reconciliation to adjust forecasts for *coherency*.
 pbs_atc1 <- tsibbledata::PBS |> 
   aggregate_key(ATC1, Scripts = sum(Scripts))
 pbs_atc1 |> 
-  autoplot(Scripts) + 
+  filter(Month > yearmonth("2000 Jan")) |> 
+  ggplot(aes(x = Month, y = Scripts)) +
+  geom_line() + 
   facet_wrap(vars(ATC1), scales = "free_y")
 ```
 
@@ -186,21 +393,181 @@ pbs_atc1_fc |>
 ::: columns
 ::: {.column width="60%"}
 
-### Adjust all forecasts for coherency
+### Why these forecasts disagree
 
-$$\tilde{\mathbf{y}}_h=\mathbf{S}(\mathbf{S}'\mathbf{W}_h^{-1}\mathbf{S})^{-1}\mathbf{S}'\mathbf{W}_h^{-1}\hat{\mathbf{y}}_h.$$
+The two curves answer different questions.
 
-Where:
+The total forecast comes from a model fit to the aggregate.
+The sum of ATC1 forecasts comes from forecasts at the bottom level.
 
-* $\mathbf{S}$ defines the coherency structure, and
-* $\mathbf{W}_h$ are weights for each forecast
+::: {.callout-note}
+## Coherency
+A coherent forecast adds up at every level of the hierarchy.
+:::
 
-  (usually based on in-sample fits)
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-left}
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Single-level approaches
+
+They choose one level of the hierarchy.
+Then they fill in the rest by aggregation or disaggregation.
+
+* **Bottom-up**
+* **Top-down**
+* **Middle-out**
 
 :::
 :::
 
 ![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-right}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Bottom-up
+
+Forecast every bottom-level series.
+Add them to get the higher levels.
+
+This keeps the bottom-level detail.
+It also keeps the bottom-level noise.
+
+```{r}
+pbs_atc1 |>
+  filter(!is_aggregated(ATC1)) |>
+  model(ets = ETS(Scripts)) |>
+  reconcile(bu = bottom_up(ets)) |>
+  forecast(h = "5 years")
+```
+
+:::
+:::
+
+![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-left}
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Top-down
+
+Forecast the total.
+Split that forecast across the bottom series with proportions.
+
+`top_down()` offers three common choices:
+
+* `average_proportions`
+* `proportion_averages`
+* `forecast_proportions`
+
+`forecast_proportions` uses the base forecasts to update the shares.
+It is the default in `fabletools`.
+
+```{r}
+pbs_atc1 |>
+  model(ets = ETS(Scripts)) |>
+  reconcile(td = top_down(ets, method = "forecast_proportions")) |>
+  forecast(h = "5 years")
+```
+
+:::
+:::
+
+![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-right}
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Middle-out
+
+Choose a middle level.
+Aggregate upward with bottom-up.
+Disaggregate downward with top-down.
+
+This needs a deeper hierarchy than the PBS example.
+There is no middle level in this two-level tree.
+
+:::
+:::
+
+![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-left}
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Single-level limits
+
+They use one level only.
+
+The other forecasts do not enter the adjustment step.
+
+MinT uses every base forecast at once.
+
+:::
+:::
+
+![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-right}
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### MinT: WLS
+
+$\tilde{\mathbf{y}}_h=\mathbf{S}(\mathbf{S}'\mathbf{W}_h^{-1}\mathbf{S})^{-1}\mathbf{S}'\mathbf{W}_h^{-1}\hat{\mathbf{y}}_h.$
+
+Where:
+
+* $\mathbf{S}$ defines the coherency structure, and
+* $\mathbf{W}_h$ is estimated with **weighted least squares**.
+
+:::
+:::
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Choosing **W**
+
+The weight matrix **W** encodes the error structure.
+
+::: {.incremental}
+* **OLS**: identity
+* **WLS (series variance)**: diagonal from in-sample errors
+* **WLS (structural)**: diagonal from hierarchy level
+* **MinT**: full sample covariance
+* **MinT (shrinkage)**: regularised covariance
+:::
+
+::: {.callout-note}
+## Gaussian dependence
+Using a covariance matrix assumes a **Gaussian copula** for the forecast errors. That captures linear dependence, but not heavy joint tails.
+:::
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
 
 
 ## {}
@@ -210,17 +577,17 @@ Where:
 :::
 ::: {.column width="60%"}
 
-### Coherent (reconciled) forecasts
+### Coherent forecasts with WLS
 
 ```{r}
 #| fig-height: 6
 #| fig-width: 7
-pbs_coherent_fc <- pbs_atc1 |> 
-  model(ets = ETS(Scripts)) |> 
-  reconcile(ets = min_trace(ets)) |> 
+pbs_coherent_fc <- pbs_atc1 |>
+  model(ets = ETS(Scripts)) |>
+  reconcile(ets = min_trace(ets, method = "wls_var")) |>
   forecast(h = "5 years")
-pbs_coherent_fc |> 
-  filter(is_aggregated(ATC1)) |> 
+pbs_coherent_fc |>
+  filter(is_aggregated(ATC1)) |>
   autoplot(pbs_atc1 |> filter(Month > yearmonth("2000 Jan")))
 ```
 

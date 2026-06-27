@@ -17,6 +17,7 @@ editor_options:
 ---
 
 ```{r}
+#| label: setup
 #| include: false
 library(fpp3)
 ```
@@ -62,68 +63,222 @@ Ensembles
 
 ## {}
 
+<!-- 
+Combining single-series forecasts
+
+callout
+## :emoji: Decomposition forecasting
+
+Combining forecasts for components of a time series
+
+
+
+callout
+## :emoji: Ensemble forecasting
+
+Averaging many forecasts for the same time series
+-->
+
 ::: columns
-::: {.column width="40%"}
-:::
 ::: {.column width="60%"}
 
-### Forecast combinations
+### Single-series combinations
 
-There are many ways in which multiple forecasts can be combined to produce more better forecasts.
+:::{.fragment .fade-up}
+:::{.callout-note icon=false}
+## 🧩 Decomposition forecasting
 
-1. **Ensemble forecasts**
+Combining forecasts for components of a time series.
+:::
+:::
 
-   (this is what we currently do at ACEFA)
-   
-2. Decomposition forecasting
+:::{.fragment .fade-up}
+:::{.callout-tip icon=false}
+## 🎛️ Ensemble forecasting
 
-3. Forecast reconciliation
-
-
-
-<!-- ::: {.fragment .fade-up} -->
-<!-- ::: {.callout-note} -->
-
-<!-- ## Today's presentation -->
-
-<!-- ... -->
-
-<!-- ::: -->
-<!-- ::: -->
-
+Averaging different forecasts of the same time series.
+:::
+:::
 
 :::
 :::
 
-![](../backgrounds/wolf-zimmermann-6sf5rf8QYFE-unsplash.jpg){.image-left}
-
+![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
 
 
 ## {}
 
+<!-- 
+Why ensembling is good
+
+- averaging model uncertainty -- Uncertainty over which model is closest to the data generating process is averaged over.
+- more robust
+- better calibrated forecasts (uncertainty)
+- ...
+
+Downsides
+
+- more complex
+- more computationally expensive
+-->
+
 ::: columns
 ::: {.column width="60%"}
 
-### Ensemble forecasts
-
-Ensemble forecasts average forecasts from:
-
-* **multiple** models, of the
-* **same** time-series.
-
+### Why use ensemble forecasts?
 
 :::{.fragment .fade-up}
+:::{.callout-tip icon=false}
+## ✅ Advantages
 
-:::{.callout-tip}
-## Model uncertainty
+The fundamental benefit of ensembling is that it **averages over model uncertainty**. This produces forecasts that are:
 
-This is well known to improve forecast accuracy.
+- *More accurate*: generally better than any single model
+- *More robust*: less sensitive to any single model
+- *Better calibrated*: forecast uncertainty incorporates uncertainty of model specification.
+:::
+:::
 
-Uncertainty over which model is closest to the data generating process is averaged over.
+:::{.fragment .fade-up}
+:::{.callout-warning icon=false}
+## ⚠️ Downsides
+
+- *More complex*: to specify, tune, and interpret
+- *More expensive*: many models to fit and forecast
+:::
 :::
 
 :::
+:::
 
+![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+
+
+## {}
+
+<!-- 
+Three ways to average forecasts
+-->
+
+::: columns
+::: {.column width="60%"}
+
+### Three ways to average forecasts
+
+:::{.fragment .fade-up}
+:::{.callout-note icon=false}
+## 🎲 Mean of random variables
+
+$$\bar{X} = \sum_{i} w_i X_i$$
+
+Averaging **outcomes** (samples)
+:::
+:::
+
+:::{.fragment .fade-up}
+:::{.callout-tip icon=false}
+## 🔀 Probability Mixture (linear pooling)
+
+$$ F(x) = \sum_{i=1}^{n} w_i \cdot F_i(x), \hspace{1em} f(x) = \sum_{i=1}^{n} w_i \cdot f_i(x) $$
+
+Averaging **probabilities** (PDF/CDF)
+:::
+:::
+
+:::{.fragment .fade-up}
+:::{.callout-warning icon=false}
+## 📊 Quantile Mixture (Vincentization)
+
+$$ F^{-1}(p) = \sum_{i=1}^{n} w_i \cdot F_i^{-1}(p) $$
+
+Averaging **quantiles** (inverse CDF)
+:::
+:::
+
+:::
+:::
+
+![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+
+<!-- 
+## {}
+
+Three ways to average forecasts
+
+: callout
+Mean of random variables
+Xˉ=i∑​wiXi​
+
+    combines actual random quantities
+    distribution depends on dependence/covariance
+
+: callout
+Probability Mixture (linear pooling)
+
+$$ F(x) = \sum_{i=1}^{n} w_i \cdot F_i(x), \hspace{1em} f(x) = \sum_{i=1}^{n} w_i \cdot f_i(x) $$
+
+    averages probabilities directly
+    preserves multimodality
+    easy to compute
+
+: callout
+Quantile Mixture (Vincentization)
+
+$$ F^{-1}(p) = \sum_{i=1}^{n} w_i \cdot F_i^{-1}(p) $$
+
+    averages outcome levels at each probability
+    often used for forecast combination
+    generally different from the mixture
+
+![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+-->
+
+## {}
+
+<!-- 
+### Ensemble weights $w_i$
+
+Note: inverse variance weighting is the optimal choice for minimising the variance of
+the combined point forecast when model errors are uncorrelated. When errors are
+correlated, the optimal weights require the full error covariance matrix — an analogy
+to the OLS vs MinT distinction in reconciliation.
+-->
+
+::: columns
+::: {.column width="60%"}
+
+### Ensemble weights $w_i$
+
+:::{.fragment .fade-up}
+:::{.callout-note icon=false}
+## ⚖️ Equal weighting
+
+$$w_i = 1/N$$
+
+Default; robust when model ranking is uncertain.
+:::
+:::
+
+:::{.fragment .fade-up}
+:::{.callout-tip icon=false}
+## 📉 Performance-based weighting
+
+$$w_i \propto 1/\hat\sigma^2_i \quad \text{or} \quad w_i \propto 1/\widehat{\text{MSE}}_i$$
+
+Weight by inverse variance or inverse MSE.
+:::
+:::
+
+:::{.fragment .fade-up}
+:::{.callout-warning icon=false}
+## 🗺️ Feature-based weighting
+
+$$w_i = f(\text{series features})$$
+
+FFORMS selects a single model ($w_i \in \{0,1\}$);  
+FFORMA estimates weights from series features ($w_i \in [0,1]$).
+:::
+:::
 
 :::
 :::
@@ -132,6 +287,48 @@ Uncertainty over which model is closest to the data generating process is averag
 
 ## {}
 
+<!-- Other weighting strategies not shown:
+  - Bayesian model averaging (BMA): weights as posterior model probabilities given data
+  - Regime-switching weights: weights change depending on detected state (e.g. expansion vs recession)
+  - Online learning / aggregation of experts: weights updated sequentially as new data arrives (e.g. exponential weighting)
+-->
+
+::: columns
+::: {.column width="60%"}
+
+### Other weighting strategies
+
+:::{.fragment .fade-up}
+:::{.callout-note icon=false}
+## ⏳ Time-varying weights
+
+Some models are better short-term, others long-term.
+:::
+:::
+
+:::{.fragment .fade-up}
+:::{.callout-tip icon=false}
+## 🔄 Online / adaptive weights
+
+Weights updated iteratively as new observations arrive.
+:::
+:::
+
+:::{.fragment .fade-up}
+:::{.callout-warning icon=false}
+## 🧑‍💼 Expert judgement
+
+Weights reflect model credibility rather than past performance alone.
+:::
+:::
+
+:::
+:::
+
+![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+
+## {.fragment-remove}
+
 ::: columns
 ::: {.column width="40%"}
 :::
@@ -139,8 +336,11 @@ Uncertainty over which model is closest to the data generating process is averag
 
 ### Australian ambulance costs
 
+::: {.fragment .fade-out fragment-index=1}
 ```{r}
-#| include: false
+#| label: ambulance_data
+#| echo: true
+#| code-fold: true
 library(fable)
 library(tsibble)
 library(ggplot2)
@@ -152,9 +352,10 @@ ambulance <- tsibble(
   index = Year
 )
 ```
-
+:::
 
 ```{r}
+#| label: ambulance_plot
 #| fig-height: 4
 #| fig-width: 7
 ambulance |> 
@@ -162,7 +363,7 @@ ambulance |>
   geom_line()
 ```
 
-:::{.fragment .fade-up}
+:::{.fragment .fade-up fragment-index=1}
 
 :::{.callout-caution}
 ## Future trend?
@@ -191,14 +392,24 @@ Will it change again following the 2024 drop?
 ### Australian ambulance costs
 
 ```{r}
+#| label: ambulance_forecast
 #| fig-height: 6
 #| fig-width: 7
+#| echo: true
+#| code-fold: true
 ambulance_fc <- ambulance |>
   model(
     ETS = ETS(Revenue),
     `TSLM Piecewise` = TSLM(Revenue ~ trend(knots = 2015))
   ) |>
+  mutate(
+    `Mean of RV` = (ETS + `TSLM Piecewise`)/2L
+  ) |> 
   forecast(h = "10 years")
+avg_ensemble <- ambulance_fc |>
+  filter(.model == "Mean of RV")
+ambulance_fc <- ambulance_fc |>
+  filter(.model != "Mean of RV")
 ambulance_fc |>
   autoplot(ambulance) +
   theme(legend.position = "bottom")
@@ -208,40 +419,6 @@ ambulance_fc |>
 :::
 
 ![](../backgrounds/mpho-mojapelo-s6Vv9u2qZyc-unsplash.jpg){.image-left}
-
-
-## {}
-
-::: columns
-::: {.column width="60%"}
-
-### Ensemble forecasts
-
-Ensemble forecasts combine these forecasts.
-
-Ensembling uses a weighted average of forecasts.
-
-Finding the best weights is **very hard**.
-
-:::{.fragment .fade-up}
-
-:::{.callout-tip}
-## Probabilistic ensemble forecasts
-
-Combining probabilistic forecasts is done in two ways:
-
-* Probability mixtures
-* Quantile mixtures
-:::
-
-:::
-
-
-:::
-:::
-
-![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
-
 
 ## {}
 
@@ -253,8 +430,11 @@ Combining probabilistic forecasts is done in two ways:
 ### Australian ambulance costs
 
 ```{r}
+#| label: ambulance_2030_density
 #| fig-height: 6
 #| fig-width: 7
+#| echo: true
+#| code-fold: true
 library(ggdist)
 ambulance_fc |> 
   filter(Year == 2030) |> 
@@ -280,6 +460,7 @@ ambulance_fc |>
 ### Australian ambulance costs
 
 ```{r}
+#| label: ambulance_2030_cdf
 #| fig-height: 6
 #| fig-width: 7
 library(ggdist)
@@ -300,34 +481,161 @@ ambulance_fc |>
 
 ![](../backgrounds/mpho-mojapelo-s6Vv9u2qZyc-unsplash.jpg){.image-left}
 
-
 ## {}
+
+<!-- 
+Three ways to average forecasts
+-->
 
 ::: columns
 ::: {.column width="60%"}
 
-### Probabilistic ensemble forecasts
+### Three ways to average forecasts
 
-These forecast distributions can be combined mixture distributions which averages probabilities or quantiles.
+:::{.callout-note icon=false}
+## 🎲 Mean of random variables (averaging outcomes)
 
-:::{.callout-note}
-## Probability mixtures
+```r
+combination_ensemble(ETS, ARIMA) # OR (ETS + ARIMA)/2L
+```
+
+$$\bar{X} = \sum_{i} w_i X_i$$
+
+:::
+
+::: blur
+:::{.callout-tip icon=false}
+## 🔀 Probability Mixture (averaging probabilities)
+
+```r
+dist_mixture(fc1, fc2, type = "probability", weights = c(0.5, 0.5))
+```
 
 $$ F(x) = \sum_{i=1}^{n} w_i \cdot F_i(x), \hspace{1em} f(x) = \sum_{i=1}^{n} w_i \cdot f_i(x) $$
 :::
-
-:::{.callout-note}
-## Quantile mixtures
-
-$$ F^{-1}(p) = \sum_{i=1}^{n} w_i \cdot F_i^{-1}(p) $$
 :::
 
+::: blur
+:::{.callout-warning icon=false}
+## 📊 Quantile Mixture (averaging quantiles)
+
+```r
+dist_mixture(fc1, fc2, type = "quantile", weights = c(0.5, 0.5))
+```
+
+$$ F^{-1}(p) = \sum_{i=1}^{n} w_i \cdot F_i^{-1}(p) $$
+
+:::
+:::
 
 :::
 :::
 
 ![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
 
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Mean of random variables
+
+```{r}
+#| label: forecast_averaging_cdf
+#| fig-height: 6
+#| fig-width: 7
+fc_2030 <- ambulance_fc |> 
+  filter(Year == 2030) |> 
+  as_tibble()
+avg_ensemble |> 
+  filter(Year == 2030) |>
+  bind_rows(fc_2030) |> 
+  rowwise() |> 
+  reframe(.model, x = seq(5, 8.3, by = 0.01), cdf = cdf(Revenue, x)) |> 
+  ggplot(aes(colour = .model, x = x, y = cdf)) + 
+  geom_line() + 
+  labs(x = "Revenue", y = "Probability", title = "Forecasts of ambulance costs in 2030") +
+  theme(legend.position = "bottom")
+```
+
+:::
+:::
+
+![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Mean of random variables
+
+```{r}
+#| label: forecast_averaging_density
+#| fig-height: 6
+#| fig-width: 7
+
+bind_rows(avg_ensemble |> filter(Year == 2030), fc_2030) |> 
+  ggplot(aes(y = .model, xdist = Revenue)) + 
+  stat_slab() + 
+  labs(x = "Revenue", y = NULL, title = "Forecasts of ambulance costs in 2030")
+```
+
+:::
+:::
+
+![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+
+## {}
+
+<!-- 
+Three ways to average forecasts
+-->
+
+::: columns
+::: {.column width="60%"}
+
+### Three ways to average forecasts
+
+:::{.callout-note icon=false}
+## 🎲 Mean of random variables (averaging outcomes)
+
+```r
+combination_ensemble(ETS, ARIMA) # OR (ETS + ARIMA)/2L
+```
+
+$$\bar{X} = \sum_{i} w_i X_i$$
+
+:::
+
+:::{.callout-tip icon=false}
+## 🔀 Probability Mixture (averaging probabilities)
+
+```r
+dist_mixture(fc1, fc2, type = "probability", weights = c(0.5, 0.5))
+```
+
+$$ F(x) = \sum_{i=1}^{n} w_i \cdot F_i(x), \hspace{1em} f(x) = \sum_{i=1}^{n} w_i \cdot f_i(x) $$
+:::
+
+::: blur
+:::{.callout-warning icon=false}
+## 📊 Quantile Mixture (averaging quantiles)
+
+```r
+dist_mixture(fc1, fc2, type = "quantile", weights = c(0.5, 0.5))
+```
+
+$$ F^{-1}(p) = \sum_{i=1}^{n} w_i \cdot F_i^{-1}(p) $$
+
+:::
+:::
+
+:::
+:::
+
+![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
 
 
 ## {}
@@ -338,12 +646,9 @@ $$ F^{-1}(p) = \sum_{i=1}^{n} w_i \cdot F_i^{-1}(p) $$
 ### Probability mixtures
 
 ```{r}
+#| label: prob_mixture_cdf
 #| fig-height: 6
 #| fig-width: 7
-fc_2030 <- ambulance_fc |> 
-  filter(Year == 2030) |> 
-  as_tibble()
-
 prob_ensemble <- fc_2030 |>
   group_by(Year) |> 
   summarise(
@@ -377,6 +682,7 @@ prob_ensemble |>
 ### Probability mixtures
 
 ```{r}
+#| label: prob_mixture_density
 #| fig-height: 6
 #| fig-width: 7
 
@@ -392,6 +698,53 @@ bind_rows(prob_ensemble, fc_2030) |>
 ![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
 
 
+## {}
+
+<!-- 
+Three ways to average forecasts
+-->
+
+::: columns
+::: {.column width="60%"}
+
+### Three ways to average forecasts
+
+:::{.callout-note icon=false}
+## 🎲 Mean of random variables (averaging outcomes)
+
+```r
+combination_ensemble(ETS, ARIMA) # OR (ETS + ARIMA)/2L
+```
+
+$$\bar{X} = \sum_{i} w_i X_i$$
+
+:::
+
+:::{.callout-tip icon=false}
+## 🔀 Probability Mixture (averaging probabilities)
+
+```r
+dist_mixture(fc1, fc2, type = "probability", weights = c(0.5, 0.5))
+```
+
+$$ F(x) = \sum_{i=1}^{n} w_i \cdot F_i(x), \hspace{1em} f(x) = \sum_{i=1}^{n} w_i \cdot f_i(x) $$
+:::
+
+:::{.callout-warning icon=false}
+## 📊 Quantile Mixture (averaging quantiles)
+
+```r
+dist_mixture(fc1, fc2, type = "quantile", weights = c(0.5, 0.5))
+```
+
+$$ F^{-1}(p) = \sum_{i=1}^{n} w_i \cdot F_i^{-1}(p) $$
+
+:::
+
+:::
+:::
+
+![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
 
 
 ## {}
@@ -402,6 +755,7 @@ bind_rows(prob_ensemble, fc_2030) |>
 ### Quantile mixtures
 
 ```{r}
+#| label: quant_mixture_cdf
 #| fig-height: 6
 #| fig-width: 7
 quant_ensemble <- fc_2030 |>
@@ -437,6 +791,7 @@ quant_ensemble |>
 ### Quantile mixtures
 
 ```{r}
+#| label: quant_mixture_density
 #| fig-height: 6
 #| fig-width: 7
 
@@ -457,13 +812,14 @@ bind_rows(quant_ensemble, fc_2030) |>
 ::: columns
 ::: {.column width="60%"}
 
-### Ensemble mixtures
+### Ensemble methods
 
 ```{r}
+#| label: ensemble_mixtures_density
 #| fig-height: 6
 #| fig-width: 7
 
-bind_rows(quant_ensemble, prob_ensemble) |> 
+bind_rows(avg_ensemble |> filter(Year == 2030), quant_ensemble, prob_ensemble) |> 
   ggplot(aes(y = .model, xdist = Revenue)) + 
   stat_slab() + 
   labs(x = "Revenue", y = NULL, title = "Forecasts of ambulance costs in 2030")
@@ -485,12 +841,12 @@ bind_rows(quant_ensemble, prob_ensemble) |>
 :::
 ::: {.column width="60%"}
 
-### Ensemble mixtures
+### Ensemble forecasts
 
 ```{r}
+#| label: ensemble_mixtures_plot
 #| fig-height: 6
 #| fig-width: 7
-
 
 quant_fc <- as_tibble(ambulance_fc) |>
   group_by(Year) |> 
@@ -505,7 +861,7 @@ prob_fc <- as_tibble(ambulance_fc) |>
     Revenue = `dimnames<-`(do.call(dist_mixture, c(as.list(Revenue), weights = list(c(0.5, 0.5)), type = "probability")), "Revenue")
   )
 
-bind_rows(prob_fc, quant_fc) |> 
+bind_rows(avg_ensemble, prob_fc, quant_fc) |> 
   as_fable(index = Year, key = .model, distribution = Revenue, response = "Revenue") |> 
   autoplot(ambulance) +
   facet_grid(vars(.model)) +
@@ -517,17 +873,329 @@ bind_rows(prob_fc, quant_fc) |>
 
 ![](../backgrounds/mpho-mojapelo-s6Vv9u2qZyc-unsplash.jpg){.image-left}
 
+## {.center}
 
-## :alarm_clock: That's all for now!
+[Demo]{style="font-size:3em;"}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: Ensemble forecasting
+
+Produce an ensemble for Australian Electricity Production (`aus_production`).
+
+```r
+aus_production |> autoplot(Electricity)
+```
+
+::: {.callout-caution}
+## Your turn
+
+1. Fit several models for electricity production
+2. Combine them into an equal-weighted ensemble  
+   (averaging random variables is currently simplest)
+3. Compare the accuracy of the ensemble with individual models
+4. Experiment with unequal weights.  
+   Can you beat equal weighting?
+
+:::
+
+:::
+:::
+
+![](../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg){.image-left}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: Ensemble forecasting
+
+Produce an ensemble for Australian Electricity Production (`aus_production`).
+
+1. Fit several models for electricity production
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| label: exercise-fit
+fit <- aus_production |>
+  model(
+    ETS   = ETS(Electricity),
+    ARIMA = ARIMA(sqrt(Electricity))
+  )
+fit
+```
+
+:::
+:::
+
+![](../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg){.image-left}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: Ensemble forecasting
+
+2. Combine them into an equal-weighted ensemble
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| label: exercise-ensemble
+fit_ensemble <- fit |>
+  mutate(
+    Ensemble = combination_ensemble(ETS, ARIMA)
+    # Ensemble = (ETS + ARIMA) / 2L
+  )
+fit_ensemble |>
+  forecast(h = "2 years") |>
+  autoplot(tail(aus_production, 20), alpha = 0.3)
+```
+
+:::
+:::
+
+![](../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg){.image-left}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: Ensemble forecasting
+
+3. Compare the accuracy of the ensemble with individual models
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| label: exercise-accuracy
+fit_ensemble |>
+  accuracy() |>
+  arrange(RMSE)
+```
+
+:::
+:::
+
+![](../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg){.image-left}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: Ensemble forecasting
+
+4. Experiment with unequal weights  
+   Can you beat equal weighting?
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| label: exercise-weights
+fit_ensemble |>
+  mutate(
+    W_Ensemble = combination_ensemble(ETS, ARIMA, weights = "inv_var")
+  ) |>
+  accuracy() |>
+  arrange(RMSE)
+```
+
+:::
+:::
+
+![](../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg){.image-left}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: Ensemble forecasting
+
+4. Experiment with unequal weights  
+   Can you beat equal weighting?
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| label: exercise-weights-cv
+aus_production |>
+  stretch_tsibble(.init = 40, .step = 4) |>
+  model(
+    ETS   = ETS(Electricity),
+    ARIMA = ARIMA(sqrt(Electricity))
+  ) |>
+  mutate(
+    Ensemble   = combination_ensemble(ETS, ARIMA),
+    W_Ensemble = combination_ensemble(ETS, ARIMA, weights = "inv_var")
+  ) |>
+  forecast(h = 4) |>
+  accuracy(aus_production) |>
+  arrange(RMSE)
+```
+
+::: {.callout-important}
+## Out-of-sample evaluation
+
+In-sample accuracy is unrealistic for actual forecasting performance.  
+What about cross-validated accuracy?
+:::
+
+:::
+:::
+
+![](../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg){.image-left}
+
+## {}
+
+<!-- 
+- The **forecast combination puzzle** is the recurring empirical pattern that optimally weighted combinations often do not beat simple equal-weighted averages, even when the component models differ in quality.
+ 
+  - Frazier, Covey, Martin & Poskitt (2023, arXiv:2308.05263) argue that much of the puzzle comes from the usual **two-step** workflow: estimate the component models first, then estimate the combination weights.
+  
+  - In this setting, standard predictive-accuracy tests can have a **nonstandard asymptotic null distribution**, which leads to size distortions and low power.
+  
+  - Their proposed fix is to estimate the component-model parameters and combination weights **jointly in one step, when feasible**. Under that approach, the puzzle largely disappears and the optimally estimated combination can show its advantage when it is genuinely better.
+-->
+
+<!-- nonstandard asymptotic null distribution → size distortions and low power in predictive-accuracy tests -->
+
+::: columns
+::: {.column width="60%"}
+
+### Forecast combination puzzle
+
+Finding ensemble weights that outperform equal weights is surprisingly difficult.
+
+(Even when models clearly differ in quality.)
+
+:::{.fragment .fade-up}
+:::{.callout-tip icon=false}
+## ✅ Solving the puzzle
+
+Frazier, Covey, Martin & Poskitt (2023) solve the puzzle and explain the root cause.
+:::
+:::
+
+:::
+:::
+
+![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+
+## {}
+
+
+::: columns
+::: {.column width="60%"}
+
+### Forecast combination puzzle
+
+:::{.fragment .fade-up}
+:::{.callout-tip icon=false}
+## 🪜 The two-step workflow
+
+1. Estimate component models
+2. Estimate combination weights
+
+Each step ignores uncertainty from the other.
+:::
+:::
+
+::: {.fragment .fade-up}
+Frazier, Covey, Martin & Poskitt (2023) explore jointly estimating models with weights.
+:::
+
+:::{.fragment .fade-up}
+:::{.callout-tip icon=false}
+## 🔗 Joint estimation
+
+Estimate model parameters and weights together:
+
+$$(\hat\theta, \hat w) = \arg\min_{\theta,\, w} \mathcal{L}(y, \textstyle\sum_i w_i f_i(\theta_i))$$
+
+Joint estimation produces better results with unequal weights.
+:::
+:::
+
+:::
+:::
+
+![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+
+## {}
+
+<!-- 
+Aside: Large forecasting models
+
+Synthetic data is widely used in training foundation models for forecasting.
+
+Simulating data from weighted ensembles allows learning of more generalised patterns, essentially training large models to learn solutions to the forecast combination problem.
+-->
+
+::: columns
+::: {.column width="60%"}
+
+### Aside: Synthetic data for LFMs
+
+Weighted ensembles are used to simulate synthetic time series for training large forecasting models (LFMs).
+
+::: {.fragment .fade-up}
+::: {.callout-note icon=false}
+## 🎲 Simulating from an ensemble
+
+Generate diverse synthetic time series with different weighted combinations of component model simulations.
+
+:::
+:::
+
+::: {.fragment .fade-up}
+:::{.callout-tip icon=false}
+## 📐 Why this is useful
+
+- Foundation models learn unequal weights of models
+- Essentially learns combinations without the puzzle
+- Covers a wider range of temporal structures
+:::
+:::
+
+:::
+:::
+
+![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+
+
+## :alarm_clock: Time for a (short) break!
 
 ::: columns
 ::: {.column width="60%"}
 
 
 ::: {.callout-tip}
-## Final remarks
+## Up next... reconciliation
 
-...
+* Combine forecasts across multiple series
+* Archetypes for common coherency constraints
+* Learn various reconciliation methods and weights
 :::
 
 ::: {.callout-link}

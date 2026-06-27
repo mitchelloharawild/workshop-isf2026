@@ -3,7 +3,6 @@ project:
   resources:
     - "images/opengraph.png"
     - "data"
-    - "ethics"
   render:
     - "*.qmd"
     - "!README.qmd"
@@ -40,8 +39,10 @@ website:
       menu:
         - text: Decomposition forecasting
           href: slides/decomposition/
-        - text: Ensembles and reconciliation
+        - text: Ensemble forecasting
           href: slides/combination/
+        - text: Forecast reconciliation
+          href: slides/reconciliation/
     # - text: Feedback
     #   href: https://feedback.nectric.com.au/w0rw
     # - text: Exercises

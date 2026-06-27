@@ -988,6 +988,8 @@ $$f_Z(z) = (f_X * f_Y)(z) = \int_{-\infty}^{\infty} f_X(x)\, f_Y(z - x)\, dx$$
 The joint density is required:
 
 $$f_Z(z) = f_{X,Y}(z) = \int_{-\infty}^{\infty} f_{X,Y}(x,\, z - x)\, dx$$
+
+(it's technically not a convolution now, many terms exist)
 :::
 :::
 
@@ -1062,12 +1064,12 @@ In `fable`, combinations of Gaussian forecasts use correlations between componen
 ::: callout
 ## 🔢 Covariance structure
 
-$\Sigma = DRD$
+$\Sigma_h = D_hR_1D_h$
 
 Where
 
-* $R$ is the correlation matrix, and
-* $D$ is a diagonal matrix of forecast standard deviations.
+* $R_1$ is the 1-step error correlation matrix, and
+* $D_h$ is a diagonal matrix of forecast standard deviations.
 
 :::
 :::
@@ -1199,14 +1201,6 @@ data.frame(
 ::: {.column width="60%"}
 
 ### Back-transforming forecasts
-
-```{=html}
-<style>
-.math {
-  padding-right: 0 !important;
-}
-</style>
-```
 
 ::: {.callout}
 

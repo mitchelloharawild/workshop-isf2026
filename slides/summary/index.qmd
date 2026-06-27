@@ -4,8 +4,7 @@ execute:
   cache: true
 format:
   letterbox-revealjs:
-    theme: [default]
-    css: [theme.css]
+    theme: ../custom.scss
     progress: false
     menu: false
     width: 1280

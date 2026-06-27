@@ -109,11 +109,11 @@ img.sticker-float-midright {
 
 
 .blur {
-  filter: blur(5px);
+  filter: blur(2px);
   opacity: 50%;
 }
 .reveal .slides section .fragment.blur {
-  filter: blur(5px);
+  filter: blur(2px);
   opacity: 50%;
   visibility: visible;
 }
@@ -294,7 +294,6 @@ span.term {
 
 .math {
   font-size: 0.9em;
-  padding-right: 0.7em;
 }
 
 .math.display .MathJax_Display {
