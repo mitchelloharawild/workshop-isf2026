@@ -147,8 +147,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Decomposition forecasting</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./slides/combination/">
- <span class="dropdown-text">Ensembles and reconciliation</span></a>
+    <a class="dropdown-item" href="./slides/ensemble/">
+ <span class="dropdown-text">Ensemble forecasting</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./slides/reconciliation/">
+ <span class="dropdown-text">Forecast reconciliation</span></a>
   </li>  
     </ul>
   </li>
@@ -205,8 +209,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#preparation" id="toc-preparation" class="nav-link" data-scroll-target="#preparation">Preparation</a>
   <ul class="collapse">
-  <li><a href="#required-equipment" id="toc-required-equipment" class="nav-link" data-scroll-target="#required-equipment">Required equipment</a></li>
-  <li><a href="#required-software" id="toc-required-software" class="nav-link" data-scroll-target="#required-software">Required software</a></li>
+  <li><a href="#assumed-knowledge" id="toc-assumed-knowledge" class="nav-link" data-scroll-target="#assumed-knowledge">Assumed Knowledge</a></li>
+  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/mitchelloharawild/workshop-isf2026/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/mitchelloharawild/workshop-isf2026/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -269,22 +273,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The workshop features hands-on exercises in R using tidy data analysis principles, to follow along with the practical exercises you will need to have R and the required packages installed (see below).</p>
 <p>The coding exercises will be challenging for non-R users, although the concepts are transferable to other languages and forecasting libraries (the workshop materials will also link to equivalent Python implementations). If you are unfamiliar with tidy forecasting in R and want to complete the exercises, I recommend working through the startr materials (<a href="https://startr.numbat.space/" class="uri">https://startr.numbat.space/</a>) and my forecasting basics workshop (<a href="https://workshop.nectric.com.au/fable-2025/" class="uri">https://workshop.nectric.com.au/fable-2025/</a>).</p>
 <p>Some familiarity with statistical concepts including probability distributions, mean, variance, quantiles, and densities would be helpful to better understand the theory of combination forecasting.</p>
-<section id="required-equipment" class="level2">
-<h2 class="anchored" data-anchor-id="required-equipment">Required equipment</h2>
-<p>Please bring your own laptop capable of running R.</p>
+<section id="assumed-knowledge" class="level2">
+<h2 class="anchored" data-anchor-id="assumed-knowledge">Assumed Knowledge</h2>
+<ul>
+<li><strong>Univariate time series forecasting</strong>: some experience with common forecasting models (e.g.&nbsp;SNAIVE, ETS, ARIMA) is assumed, as the workshop combines forecasts from these models.</li>
+<li><strong>Probability distributions</strong>: familiarity with basic distributional concepts (mean, variance, quantiles, densities) will help you follow the theory behind probabilistic forecast combinations.</li>
+<li><strong>R and the tidyverse</strong>: some experience with R and tidyverse packages (dplyr, ggplot2, tibble) is needed to complete the hands-on exercises.</li>
+<li><strong>Tidy forecasting with fable</strong>: familiarity with tsibble and fable will help you get the most out of the practical exercises; see the preparation resources above if you need a refresher.</li>
+</ul>
 </section>
-<section id="required-software" class="level2">
-<h2 class="anchored" data-anchor-id="required-software">Required software</h2>
-<p>To be able to complete the exercises of this workshop, please install a suitable IDE (such as RStudio), a recent version of R (4.1+) and the following packages.</p>
+<section id="requirements" class="level2">
+<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
+<p>To be able to complete the exercises of this workshop, please bring your own laptop with a suitable IDE (such as Positron or RStudio), a recent version of R (4.1+), and the following packages.</p>
 <ul>
 <li><strong>Time series packages and extensions</strong>
 <ul>
 <li>fpp3</li>
-<li>ggtime</li>
+<li>distributional</li>
 </ul></li>
 </ul>
 <p>The following code will install the main packages needed for the workshop.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"fpp3"</span>, <span class="st">"ggtime"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"fpp3"</span>, <span class="st">"distributional"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Please have the required software installed and pre-work completed before attending the workshop.</p>
 
 

@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://workshop.nectric.com.au/isf2026/slides/reconciliation/index.html</loc>
+    <lastmod>2026-06-28T16:09:58.475Z</lastmod>
+  </url>
+  <url>
     <loc>https://workshop.nectric.com.au/isf2026/slides/decomposition/index.html</loc>
-    <lastmod>2026-05-29T09:37:23.775Z</lastmod>
+    <lastmod>2026-06-28T16:00:08.292Z</lastmod>
   </url>
   <url>
     <loc>https://workshop.nectric.com.au/isf2026/license.html</loc>
     <lastmod>2025-11-27T13:11:33.980Z</lastmod>
   </url>
   <url>
-    <loc>https://workshop.nectric.com.au/isf2026/exercises.html</loc>
-    <lastmod>2025-11-27T13:11:33.975Z</lastmod>
-  </url>
-  <url>
     <loc>https://workshop.nectric.com.au/isf2026/index.html</loc>
-    <lastmod>2025-11-27T13:11:33.979Z</lastmod>
+    <lastmod>2026-06-25T18:26:42.016Z</lastmod>
   </url>
   <url>
-    <loc>https://workshop.nectric.com.au/isf2026/slides/combination/index.html</loc>
-    <lastmod>2026-05-29T09:37:20.537Z</lastmod>
+    <loc>https://workshop.nectric.com.au/isf2026/slides/basics/index.html</loc>
+    <lastmod>2026-06-25T11:58:43.254Z</lastmod>
+  </url>
+  <url>
+    <loc>https://workshop.nectric.com.au/isf2026/slides/ensemble/index.html</loc>
+    <lastmod>2026-06-28T15:53:47.387Z</lastmod>
   </url>
 </urlset>

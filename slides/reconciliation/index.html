@@ -1,0 +1,2636 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<link href="../..//images/fable.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-contrib/custom-callouts-0.1.0/custom-callouts.scss" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.26">
+
+  <title>Forecast combinations – index</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-3d043b1863240985e1d15fa0e7c8ac53.css">
+  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script src="../../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+  <link href="../../site_libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+  <script src="../../site_libs/vis-9.1.0/vis-network.min.js"></script>
+  <script src="../../site_libs/visNetwork-binding-2.1.4/visNetwork.js"></script>
+<meta property="og:title" content="Forecast combinations">
+<meta property="og:image" content="https://workshop.nectric.com.au/isf2026/images/opengraph.png">
+<meta property="og:site_name" content="Forecast combinations (ISF 2026 workshop)">
+<meta property="og:image:height" content="654">
+<meta property="og:image:width" content="1250">
+<meta name="twitter:title" content="Forecast combinations">
+<meta name="twitter:image" content="https://workshop.nectric.com.au/isf2026/images/opengraph.png">
+<meta name="twitter:creator" content="@mitchoharawild">
+<meta name="twitter:image-height" content="654">
+<meta name="twitter:image-width" content="1250">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="section" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<div class="title" data-id="title">
+<p>Forecast combinations</p>
+</div>
+<div class="subtitle" data-id="subtitle">
+<p>Reconciliation</p>
+</div>
+<div class="dateplace">
+<p>28th June 2026 @ ISF - Montreal, Canada</p>
+</div>
+<h5 id="mitchell-ohara-wild-nectric">Mitchell O’Hara-Wild, Nectric</h5>
+<div class="callout-link">
+<div class="callout callout-link callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Useful links</strong></p>
+</div>
+<div class="callout-content">
+<p><img data-src="resources/forum.svg" class="icon"> <a href="https://social.mitchelloharawild.com/">social.mitchelloharawild.com</a></p>
+<p><img data-src="resources/projector-screen-outline.svg" class="icon"> <a href="https://workshop.nectric.com.au/isf2026/">workshop.nectric.com.au/isf2026/</a></p>
+<p><img data-src="resources/github.svg" class="icon"> <a href="https://github.com/mitchelloharawild/workshop-isf2026">mitchelloharawild/workshop-isf2026</a></p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/sander-weeteling-KABfjuSOx74-unsplash.jpg" class="image-left"></p>
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="forecast-combinations">Forecast combinations</h3>
+<div class="fragment fade-up">
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>1️⃣ Single-series</strong></p>
+</div>
+<div class="callout-content">
+<p>Decomposition and ensemble forecasting combines models to forecast a <strong>single series</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-up">
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🔢 Multi-series</strong></p>
+</div>
+<div class="callout-content">
+<p>Reconciliation combines forecasts across <strong>many related series</strong>, sharing information by enforcing coherency constraints.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="coherent-combinations">Coherent combinations</h3>
+<p>Independent models produce <strong>incoherent</strong> base forecasts <span class="math inline">\(\hat{\mathbf{y}}_h\)</span> - i.e.&nbsp;they don’t add up.</p>
+<p>Reconciling base forecasts produces <strong>coherent</strong> forecasts <span class="math inline">\(\tilde{\mathbf{y}}_h\)</span> that do add up.</p>
+<div class="fragment fade-up">
+<div class="callout callout-important no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>📡 Forecast reconciliation</strong></p>
+</div>
+<div class="callout-content">
+<p>The adjustment generally <strong>improves accuracy</strong>, propagating information across the hierarchy.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-up">
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>✅ Independently coherent?</strong></p>
+</div>
+<div class="callout-content">
+<p>Some independent models can produce forecasts that are already coherent.</p>
+<p>How is this possible?</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-3" class="slide level2 fragment-remove">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="coherency-constraints">Coherency constraints</h3>
+<p>The structural relationships between each time series form constraints.</p>
+<div class="fragment fade-up">
+<div class="callout callout-note callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>For example… <code>tourism</code> 🏖️</strong></p>
+</div>
+<div class="callout-content">
+<p>The <strong>total visitors</strong> must be the <strong>sum of visitors by purpose</strong>.</p>
+<p><span class="math display">\[\text{Total}_t = \text{Business}_t + \text{Holiday}_t + \text{Other}_t + \text{Visiting}_t\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>tourism <span class="sc">|&gt;</span> </span>
+<span id="cb1-2"><a></a>  <span class="fu">aggregate_key</span>(Purpose, <span class="at">Trips =</span> <span class="fu">sum</span>(Trips)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-3"><a></a>  <span class="fu">filter</span>(Quarter <span class="sc">==</span> <span class="fu">yearquarter</span>(<span class="st">"2015 Q1"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tsibble: 5 x 3 [1Q]
+# Key:       Purpose [5]
+  Quarter Purpose       Trips
+    &lt;qtr&gt; &lt;chr*&gt;        &lt;dbl&gt;
+1 2015 Q1 &lt;aggregated&gt; 25024.
+2 2015 Q1 Business      3977.
+3 2015 Q1 Holiday      11631.
+4 2015 Q1 Other         1214.
+5 2015 Q1 Visiting      8202.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-4" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="forecasting-tourism">Forecasting tourism</h3>
+<p>ETS forecasts for each series are <strong>incoherent</strong>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>tourism_purpose <span class="ot">&lt;-</span> tourism <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a></a>  <span class="fu">aggregate_key</span>(Purpose, <span class="at">Trips =</span> <span class="fu">sum</span>(Trips))</span>
+<span id="cb3-3"><a></a>tourism_purpose_fc <span class="ot">&lt;-</span> tourism_purpose <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a></a>  <span class="fu">model</span>(<span class="fu">ETS</span>(Trips)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-5"><a></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="st">"2 years"</span>)</span>
+<span id="cb3-6"><a></a>tourism_purpose_fc <span class="sc">|&gt;</span> </span>
+<span id="cb3-7"><a></a>  <span class="fu">autoplot</span>(tourism_purpose <span class="sc">|&gt;</span> <span class="fu">filter</span>(Quarter <span class="sc">&gt;=</span> <span class="fu">yearquarter</span>(<span class="st">"2010 Q1"</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/tourism-purpose-fc-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/johnny-bhalla-DLbCETd599Y-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-5" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="forecasting-tourism-1">Forecasting tourism</h3>
+<p>The sum of forecasts for each Purpose (convolution) is <strong>not equal</strong> to the total.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">library</span>(distributional)</span>
+<span id="cb4-2"><a></a>tourism_purpose_fc <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a></a>  <span class="co"># Compute the convolution of the base forecasts by Purpose</span></span>
+<span id="cb4-4"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is_aggregated</span>(Purpose)) <span class="sc">|&gt;</span></span>
+<span id="cb4-5"><a></a>  <span class="fu">group_by</span>(.model) <span class="sc">|&gt;</span> </span>
+<span id="cb4-6"><a></a>  <span class="fu">summarise</span>(<span class="at">.model =</span> <span class="st">"Sum of base forecasts"</span>, <span class="at">Trips =</span> <span class="fu">sum</span>(Trips)) <span class="sc">|&gt;</span></span>
+<span id="cb4-7"><a></a>  <span class="co"># sum() is invalid somehow? Likely a distributional bug. Recreate it.</span></span>
+<span id="cb4-8"><a></a>  <span class="fu">mutate</span>(<span class="at">Trips =</span> <span class="fu">dist_normal</span>(<span class="fu">mean</span>(Trips), <span class="fu">sqrt</span>(<span class="fu">variance</span>(Trips)))) <span class="sc">|&gt;</span> </span>
+<span id="cb4-9"><a></a>  <span class="co"># Add back the base forecast for total</span></span>
+<span id="cb4-10"><a></a>  <span class="fu">bind_rows</span>(</span>
+<span id="cb4-11"><a></a>    tourism_purpose_fc <span class="sc">|&gt;</span></span>
+<span id="cb4-12"><a></a>      <span class="fu">filter</span>(<span class="fu">is_aggregated</span>(Purpose)) <span class="sc">|&gt;</span></span>
+<span id="cb4-13"><a></a>      <span class="fu">transmute</span>(<span class="at">.model =</span> <span class="st">"Forecast of total"</span>, Trips)</span>
+<span id="cb4-14"><a></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb4-15"><a></a>  <span class="co"># Plot forecasts against the actual total</span></span>
+<span id="cb4-16"><a></a>  <span class="fu">autoplot</span>(tourism_purpose <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="fu">is_aggregated</span>(Purpose), Quarter <span class="sc">&gt;=</span> <span class="fu">yearquarter</span>(<span class="st">"2010 Q1"</span>)) <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="sc">-</span>Purpose)) <span class="sc">+</span></span>
+<span id="cb4-17"><a></a>  <span class="fu">facet_grid</span>(<span class="fu">vars</span>(.model), <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb4-18"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/tourism-convolution-comparison-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/johnny-bhalla-DLbCETd599Y-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-6" class="slide level2">
+<h2></h2>
+<h3 id="coherency-structures">Coherency structures</h3>
+<p>There are three coherency structures of increasing generality.</p>
+<p>Related time series are described in three ways:</p>
+<div class="columns">
+<div class="column" style="width:33%;">
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🌳 Hierarchical</strong></p>
+</div>
+<div class="callout-content">
+<p>One path from top to bottom.</p>
+<div class="cell" data-fig-height="3" data-fig-width="4" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="384" height="288" viewbox="0.00 0.00 310.00 257.60" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 253.6)">
+<title>G</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-253.6 306,-253.6 306,4 -4,4"></polygon>
+<g id="clust1" class="cluster">
+<title>cluster_1</title>
+<polygon fill="none" stroke="#999999" stroke-dasharray="5,2" points="8,-8 8,-84.8 294,-84.8 294,-8 8,-8"></polygon>
+<text text-anchor="middle" x="151" y="-68.2" font-family="Times,serif" font-size="14.00">Bottom</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_0</title>
+<polygon fill="none" stroke="#999999" stroke-dasharray="5,2" points="80,-92.8 80,-241.6 222,-241.6 222,-92.8 80,-92.8"></polygon>
+<text text-anchor="middle" x="151" y="-225" font-family="Times,serif" font-size="14.00">Upper</text>
+</g>
+<!-- AX -->
+<g id="node1" class="node">
+<title>AX</title>
+<ellipse fill="none" stroke="black" cx="259" cy="-34" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="259" y="-29.8" font-family="Times,serif" font-size="14.00">AX</text>
+</g>
+<!-- AY -->
+<g id="node2" class="node">
+<title>AY</title>
+<ellipse fill="none" stroke="black" cx="187" cy="-34" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="187" y="-29.8" font-family="Times,serif" font-size="14.00">AY</text>
+</g>
+<!-- BX -->
+<g id="node3" class="node">
+<title>BX</title>
+<ellipse fill="none" stroke="black" cx="115" cy="-34" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="115" y="-29.8" font-family="Times,serif" font-size="14.00">BX</text>
+</g>
+<!-- BY -->
+<g id="node4" class="node">
+<title>BY</title>
+<ellipse fill="none" stroke="black" cx="43" cy="-34" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="43" y="-29.8" font-family="Times,serif" font-size="14.00">BY</text>
+</g>
+<!-- Total -->
+<g id="node5" class="node">
+<title>Total</title>
+<ellipse fill="none" stroke="black" cx="151" cy="-190.8" rx="31.33" ry="18"></ellipse>
+<text text-anchor="middle" x="151" y="-186.6" font-family="Times,serif" font-size="14.00">Total</text>
+</g>
+<!-- A -->
+<g id="node6" class="node">
+<title>A</title>
+<ellipse fill="none" stroke="black" cx="187" cy="-118.8" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="187" y="-114.6" font-family="Times,serif" font-size="14.00">A</text>
+</g>
+<!-- Total&#45;&gt;A -->
+<g id="edge1" class="edge">
+<title>Total-&gt;A</title>
+<path fill="none" stroke="black" d="M159.53,-173.21C163.84,-164.84 169.15,-154.51 173.95,-145.17"></path>
+<polygon fill="black" stroke="black" points="177.07,-146.76 178.53,-136.27 170.84,-143.56 177.07,-146.76"></polygon>
+</g>
+<!-- B -->
+<g id="node7" class="node">
+<title>B</title>
+<ellipse fill="none" stroke="black" cx="115" cy="-118.8" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="115" y="-114.6" font-family="Times,serif" font-size="14.00">B</text>
+</g>
+<!-- Total&#45;&gt;B -->
+<g id="edge2" class="edge">
+<title>Total-&gt;B</title>
+<path fill="none" stroke="black" d="M142.47,-173.21C138.16,-164.84 132.85,-154.51 128.05,-145.17"></path>
+<polygon fill="black" stroke="black" points="131.16,-143.56 123.47,-136.27 124.93,-146.76 131.16,-143.56"></polygon>
+</g>
+<!-- A&#45;&gt;AX -->
+<g id="edge3" class="edge">
+<title>A-&gt;AX</title>
+<path fill="none" stroke="black" d="M200.21,-102.61C211.07,-90.12 226.63,-72.23 239.01,-57.99"></path>
+<polygon fill="black" stroke="black" points="241.96,-59.93 245.88,-50.09 236.67,-55.34 241.96,-59.93"></polygon>
+</g>
+<!-- A&#45;&gt;AY -->
+<g id="edge4" class="edge">
+<title>A-&gt;AY</title>
+<path fill="none" stroke="black" d="M187,-100.64C187,-89.54 187,-74.85 187,-62.18"></path>
+<polygon fill="black" stroke="black" points="190.5,-62.13 187,-52.13 183.5,-62.13 190.5,-62.13"></polygon>
+</g>
+<!-- B&#45;&gt;BX -->
+<g id="edge5" class="edge">
+<title>B-&gt;BX</title>
+<path fill="none" stroke="black" d="M115,-100.64C115,-89.54 115,-74.85 115,-62.18"></path>
+<polygon fill="black" stroke="black" points="118.5,-62.13 115,-52.13 111.5,-62.13 118.5,-62.13"></polygon>
+</g>
+<!-- B&#45;&gt;BY -->
+<g id="edge6" class="edge">
+<title>B-&gt;BY</title>
+<path fill="none" stroke="black" d="M101.79,-102.61C90.93,-90.12 75.37,-72.23 62.99,-57.99"></path>
+<polygon fill="black" stroke="black" points="65.33,-55.34 56.12,-50.09 60.04,-59.93 65.33,-55.34"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🧩 Grouped</strong></p>
+</div>
+<div class="callout-content">
+<p>Many paths from top to bottom.</p>
+<div class="cell" data-fig-height="3" data-fig-width="4" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="384" height="288" viewbox="0.00 0.00 316.00 270.40" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 266.4)">
+<title>G</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-266.4 312,-266.4 312,4 -4,4"></polygon>
+<g id="clust3" class="cluster">
+<title>cluster_2</title>
+<polygon fill="none" stroke="#999999" stroke-dasharray="5,2" points="8,-92.8 8,-169.6 150,-169.6 150,-92.8 8,-92.8"></polygon>
+<text text-anchor="middle" x="79" y="-153" font-family="Times,serif" font-size="14.00">Path AB</text>
+</g>
+<g id="clust4" class="cluster">
+<title>cluster_3</title>
+<polygon fill="none" stroke="#999999" stroke-dasharray="5,2" points="158,-92.8 158,-169.6 300,-169.6 300,-92.8 158,-92.8"></polygon>
+<text text-anchor="middle" x="229" y="-153" font-family="Times,serif" font-size="14.00">Path XY</text>
+</g>
+<g id="clust1" class="cluster">
+<title>cluster_0</title>
+<polygon fill="none" stroke="#999999" stroke-dasharray="5,2" points="11,-8 11,-84.8 297,-84.8 297,-8 11,-8"></polygon>
+<text text-anchor="middle" x="154" y="-68.2" font-family="Times,serif" font-size="14.00">Bottom</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_1</title>
+<polygon fill="none" stroke="#999999" stroke-dasharray="5,2" points="115,-177.6 115,-254.4 193,-254.4 193,-177.6 115,-177.6"></polygon>
+<text text-anchor="middle" x="154" y="-237.8" font-family="Times,serif" font-size="14.00">Top</text>
+</g>
+<!-- BY -->
+<g id="node1" class="node">
+<title>BY</title>
+<ellipse fill="none" stroke="black" cx="46" cy="-34" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="46" y="-29.8" font-family="Times,serif" font-size="14.00">BY</text>
+</g>
+<!-- BX -->
+<g id="node2" class="node">
+<title>BX</title>
+<ellipse fill="none" stroke="black" cx="118" cy="-34" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="118" y="-29.8" font-family="Times,serif" font-size="14.00">BX</text>
+</g>
+<!-- AY -->
+<g id="node3" class="node">
+<title>AY</title>
+<ellipse fill="none" stroke="black" cx="190" cy="-34" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="190" y="-29.8" font-family="Times,serif" font-size="14.00">AY</text>
+</g>
+<!-- AX -->
+<g id="node4" class="node">
+<title>AX</title>
+<ellipse fill="none" stroke="black" cx="262" cy="-34" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="262" y="-29.8" font-family="Times,serif" font-size="14.00">AX</text>
+</g>
+<!-- Total -->
+<g id="node5" class="node">
+<title>Total</title>
+<ellipse fill="none" stroke="black" cx="154" cy="-203.6" rx="31.33" ry="18"></ellipse>
+<text text-anchor="middle" x="154" y="-199.4" font-family="Times,serif" font-size="14.00">Total</text>
+</g>
+<!-- A -->
+<g id="node6" class="node">
+<title>A</title>
+<ellipse fill="none" stroke="black" cx="115" cy="-118.8" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="115" y="-114.6" font-family="Times,serif" font-size="14.00">A</text>
+</g>
+<!-- Total&#45;&gt;A -->
+<g id="edge7" class="edge">
+<title>Total-&gt;A</title>
+<path fill="none" stroke="black" d="M146.11,-185.84C140.63,-174.21 133.22,-158.49 127.01,-145.31"></path>
+<polygon fill="black" stroke="black" points="130.17,-143.8 122.75,-136.25 123.84,-146.79 130.17,-143.8"></polygon>
+</g>
+<!-- B -->
+<g id="node7" class="node">
+<title>B</title>
+<ellipse fill="none" stroke="black" cx="43" cy="-118.8" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="43" y="-114.6" font-family="Times,serif" font-size="14.00">B</text>
+</g>
+<!-- Total&#45;&gt;B -->
+<g id="edge8" class="edge">
+<title>Total-&gt;B</title>
+<path fill="none" stroke="black" d="M135.67,-188.93C117.35,-175.26 89.03,-154.14 68.52,-138.84"></path>
+<polygon fill="black" stroke="black" points="70.37,-135.85 60.26,-132.68 66.18,-141.46 70.37,-135.85"></polygon>
+</g>
+<!-- X -->
+<g id="node8" class="node">
+<title>X</title>
+<ellipse fill="none" stroke="black" cx="265" cy="-118.8" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="265" y="-114.6" font-family="Times,serif" font-size="14.00">X</text>
+</g>
+<!-- Total&#45;&gt;X -->
+<g id="edge1" class="edge">
+<title>Total-&gt;X</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M172.33,-188.93C190.65,-175.26 218.97,-154.14 239.48,-138.84"></path>
+<polygon fill="black" stroke="black" points="241.82,-141.46 247.74,-132.68 237.63,-135.85 241.82,-141.46"></polygon>
+</g>
+<!-- Y -->
+<g id="node9" class="node">
+<title>Y</title>
+<ellipse fill="none" stroke="black" cx="193" cy="-118.8" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="193" y="-114.6" font-family="Times,serif" font-size="14.00">Y</text>
+</g>
+<!-- Total&#45;&gt;Y -->
+<g id="edge2" class="edge">
+<title>Total-&gt;Y</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M161.89,-185.84C167.37,-174.21 174.78,-158.49 180.99,-145.31"></path>
+<polygon fill="black" stroke="black" points="184.16,-146.79 185.25,-136.25 177.83,-143.8 184.16,-146.79"></polygon>
+</g>
+<!-- A&#45;&gt;AY -->
+<g id="edge10" class="edge">
+<title>A-&gt;AY</title>
+<path fill="none" stroke="black" d="M128.41,-103C139.93,-90.28 156.7,-71.76 169.84,-57.26"></path>
+<polygon fill="black" stroke="black" points="172.59,-59.44 176.71,-49.67 167.4,-54.74 172.59,-59.44"></polygon>
+</g>
+<!-- A&#45;&gt;AX -->
+<g id="edge9" class="edge">
+<title>A-&gt;AX</title>
+<path fill="none" stroke="black" d="M135.13,-106.46C160.53,-92.15 204.38,-67.45 233.29,-51.17"></path>
+<polygon fill="black" stroke="black" points="235.12,-54.16 242.11,-46.2 231.68,-48.06 235.12,-54.16"></polygon>
+</g>
+<!-- B&#45;&gt;BY -->
+<g id="edge12" class="edge">
+<title>B-&gt;BY</title>
+<path fill="none" stroke="black" d="M43.62,-100.64C44.02,-89.54 44.56,-74.85 45.02,-62.18"></path>
+<polygon fill="black" stroke="black" points="48.51,-62.25 45.38,-52.13 41.52,-62 48.51,-62.25"></polygon>
+</g>
+<!-- B&#45;&gt;BX -->
+<g id="edge11" class="edge">
+<title>B-&gt;BX</title>
+<path fill="none" stroke="black" d="M56.41,-103C67.93,-90.28 84.7,-71.76 97.84,-57.26"></path>
+<polygon fill="black" stroke="black" points="100.59,-59.44 104.71,-49.67 95.4,-54.74 100.59,-59.44"></polygon>
+</g>
+<!-- X&#45;&gt;BX -->
+<g id="edge4" class="edge">
+<title>X-&gt;BX</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M244.87,-106.46C219.47,-92.15 175.62,-67.45 146.71,-51.17"></path>
+<polygon fill="black" stroke="black" points="148.32,-48.06 137.89,-46.2 144.88,-54.16 148.32,-48.06"></polygon>
+</g>
+<!-- X&#45;&gt;AX -->
+<g id="edge3" class="edge">
+<title>X-&gt;AX</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M264.38,-100.64C263.98,-89.54 263.44,-74.85 262.98,-62.18"></path>
+<polygon fill="black" stroke="black" points="266.48,-62 262.62,-52.13 259.49,-62.25 266.48,-62"></polygon>
+</g>
+<!-- Y&#45;&gt;BY -->
+<g id="edge6" class="edge">
+<title>Y-&gt;BY</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M172.87,-106.46C147.47,-92.15 103.62,-67.45 74.71,-51.17"></path>
+<polygon fill="black" stroke="black" points="76.32,-48.06 65.89,-46.2 72.88,-54.16 76.32,-48.06"></polygon>
+</g>
+<!-- Y&#45;&gt;AY -->
+<g id="edge5" class="edge">
+<title>Y-&gt;AY</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M192.38,-100.64C191.98,-89.54 191.44,-74.85 190.98,-62.18"></path>
+<polygon fill="black" stroke="black" points="194.48,-62 190.62,-52.13 187.49,-62.25 194.48,-62"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🕸️ Graph</strong></p>
+</div>
+<div class="callout-content">
+<p>Many paths from (many) top to (many) bottom series.</p>
+<div class="cell" data-fig-height="3" data-fig-width="4" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="384" height="288" viewbox="0.00 0.00 604.00 257.60" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 253.6)">
+<title>G</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-253.6 600,-253.6 600,4 -4,4"></polygon>
+<g id="clust1" class="cluster">
+<title>cluster_1</title>
+<polygon fill="none" stroke="#999999" stroke-dasharray="5,2" points="8,-8 8,-84.8 222,-84.8 222,-8 8,-8"></polygon>
+<text text-anchor="middle" x="115" y="-68.2" font-family="Times,serif" font-size="14.00">Unconstrained XY</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_2</title>
+<polygon fill="none" stroke="#999999" stroke-dasharray="5,2" points="230,-8 230,-84.8 588,-84.8 588,-8 230,-8"></polygon>
+<text text-anchor="middle" x="409" y="-68.2" font-family="Times,serif" font-size="14.00">Unconstrained AB</text>
+</g>
+<g id="clust3" class="cluster">
+<title>cluster_0</title>
+<polygon fill="none" stroke="#999999" stroke-dasharray="5,2" points="194,-92.8 194,-241.6 408,-241.6 408,-92.8 194,-92.8"></polygon>
+<text text-anchor="middle" x="301" y="-225" font-family="Times,serif" font-size="14.00">Constrained</text>
+</g>
+<!-- X2 -->
+<g id="node1" class="node">
+<title>X2</title>
+<ellipse fill="none" stroke="black" cx="187" cy="-34" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="187" y="-29.8" font-family="Times,serif" font-size="14.00">X2</text>
+</g>
+<!-- X1 -->
+<g id="node2" class="node">
+<title>X1</title>
+<ellipse fill="none" stroke="black" cx="115" cy="-34" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="115" y="-29.8" font-family="Times,serif" font-size="14.00">X1</text>
+</g>
+<!-- Y -->
+<g id="node3" class="node">
+<title>Y</title>
+<ellipse fill="none" stroke="black" cx="43" cy="-34" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="43" y="-29.8" font-family="Times,serif" font-size="14.00">Y</text>
+</g>
+<!-- B2 -->
+<g id="node4" class="node">
+<title>B2</title>
+<ellipse fill="none" stroke="black" cx="553" cy="-34" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="553" y="-29.8" font-family="Times,serif" font-size="14.00">B2</text>
+</g>
+<!-- B1 -->
+<g id="node5" class="node">
+<title>B1</title>
+<ellipse fill="none" stroke="black" cx="481" cy="-34" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="481" y="-29.8" font-family="Times,serif" font-size="14.00">B1</text>
+</g>
+<!-- A3 -->
+<g id="node6" class="node">
+<title>A3</title>
+<ellipse fill="none" stroke="black" cx="409" cy="-34" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="409" y="-29.8" font-family="Times,serif" font-size="14.00">A3</text>
+</g>
+<!-- A2 -->
+<g id="node7" class="node">
+<title>A2</title>
+<ellipse fill="none" stroke="black" cx="337" cy="-34" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="337" y="-29.8" font-family="Times,serif" font-size="14.00">A2</text>
+</g>
+<!-- A1 -->
+<g id="node8" class="node">
+<title>A1</title>
+<ellipse fill="none" stroke="black" cx="265" cy="-34" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="265" y="-29.8" font-family="Times,serif" font-size="14.00">A1</text>
+</g>
+<!-- Total -->
+<g id="node9" class="node">
+<title>Total</title>
+<ellipse fill="none" stroke="black" cx="267" cy="-190.8" rx="31.33" ry="18"></ellipse>
+<text text-anchor="middle" x="267" y="-186.6" font-family="Times,serif" font-size="14.00">Total</text>
+</g>
+<!-- Total&#45;&gt;Y -->
+<g id="edge9" class="edge">
+<title>Total-&gt;Y</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M246.73,-176.61C206.26,-148.28 115.45,-84.71 69.99,-52.9"></path>
+<polygon fill="black" stroke="black" points="72,-50.03 61.8,-47.16 67.98,-55.76 72,-50.03"></polygon>
+</g>
+<!-- X -->
+<g id="node10" class="node">
+<title>X</title>
+<ellipse fill="none" stroke="black" cx="229" cy="-118.8" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="229" y="-114.6" font-family="Times,serif" font-size="14.00">X</text>
+</g>
+<!-- Total&#45;&gt;X -->
+<g id="edge8" class="edge">
+<title>Total-&gt;X</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M257.99,-173.21C253.45,-164.84 247.84,-154.51 242.77,-145.17"></path>
+<polygon fill="black" stroke="black" points="245.79,-143.39 237.94,-136.27 239.64,-146.73 245.79,-143.39"></polygon>
+</g>
+<!-- A -->
+<g id="node11" class="node">
+<title>A</title>
+<ellipse fill="none" stroke="black" cx="301" cy="-118.8" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="301" y="-114.6" font-family="Times,serif" font-size="14.00">A</text>
+</g>
+<!-- Total&#45;&gt;A -->
+<g id="edge1" class="edge">
+<title>Total-&gt;A</title>
+<path fill="none" stroke="black" d="M275.06,-173.21C279.08,-164.93 284.04,-154.72 288.54,-145.46"></path>
+<polygon fill="black" stroke="black" points="291.78,-146.79 293,-136.27 285.48,-143.74 291.78,-146.79"></polygon>
+</g>
+<!-- B -->
+<g id="node12" class="node">
+<title>B</title>
+<ellipse fill="none" stroke="black" cx="373" cy="-118.8" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="373" y="-114.6" font-family="Times,serif" font-size="14.00">B</text>
+</g>
+<!-- Total&#45;&gt;B -->
+<g id="edge2" class="edge">
+<title>Total-&gt;B</title>
+<path fill="none" stroke="black" d="M286.94,-176.63C303.64,-165.61 327.63,-149.76 346.04,-137.61"></path>
+<polygon fill="black" stroke="black" points="348.15,-140.4 354.57,-131.97 344.3,-134.56 348.15,-140.4"></polygon>
+</g>
+<!-- X&#45;&gt;X2 -->
+<g id="edge11" class="edge">
+<title>X-&gt;X2</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M220.7,-101.44C214.78,-89.76 206.69,-73.82 199.92,-60.48"></path>
+<polygon fill="black" stroke="black" points="202.93,-58.66 195.28,-51.32 196.68,-61.83 202.93,-58.66"></polygon>
+</g>
+<!-- X&#45;&gt;X1 -->
+<g id="edge10" class="edge">
+<title>X-&gt;X1</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M211.19,-104.86C192.36,-91.19 162.49,-69.49 141.03,-53.9"></path>
+<polygon fill="black" stroke="black" points="142.84,-50.89 132.69,-47.85 138.72,-56.56 142.84,-50.89"></polygon>
+</g>
+<!-- A&#45;&gt;A3 -->
+<g id="edge5" class="edge">
+<title>A-&gt;A3</title>
+<path fill="none" stroke="black" d="M318.35,-104.5C335.99,-90.98 363.49,-69.89 383.59,-54.48"></path>
+<polygon fill="black" stroke="black" points="385.88,-57.13 391.69,-48.27 381.63,-51.58 385.88,-57.13"></polygon>
+</g>
+<!-- A&#45;&gt;A2 -->
+<g id="edge4" class="edge">
+<title>A-&gt;A2</title>
+<path fill="none" stroke="black" d="M308.29,-101.04C313.3,-89.52 320.05,-73.99 325.74,-60.89"></path>
+<polygon fill="black" stroke="black" points="329.07,-62.01 329.85,-51.45 322.65,-59.22 329.07,-62.01"></polygon>
+</g>
+<!-- A&#45;&gt;A1 -->
+<g id="edge3" class="edge">
+<title>A-&gt;A1</title>
+<path fill="none" stroke="black" d="M293.71,-101.04C288.7,-89.52 281.95,-73.99 276.26,-60.89"></path>
+<polygon fill="black" stroke="black" points="279.35,-59.22 272.15,-51.45 272.93,-62.01 279.35,-59.22"></polygon>
+</g>
+<!-- B&#45;&gt;B2 -->
+<g id="edge7" class="edge">
+<title>B-&gt;B2</title>
+<path fill="none" stroke="black" d="M394.71,-107.81C426.56,-93.16 486.07,-65.79 522.36,-49.1"></path>
+<polygon fill="black" stroke="black" points="523.87,-52.25 531.49,-44.89 520.94,-45.89 523.87,-52.25"></polygon>
+</g>
+<!-- B&#45;&gt;B1 -->
+<g id="edge6" class="edge">
+<title>B-&gt;B1</title>
+<path fill="none" stroke="black" d="M390.35,-104.5C407.99,-90.98 435.49,-69.89 455.59,-54.48"></path>
+<polygon fill="black" stroke="black" points="457.88,-57.13 463.69,-48.27 453.63,-51.58 457.88,-57.13"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="section-7" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="hierarchical-aggregation">Hierarchical aggregation</h3>
+<div class="callout callout-note callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Each aggregate has a single constraint</strong></p>
+</div>
+<div class="callout-content">
+<p>The basic constraint shown before is ‘<span class="term"><strong>hierarchical</strong></span>’</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-362b6b102d843110187f" style="width:600px;height:300px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-362b6b102d843110187f">{"x":{"nodes":{"label":["Attendees","Academic","Industry"],"id":[1,2,3],"level":[0,1,1]},"edges":{"from":[1,1],"to":[2,3]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","font":{"size":16}},"manipulation":{"enabled":false},"layout":{"hierarchical":{"enabled":true,"direction":"UD","shakeTowards":"leaves"}},"edges":{"arrows":"to","scaling":{"label":{"enabled":false}}}},"groups":null,"width":600,"height":300,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":50000,"to":0},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":{"fixed":true,"physics":true},"keepCoord":true,"labelSuffix":"(cluster)"},"tree":{"updateShape":true,"shapeVar":"dot","shapeY":"square"}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/emma-gossett-B645igbiKCw-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-8" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="hierarchical-aggregation-1">Hierarchical aggregation</h3>
+<div class="callout callout-note callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Each aggregate has a single constraint</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="term"><strong>Hierarchical</strong></span> series often have multiple layers</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-a11574e8daadfac5a4ac" style="width:600px;height:400px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a11574e8daadfac5a4ac">{"x":{"nodes":{"label":["Attendees","Academic","Industry","Students","Staff"],"id":[1,2,3,4,5],"level":[0,1,1,2,2]},"edges":{"from":[1,1,2,2],"to":[2,3,4,5]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","font":{"size":16}},"manipulation":{"enabled":false},"layout":{"hierarchical":{"enabled":true,"direction":"UD","shakeTowards":"leaves"}},"edges":{"arrows":"to","scaling":{"label":{"enabled":false}}}},"groups":null,"width":600,"height":400,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":50000,"to":0},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":{"fixed":true,"physics":true},"keepCoord":true,"labelSuffix":"(cluster)"},"tree":{"updateShape":true,"shapeVar":"dot","shapeY":"square"}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/emma-gossett-B645igbiKCw-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-9" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="grouped-aggregation">Grouped aggregation</h3>
+<p>There are many ways to disaggregate a series.</p>
+<p>Consider where attendees have travelled from, <strong>domestic</strong> or <strong>international</strong>?</p>
+<div class="fragment fade-in">
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-a450fe7ed723c8021c62" style="width:600px;height:300px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a450fe7ed723c8021c62">{"x":{"nodes":{"label":["Attendees","Domestic","International"],"id":[1,2,3],"level":[0,1,1]},"edges":{"from":[1,1],"to":[2,3]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","font":{"size":16}},"manipulation":{"enabled":false},"layout":{"hierarchical":{"enabled":true,"direction":"UD","shakeTowards":"leaves"}},"edges":{"arrows":"to","scaling":{"label":{"enabled":false}}}},"groups":null,"width":600,"height":300,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":50000,"to":0},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":{"fixed":true,"physics":true},"keepCoord":true,"labelSuffix":"(cluster)"},"tree":{"updateShape":true,"shapeVar":"dot","shapeY":"square"}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/zach-callahan--i51Ke0ROTo-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-10" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="grouped-aggregation-1">Grouped aggregation</h3>
+<div class="callout callout-note callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Considering origin and workplace</strong></p>
+</div>
+<div class="callout-content">
+<p>Attendance can be disaggregated by both <strong>origin</strong> and <strong>workplace</strong>…</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-bd4a1a86c437f9a27cba" style="width:300px;height:300px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bd4a1a86c437f9a27cba">{"x":{"nodes":{"label":["Attendees","Domestic","International"],"id":[1,2,3],"level":[0,1,1]},"edges":{"from":[1,1],"to":[2,3]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","font":{"size":16}},"manipulation":{"enabled":false},"layout":{"hierarchical":{"enabled":true,"direction":"UD","shakeTowards":"leaves"}},"edges":{"arrows":"to","scaling":{"label":{"enabled":false}}}},"groups":null,"width":300,"height":300,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":50000,"to":0},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":{"fixed":true,"physics":true},"keepCoord":true,"labelSuffix":"(cluster)"},"tree":{"updateShape":true,"shapeVar":"dot","shapeY":"square"}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-ce429f2f24d1805a6c49" style="width:300px;height:300px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ce429f2f24d1805a6c49">{"x":{"nodes":{"label":["Attendees","Academia","Industry"],"id":[1,2,3],"level":[0,1,1]},"edges":{"from":[1,1],"to":[2,3]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","font":{"size":16}},"manipulation":{"enabled":false},"layout":{"hierarchical":{"enabled":true,"direction":"UD","shakeTowards":"leaves"}},"edges":{"arrows":"to","scaling":{"label":{"enabled":false}}}},"groups":null,"width":300,"height":300,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":50000,"to":0},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":{"fixed":true,"physics":true},"keepCoord":true,"labelSuffix":"(cluster)"},"tree":{"updateShape":true,"shapeVar":"dot","shapeY":"square"}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/zach-callahan--i51Ke0ROTo-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-11" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="grouped-aggregation-2">Grouped aggregation</h3>
+<div class="callout callout-note callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Considering origin and workplace</strong></p>
+</div>
+<div class="callout-content">
+<p>and then further disaggregated by the other.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-504dacac5d920202c1c5" style="width:300px;height:400px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-504dacac5d920202c1c5">{"x":{"nodes":{"label":["Attendees","Domestic","International","Domestic\n& Academia","Domestic\n& Industry","International\n& Academia","International\n& Industry"],"id":[1,2,3,4,5,6,7],"level":[0,1,1,2,2,2,2]},"edges":{"from":[1,1,2,2,3,3],"to":[2,3,4,5,6,7]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","font":{"size":16}},"manipulation":{"enabled":false},"layout":{"hierarchical":{"enabled":true,"direction":"UD","shakeTowards":"leaves"}},"edges":{"arrows":"to","scaling":{"label":{"enabled":false}}}},"groups":null,"width":300,"height":400,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":50000,"to":0},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":{"fixed":true,"physics":true},"keepCoord":true,"labelSuffix":"(cluster)"},"tree":{"updateShape":true,"shapeVar":"dot","shapeY":"square"}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-73d2b7c40e75fc968349" style="width:300px;height:400px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-73d2b7c40e75fc968349">{"x":{"nodes":{"label":["Attendees","Academia","Industry","Academia\n& Domestic","Academia\n& International","Industry\n& Domestic","Industry\n& International"],"id":[1,2,3,4,5,6,7],"level":[0,1,1,2,2,2,2]},"edges":{"from":[1,1,2,2,3,3],"to":[2,3,4,5,6,7]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","font":{"size":16}},"manipulation":{"enabled":false},"layout":{"hierarchical":{"enabled":true,"direction":"UD","shakeTowards":"leaves"}},"edges":{"arrows":"to","scaling":{"label":{"enabled":false}}}},"groups":null,"width":300,"height":400,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":50000,"to":0},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":{"fixed":true,"physics":true},"keepCoord":true,"labelSuffix":"(cluster)"},"tree":{"updateShape":true,"shapeVar":"dot","shapeY":"square"}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div></div>
+<p>A <span class="term"><strong>grouped</strong></span> structure has the same top and bottom series.</p>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/zach-callahan--i51Ke0ROTo-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-12" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="grouped-aggregation-3">Grouped aggregation</h3>
+<div class="callout callout-note callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Considering origin and workplace</strong></p>
+</div>
+<div class="callout-content">
+<p>The <span class="term"><strong>grouped</strong></span> structure can be plotted in a single graph.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-0a064e984669b278e06e" style="width:600px;height:400px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0a064e984669b278e06e">{"x":{"nodes":{"label":["Attendees","Domestic","International","Academia","Industry","Domestic\n& Academia","Domestic\n& Industry","International\n& Academia","International\n& Industry"],"id":[1,2,3,4,5,6,7,8,9],"x":[0.005832168544289473,0.5115804823259664,-0.4970819895180182,-0.5286989287096904,0.527735132910885,-0.02167359866592544,1,-1,0.02352910034313327],"y":[0.007011380198582939,0.533427836161191,-0.5214508938744057,0.5042610725251773,-0.5059532588885974,1,0.02044097138914003,-0.02621309227453283,-1]},"edges":{"from":[1,1,1,1,2,4,2,5,3,4,3,5],"to":[2,3,4,5,6,6,7,7,8,8,9,9],"color":["#C87A8A","#C87A8A","#6B9D59","#6B9D59","#C87A8A","#6B9D59","#C87A8A","#6B9D59","#C87A8A","#6B9D59","#C87A8A","#6B9D59"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false,"size":20},"manipulation":{"enabled":false},"edges":{"smooth":false,"width":3,"arrows":"to","scaling":{"label":{"enabled":false}}},"physics":{"stabilization":false}},"groups":null,"width":600,"height":400,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","igraphlayout":{"type":"square"},"highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":50000,"to":0},"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"tree":{"updateShape":true,"shapeVar":"dot","shapeY":"square"}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/zach-callahan--i51Ke0ROTo-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-13" class="slide level2 fragment-remove">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="cross-sectional-aggregation">Cross-sectional aggregation</h3>
+<p><code>aggregate_key()</code> produces hierarchical and grouped aggregations of the data.</p>
+<div class="fragment fade-out" data-fragment-index="1">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>tourism</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tsibble: 24,320 x 5 [1Q]
+# Key:       Region, State, Purpose [304]
+   Quarter Region   State           Purpose  Trips
+     &lt;qtr&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;dbl&gt;
+ 1 1998 Q1 Adelaide South Australia Business  135.
+ 2 1998 Q2 Adelaide South Australia Business  110.
+ 3 1998 Q3 Adelaide South Australia Business  166.
+ 4 1998 Q4 Adelaide South Australia Business  127.
+ 5 1999 Q1 Adelaide South Australia Business  137.
+ 6 1999 Q2 Adelaide South Australia Business  200.
+ 7 1999 Q3 Adelaide South Australia Business  169.
+ 8 1999 Q4 Adelaide South Australia Business  134.
+ 9 2000 Q1 Adelaide South Australia Business  154.
+10 2000 Q2 Adelaide South Australia Business  169.
+# ℹ 24,310 more rows</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment fade-up" data-fragment-index="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>tourism <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a></a>  <span class="fu">aggregate_key</span>(Purpose <span class="sc">*</span> (State <span class="sc">/</span> Region), <span class="at">Trips =</span> <span class="fu">sum</span>(Trips))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment fade-out" data-fragment-index="2">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tsibble: 34,000 x 5 [1Q]
+# Key:       Purpose, State, Region [425]
+   Quarter Purpose      State        Region        Trips
+     &lt;qtr&gt; &lt;chr*&gt;       &lt;chr*&gt;       &lt;chr*&gt;        &lt;dbl&gt;
+ 1 1998 Q1 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 23182.
+ 2 1998 Q2 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 20323.
+ 3 1998 Q3 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 19827.
+ 4 1998 Q4 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 20830.
+ 5 1999 Q1 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 22087.
+ 6 1999 Q2 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 21458.
+ 7 1999 Q3 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 19914.
+ 8 1999 Q4 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 20028.
+ 9 2000 Q1 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 22339.
+10 2000 Q2 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 19941.
+# ℹ 33,990 more rows</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-up" data-fragment-index="2">
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Symbolic factors</strong></p>
+</div>
+<div class="callout-content">
+<p>Symbolic factors concisely encode the structure:</p>
+<ul>
+<li><code>parent/child</code> encodes <strong>hierarchical</strong> structure (nested)</li>
+<li><code>A*B</code> encodes <strong>grouped</strong> structure (crossed)</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/luis-arias-j0aQvd0zIyg-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-14" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="temporal-aggregation">Temporal aggregation</h3>
+<p>Aggregations can also be computed over temporal granularities.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-c8042ca7fb70c3a3ff7f" style="width:600px;height:200px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c8042ca7fb70c3a3ff7f">{"x":{"nodes":{"label":["Year","Q1","Q2","Q3","Q4","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"id":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],"level":[0,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2]},"edges":{"from":[1,1,1,1,2,2,2,3,3,3,4,4,4,5,5,5],"to":[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","font":{"size":40}},"manipulation":{"enabled":false},"layout":{"hierarchical":{"enabled":true,"direction":"UD","shakeTowards":"leaves"}},"edges":{"arrows":"to","scaling":{"label":{"enabled":false}}}},"groups":null,"width":600,"height":200,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":50000,"to":0},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":{"fixed":true,"physics":true},"keepCoord":true,"labelSuffix":"(cluster)"},"tree":{"updateShape":true,"shapeVar":"dot","shapeY":"square"}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/courtney-smith-pCLKkPHpCz0-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-15" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="temporal-aggregation-1">Temporal aggregation</h3>
+<p>Many granules can aggregate time.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-a163e7ce1d7aa840bad4" style="width:700px;height:200px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a163e7ce1d7aa840bad4">{"x":{"nodes":{"label":["Year","Q1","Q2","Q3","Q4","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"id":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17],"level":[0,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2]},"edges":{"from":[1,1,1,1,2,2,2,3,3,3,4,4,4,5,5,5],"to":[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","font":{"size":40}},"manipulation":{"enabled":false},"layout":{"hierarchical":{"enabled":true,"direction":"UD","shakeTowards":"leaves"}},"edges":{"arrows":"to","scaling":{"label":{"enabled":false}}}},"groups":null,"width":700,"height":200,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":50000,"to":0},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":{"fixed":true,"physics":true},"keepCoord":true,"labelSuffix":"(cluster)"},"tree":{"updateShape":true,"shapeVar":"dot","shapeY":"square"}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-b776eac1094c4546d916" style="width:700px;height:200px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b776eac1094c4546d916">{"x":{"nodes":{"label":["Year","Jan-Apr","May-Aug","Sep-Dec","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"id":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],"level":[0,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2]},"edges":{"from":[1,1,1,2,2,2,2,3,3,3,3,4,4,4,4],"to":[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","font":{"size":40}},"manipulation":{"enabled":false},"layout":{"hierarchical":{"enabled":true,"direction":"UD","shakeTowards":"leaves"}},"edges":{"arrows":"to","scaling":{"label":{"enabled":false}}}},"groups":null,"width":700,"height":200,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":50000,"to":0},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":{"fixed":true,"physics":true},"keepCoord":true,"labelSuffix":"(cluster)"},"tree":{"updateShape":true,"shapeVar":"dot","shapeY":"square"}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/courtney-smith-pCLKkPHpCz0-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-16" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="temporal-aggregation-2">Temporal aggregation</h3>
+<div class="callout callout-tip callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>A single graph can represent both temporal hierarchies.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-a7623648e0262d32d026" style="width:700px;height:500px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a7623648e0262d32d026">{"x":{"nodes":{"label":["Year","Q1","Q2","Q3","Q4","Jan-Apr","May-Aug","Sep-Dec","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"id":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],"x":[-0.07302908553556708,0.6095686904138331,-0.04618944870624742,-0.6926317105093228,-0.1856294321163001,0.5806750056565775,-0.5140664776320981,-0.3864372148099205,0.8981635278730131,1,0.9167971369106169,0.4122570768524232,-0.4451676226454212,-0.2562201298309428,-0.8305261624576747,-1,-0.7960089016367997,-0.3419055745081991,-0.0997488441237383,-0.5548136829947221],"y":[-0.07084666926964911,-0.07267702787861929,-0.6997784320383623,-0.1207955107317802,0.6186121738131434,-0.2842219153892167,-0.5851786986213159,0.554189400400958,0.06898861572459625,-0.1699253365204797,-0.4118093909437408,-0.7329472045876055,-1,-0.9595334059689019,-0.4682018590878078,-0.4648545296752691,0.3328995104165748,1,0.9295086180787402,0.8748827090669922]},"edges":{"from":[1,1,1,1,1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8],"to":[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,9,10,11,12,13,14,15,16,17,18,19,20],"grp":[1,1,1,1,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2],"color":["#C87A8A","#C87A8A","#C87A8A","#C87A8A","#6B9D59","#6B9D59","#6B9D59","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#6B9D59","#6B9D59","#6B9D59","#6B9D59","#6B9D59","#6B9D59","#6B9D59","#6B9D59","#6B9D59","#6B9D59","#6B9D59","#6B9D59"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false,"size":20,"font":{"size":30}},"manipulation":{"enabled":false},"edges":{"smooth":false,"width":3,"arrows":"to","scaling":{"label":{"enabled":false}}},"physics":{"stabilization":false}},"groups":null,"width":700,"height":500,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","igraphlayout":{"type":"square"},"highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":50000,"to":0},"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"tree":{"updateShape":true,"shapeVar":"dot","shapeY":"square"}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/courtney-smith-pCLKkPHpCz0-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-17" class="slide level2 fragment-remove">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="temporal-aggregation-3">Temporal aggregation</h3>
+<p><code>aggregate_index()</code> produces temporal aggregations of the data (<em>experimental!</em>).</p>
+<div class="fragment fade-out" data-fragment-index="1">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>tourism</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tsibble: 24,320 x 5 [1Q]
+# Key:       Region, State, Purpose [304]
+   Quarter Region   State           Purpose  Trips
+     &lt;qtr&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;dbl&gt;
+ 1 1998 Q1 Adelaide South Australia Business  135.
+ 2 1998 Q2 Adelaide South Australia Business  110.
+ 3 1998 Q3 Adelaide South Australia Business  166.
+ 4 1998 Q4 Adelaide South Australia Business  127.
+ 5 1999 Q1 Adelaide South Australia Business  137.
+ 6 1999 Q2 Adelaide South Australia Business  200.
+ 7 1999 Q3 Adelaide South Australia Business  169.
+ 8 1999 Q4 Adelaide South Australia Business  134.
+ 9 2000 Q1 Adelaide South Australia Business  154.
+10 2000 Q2 Adelaide South Australia Business  169.
+# ℹ 24,310 more rows</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment fade-up" data-fragment-index="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>tourism <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a></a>  <span class="fu">aggregate_index</span>(<span class="fu">list</span>(<span class="fu">quarter</span>(<span class="dv">1</span>L), <span class="fu">year</span>(<span class="dv">1</span>L)), <span class="at">Trips =</span> <span class="fu">sum</span>(Trips))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment fade-out" data-fragment-index="2">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tsibble: 30,400 x 6 [1Q, 1Y]
+# Key:       Region, State, Purpose, .granule [608]
+   Quarter   Region         State              Purpose  .granule   Trips
+   &lt;mixtime&gt; &lt;chr&gt;          &lt;chr&gt;              &lt;chr&gt;    &lt;mixtime&gt;  &lt;dbl&gt;
+ 1 1998 Q1   Adelaide       South Australia    Business 1 quarter 135.  
+ 2 1998 Q1   Adelaide       South Australia    Holiday  1 quarter 224.  
+ 3 1998 Q1   Adelaide       South Australia    Other    1 quarter  58.4 
+ 4 1998 Q1   Adelaide       South Australia    Visiting 1 quarter 242.  
+ 5 1998 Q1   Adelaide Hills South Australia    Business 1 quarter   0   
+ 6 1998 Q1   Adelaide Hills South Australia    Holiday  1 quarter   6.81
+ 7 1998 Q1   Adelaide Hills South Australia    Other    1 quarter   0   
+ 8 1998 Q1   Adelaide Hills South Australia    Visiting 1 quarter   2.99
+ 9 1998 Q1   Alice Springs  Northern Territory Business 1 quarter   7.54
+10 1998 Q1   Alice Springs  Northern Territory Holiday  1 quarter   8.15
+# ℹ 30,390 more rows</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-up" data-fragment-index="2">
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🕰️ Time granules</strong></p>
+</div>
+<div class="callout-content">
+<p>The time granules are defined in the <code>mixtime</code> package.</p>
+<p>They are calendar specific, and can be n-length<br>
+(e.g.&nbsp;<code>cal_gregorian$month(4L)</code> for 4-month bins).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-up" data-fragment-index="3">
+<div class="callout callout-important no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🚧 In-development</strong></p>
+</div>
+<div class="callout-content">
+<p>The <code>mixtime</code> package is <em>fresh</em>!</p>
+<p>It will take some time for <code>tsibble</code> and <code>fable</code> to fully support it (and consequently temporal reconciliation is ‘coming soon’).</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/jon-tyson-FlHdnPO6dlw-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-18" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="cross-temporal-aggregation">Cross-Temporal aggregation</h3>
+<div class="callout callout-note callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>Both temporal and cross-sectional aggregation together.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-4cecaee141303e7201e4" style="width:300px;height:300px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4cecaee141303e7201e4">{"x":{"nodes":{"label":["Year","Q1","Q2","Q3","Q4","Jan-Apr","May-Aug","Sep-Dec","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"id":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],"x":[-0.07302908553556708,0.6095686904138331,-0.04618944870624742,-0.6926317105093228,-0.1856294321163001,0.5806750056565775,-0.5140664776320981,-0.3864372148099205,0.8981635278730131,1,0.9167971369106169,0.4122570768524232,-0.4451676226454212,-0.2562201298309428,-0.8305261624576747,-1,-0.7960089016367997,-0.3419055745081991,-0.0997488441237383,-0.5548136829947221],"y":[-0.07084666926964911,-0.07267702787861929,-0.6997784320383623,-0.1207955107317802,0.6186121738131434,-0.2842219153892167,-0.5851786986213159,0.554189400400958,0.06898861572459625,-0.1699253365204797,-0.4118093909437408,-0.7329472045876055,-1,-0.9595334059689019,-0.4682018590878078,-0.4648545296752691,0.3328995104165748,1,0.9295086180787402,0.8748827090669922]},"edges":{"from":[1,1,1,1,1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8],"to":[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,9,10,11,12,13,14,15,16,17,18,19,20],"grp":[1,1,1,1,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2],"color":["#C87A8A","#C87A8A","#C87A8A","#C87A8A","#6B9D59","#6B9D59","#6B9D59","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#6B9D59","#6B9D59","#6B9D59","#6B9D59","#6B9D59","#6B9D59","#6B9D59","#6B9D59","#6B9D59","#6B9D59","#6B9D59","#6B9D59"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false,"size":20,"font":{"size":30}},"manipulation":{"enabled":false},"edges":{"smooth":false,"width":3,"arrows":"to","scaling":{"label":{"enabled":false}}},"physics":{"stabilization":false}},"groups":null,"width":300,"height":300,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","igraphlayout":{"type":"square"},"highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":50000,"to":0},"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"tree":{"updateShape":true,"shapeVar":"dot","shapeY":"square"}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-904285fef4d2d069b853" style="width:300px;height:300px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-904285fef4d2d069b853">{"x":{"nodes":{"label":["Attendees","Domestic","International","Academia","Industry","Domestic\n& Academia","Domestic\n& Industry","International\n& Academia","International\n& Industry"],"id":[1,2,3,4,5,6,7,8,9],"x":[0.005832168544289473,0.5115804823259664,-0.4970819895180182,-0.5286989287096904,0.527735132910885,-0.02167359866592544,1,-1,0.02352910034313327],"y":[0.007011380198582939,0.533427836161191,-0.5214508938744057,0.5042610725251773,-0.5059532588885974,1,0.02044097138914003,-0.02621309227453283,-1]},"edges":{"from":[1,1,1,1,2,4,2,5,3,4,3,5],"to":[2,3,4,5,6,6,7,7,8,8,9,9],"color":["#00A396","#00A396","#9189C7","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false,"size":20},"manipulation":{"enabled":false},"edges":{"smooth":false,"width":3,"arrows":"to","scaling":{"label":{"enabled":false}}},"physics":{"stabilization":false}},"groups":null,"width":300,"height":300,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","igraphlayout":{"type":"square"},"highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":50000,"to":0},"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"tree":{"updateShape":true,"shapeVar":"dot","shapeY":"square"}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/aleksandar-radovanovic-mXKXJI98aTE-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-19" class="slide level2">
+<h2></h2>
+<div class="image-full">
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-2d97e09a9e3514e485e7" style="width:100%;height:800px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2d97e09a9e3514e485e7">{"x":{"nodes":{"id":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180],"label":["Year","","","","","","","","","Q1","","","","","","","","","Q2","","","","","","","","","Q3","","","","","","","","","Q4","","","","","","","","","Jan–Apr","","","","","","","","","May–Aug","","","","","","","","","Sep–Dec","","","","","","","","","Jan","","","","","","","","","Feb","","","","","","","","","Mar","","","","","","","","","Apr","","","","","","","","","May","","","","","","","","","Jun","","","","","","","","","Jul","","","","","","","","","Aug","","","","","","","","","Sep","","","","","","","","","Oct","","","","","","","","","Nov","","","","","","","","","Dec","","","","","","","",""],"color":["#444444","#C87A8A","#C87A8A","#909646","#909646","#00A396","#9189C7","#00A396","#9189C7","#444444","#C87A8A","#C87A8A","#909646","#909646","#00A396","#9189C7","#00A396","#9189C7","#444444","#C87A8A","#C87A8A","#909646","#909646","#00A396","#9189C7","#00A396","#9189C7","#444444","#C87A8A","#C87A8A","#909646","#909646","#00A396","#9189C7","#00A396","#9189C7","#444444","#C87A8A","#C87A8A","#909646","#909646","#00A396","#9189C7","#00A396","#9189C7","#444444","#C87A8A","#C87A8A","#909646","#909646","#00A396","#9189C7","#00A396","#9189C7","#444444","#C87A8A","#C87A8A","#909646","#909646","#00A396","#9189C7","#00A396","#9189C7","#444444","#C87A8A","#C87A8A","#909646","#909646","#00A396","#9189C7","#00A396","#9189C7","#444444","#C87A8A","#C87A8A","#909646","#909646","#00A396","#9189C7","#00A396","#9189C7","#444444","#C87A8A","#C87A8A","#909646","#909646","#00A396","#9189C7","#00A396","#9189C7","#444444","#C87A8A","#C87A8A","#909646","#909646","#00A396","#9189C7","#00A396","#9189C7","#444444","#C87A8A","#C87A8A","#909646","#909646","#00A396","#9189C7","#00A396","#9189C7","#444444","#C87A8A","#C87A8A","#909646","#909646","#00A396","#9189C7","#00A396","#9189C7","#444444","#C87A8A","#C87A8A","#909646","#909646","#00A396","#9189C7","#00A396","#9189C7","#444444","#C87A8A","#C87A8A","#909646","#909646","#00A396","#9189C7","#00A396","#9189C7","#444444","#C87A8A","#C87A8A","#909646","#909646","#00A396","#9189C7","#00A396","#9189C7","#444444","#C87A8A","#C87A8A","#909646","#909646","#00A396","#9189C7","#00A396","#9189C7","#444444","#C87A8A","#C87A8A","#909646","#909646","#00A396","#9189C7","#00A396","#9189C7","#444444","#C87A8A","#C87A8A","#909646","#909646","#00A396","#9189C7","#00A396","#9189C7","#444444","#C87A8A","#C87A8A","#909646","#909646","#00A396","#9189C7","#00A396","#9189C7"],"size":[14,9,9,9,9,9,9,9,9,14,9,9,9,9,9,9,9,9,14,9,9,9,9,9,9,9,9,14,9,9,9,9,9,9,9,9,14,9,9,9,9,9,9,9,9,14,9,9,9,9,9,9,9,9,14,9,9,9,9,9,9,9,9,14,9,9,9,9,9,9,9,9,14,9,9,9,9,9,9,9,9,14,9,9,9,9,9,9,9,9,14,9,9,9,9,9,9,9,9,14,9,9,9,9,9,9,9,9,14,9,9,9,9,9,9,9,9,14,9,9,9,9,9,9,9,9,14,9,9,9,9,9,9,9,9,14,9,9,9,9,9,9,9,9,14,9,9,9,9,9,9,9,9,14,9,9,9,9,9,9,9,9,14,9,9,9,9,9,9,9,9,14,9,9,9,9,9,9,9,9],"font.size":[18,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0,18,0,0,0,0,0,0,0,0],"x":[0,-57.44680851063829,-19.14893617021276,19.14893617021276,57.44680851063829,-38.29787234042553,-12.82978723404259,12.82978723404259,38.29787234042553,-689.3617021276596,-746.8085106382979,-708.5106382978723,-670.2127659574468,-631.9148936170213,-727.6595744680851,-702.1914893617021,-676.531914893617,-651.0638297872341,-229.7872340425532,-287.2340425531915,-248.936170212766,-210.6382978723404,-172.3404255319149,-268.0851063829787,-242.6170212765958,-216.9574468085106,-191.4893617021277,229.7872340425532,172.3404255319149,210.6382978723404,248.936170212766,287.2340425531915,191.4893617021277,216.9574468085106,242.6170212765958,268.0851063829787,689.3617021276596,631.9148936170213,670.2127659574468,708.5106382978723,746.8085106382979,651.0638297872341,676.531914893617,702.1914893617021,727.6595744680851,-612.7659574468084,-670.2127659574468,-631.9148936170213,-593.6170212765957,-555.3191489361702,-651.0638297872341,-625.5957446808511,-599.9361702127659,-574.468085106383,0,-57.44680851063829,-19.14893617021276,19.14893617021276,57.44680851063829,-38.29787234042553,-12.82978723404259,12.82978723404259,38.29787234042553,612.7659574468084,555.3191489361702,593.6170212765957,631.9148936170213,670.2127659574468,574.468085106383,599.9361702127659,625.5957446808511,651.0638297872341,-842.5531914893617,-900,-861.7021276595746,-823.4042553191489,-785.1063829787234,-880.8510638297872,-855.3829787234043,-829.7234042553191,-804.2553191489361,-689.3617021276596,-746.8085106382979,-708.5106382978723,-670.2127659574468,-631.9148936170213,-727.6595744680851,-702.1914893617021,-676.531914893617,-651.0638297872341,-536.1702127659574,-593.6170212765957,-555.3191489361702,-517.0212765957448,-478.7234042553192,-574.468085106383,-549,-523.3404255319149,-497.8723404255319,-382.9787234042553,-440.4255319148936,-402.1276595744681,-363.8297872340426,-325.5319148936171,-421.2765957446808,-395.8085106382979,-370.1489361702128,-344.6808510638298,-229.7872340425532,-287.2340425531915,-248.936170212766,-210.6382978723404,-172.3404255319149,-268.0851063829787,-242.6170212765958,-216.9574468085106,-191.4893617021277,-76.59574468085106,-134.0425531914894,-95.74468085106383,-57.44680851063829,-19.14893617021276,-114.8936170212766,-89.42553191489365,-63.76595744680849,-38.29787234042553,76.59574468085106,19.14893617021276,57.44680851063829,95.74468085106383,134.0425531914894,38.29787234042553,63.76595744680849,89.42553191489365,114.8936170212766,229.7872340425532,172.3404255319149,210.6382978723404,248.936170212766,287.2340425531915,191.4893617021277,216.9574468085106,242.6170212765958,268.0851063829787,382.9787234042553,325.5319148936171,363.8297872340426,402.1276595744681,440.4255319148936,344.6808510638298,370.1489361702128,395.8085106382979,421.2765957446808,536.1702127659574,478.7234042553192,517.0212765957448,555.3191489361702,593.6170212765957,497.8723404255319,523.3404255319149,549,574.468085106383,689.3617021276596,631.9148936170213,670.2127659574468,708.5106382978723,746.8085106382979,651.0638297872341,676.531914893617,702.1914893617021,727.6595744680851,842.5531914893617,785.1063829787234,823.4042553191489,861.7021276595746,900,804.2553191489361,829.7234042553191,855.3829787234043,880.8510638297872],"y":[-450,-388.6363636363636,-388.6363636363636,-388.6363636363636,-388.6363636363636,-327.2727272727273,-327.2727272727273,-327.2727272727273,-327.2727272727273,-122.7272727272727,-61.36363636363636,-61.36363636363636,-61.36363636363636,-61.36363636363636,-0,-0,-0,-0,-122.7272727272727,-61.36363636363636,-61.36363636363636,-61.36363636363636,-61.36363636363636,-0,-0,-0,-0,-122.7272727272727,-61.36363636363636,-61.36363636363636,-61.36363636363636,-61.36363636363636,-0,-0,-0,-0,-122.7272727272727,-61.36363636363636,-61.36363636363636,-61.36363636363636,-61.36363636363636,-0,-0,-0,-0,-0,61.36363636363636,61.36363636363636,61.36363636363636,61.36363636363636,122.7272727272727,122.7272727272727,122.7272727272727,122.7272727272727,-0,61.36363636363636,61.36363636363636,61.36363636363636,61.36363636363636,122.7272727272727,122.7272727272727,122.7272727272727,122.7272727272727,-0,61.36363636363636,61.36363636363636,61.36363636363636,61.36363636363636,122.7272727272727,122.7272727272727,122.7272727272727,122.7272727272727,327.2727272727273,388.6363636363636,388.6363636363636,388.6363636363636,388.6363636363636,450,450,450,450,327.2727272727273,388.6363636363636,388.6363636363636,388.6363636363636,388.6363636363636,450,450,450,450,327.2727272727273,388.6363636363636,388.6363636363636,388.6363636363636,388.6363636363636,450,450,450,450,327.2727272727273,388.6363636363636,388.6363636363636,388.6363636363636,388.6363636363636,450,450,450,450,327.2727272727273,388.6363636363636,388.6363636363636,388.6363636363636,388.6363636363636,450,450,450,450,327.2727272727273,388.6363636363636,388.6363636363636,388.6363636363636,388.6363636363636,450,450,450,450,327.2727272727273,388.6363636363636,388.6363636363636,388.6363636363636,388.6363636363636,450,450,450,450,327.2727272727273,388.6363636363636,388.6363636363636,388.6363636363636,388.6363636363636,450,450,450,450,327.2727272727273,388.6363636363636,388.6363636363636,388.6363636363636,388.6363636363636,450,450,450,450,327.2727272727273,388.6363636363636,388.6363636363636,388.6363636363636,388.6363636363636,450,450,450,450,327.2727272727273,388.6363636363636,388.6363636363636,388.6363636363636,388.6363636363636,450,450,450,450,327.2727272727273,388.6363636363636,388.6363636363636,388.6363636363636,388.6363636363636,450,450,450,450],"physics":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]},"edges":{"from":[1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,10,11,12,13,14,15,16,17,18,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,19,20,21,22,23,24,25,26,27,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,28,29,30,31,32,33,34,35,36,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,37,38,39,40,41,42,43,44,45,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,46,47,48,49,50,51,52,53,54,46,47,48,49,50,51,52,53,54,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,55,56,57,58,59,60,61,62,63,55,56,57,58,59,60,61,62,63,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,64,65,66,67,68,69,70,71,72,64,65,66,67,68,69,70,71,72,64,65,66,67,68,69,70,71,72,1,1,1,1,2,4,2,5,3,4,3,5,10,10,10,10,11,13,11,14,12,13,12,14,19,19,19,19,20,22,20,23,21,22,21,23,28,28,28,28,29,31,29,32,30,31,30,32,37,37,37,37,38,40,38,41,39,40,39,41,46,46,46,46,47,49,47,50,48,49,48,50,55,55,55,55,56,58,56,59,57,58,57,59,64,64,64,64,65,67,65,68,66,67,66,68,73,73,73,73,74,76,74,77,75,76,75,77,82,82,82,82,83,85,83,86,84,85,84,86,91,91,91,91,92,94,92,95,93,94,93,95,100,100,100,100,101,103,101,104,102,103,102,104,109,109,109,109,110,112,110,113,111,112,111,113,118,118,118,118,119,121,119,122,120,121,120,122,127,127,127,127,128,130,128,131,129,130,129,131,136,136,136,136,137,139,137,140,138,139,138,140,145,145,145,145,146,148,146,149,147,148,147,149,154,154,154,154,155,157,155,158,156,157,156,158,163,163,163,163,164,166,164,167,165,166,165,167,172,172,172,172,173,175,173,176,174,175,174,176],"to":[10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,2,3,4,5,6,6,7,7,8,8,9,9,11,12,13,14,15,15,16,16,17,17,18,18,20,21,22,23,24,24,25,25,26,26,27,27,29,30,31,32,33,33,34,34,35,35,36,36,38,39,40,41,42,42,43,43,44,44,45,45,47,48,49,50,51,51,52,52,53,53,54,54,56,57,58,59,60,60,61,61,62,62,63,63,65,66,67,68,69,69,70,70,71,71,72,72,74,75,76,77,78,78,79,79,80,80,81,81,83,84,85,86,87,87,88,88,89,89,90,90,92,93,94,95,96,96,97,97,98,98,99,99,101,102,103,104,105,105,106,106,107,107,108,108,110,111,112,113,114,114,115,115,116,116,117,117,119,120,121,122,123,123,124,124,125,125,126,126,128,129,130,131,132,132,133,133,134,134,135,135,137,138,139,140,141,141,142,142,143,143,144,144,146,147,148,149,150,150,151,151,152,152,153,153,155,156,157,158,159,159,160,160,161,161,162,162,164,165,166,167,168,168,169,169,170,170,171,171,173,174,175,176,177,177,178,178,179,179,180,180],"color":["#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#C87A8A","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#909646","#00A396","#00A396","#9189C7","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#00A396","#9189C7","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#00A396","#9189C7","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#00A396","#9189C7","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#00A396","#9189C7","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#00A396","#9189C7","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#00A396","#9189C7","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#00A396","#9189C7","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#00A396","#9189C7","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#00A396","#9189C7","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#00A396","#9189C7","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#00A396","#9189C7","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#00A396","#9189C7","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#00A396","#9189C7","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#00A396","#9189C7","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#00A396","#9189C7","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#00A396","#9189C7","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#00A396","#9189C7","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#00A396","#9189C7","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#00A396","#9189C7","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7","#00A396","#9189C7"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","borderWidth":0,"font":{"size":18}},"manipulation":{"enabled":false},"physics":{"enabled":false},"edges":{"width":1.5,"arrows":"to","smooth":{"enabled":true,"type":"continuous","roundness":0.1}}},"groups":null,"width":"100%","height":"800px","idselection":{"enabled":false},"byselection":{"enabled":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+</section>
+<section id="section-20" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-forecasting-aggregates">Exercise: Forecasting aggregates</h3>
+<p>Explore the <code>PBS</code> dataset and produce cross-sectional aggregations of <code>Scripts</code>. Then produce base forecasts for each series.</p>
+<div class="callout callout-caution callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Your turn</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li>Identify a suitable hierarchical/grouped structure using <code>ATC1</code>, <code>ATC2</code>, and <code>Concession</code></li>
+<li>Aggregate the data with <code>aggregate_key()</code></li>
+<li>Fit models to each series in the hierarchy</li>
+<li>Produce base forecasts for each series</li>
+</ol>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-21" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-forecasting-aggregates-1">Exercise: Forecasting aggregates</h3>
+<p>A suitable grouped structure is<br>
+<code>Concession * (ATC1 / ATC2)</code>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>pbs_atc <span class="ot">&lt;-</span> PBS <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a></a>  <span class="fu">aggregate_key</span>(Concession <span class="sc">*</span> (ATC1 <span class="sc">/</span> ATC2), <span class="at">Scripts =</span> <span class="fu">sum</span>(Scripts))</span>
+<span id="cb13-3"><a></a></span>
+<span id="cb13-4"><a></a>pbs_atc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tsibble: 60,840 x 5 [1M]
+# Key:       Concession, ATC1, ATC2 [300]
+      Month Concession   ATC1         ATC2         Scripts
+      &lt;mth&gt; &lt;chr*&gt;       &lt;chr*&gt;       &lt;chr*&gt;         &lt;dbl&gt;
+ 1 1991 Jul &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 8090395
+ 2 1991 Aug &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 7308118
+ 3 1991 Sep &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 7614644
+ 4 1991 Oct &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 8206248
+ 5 1991 Nov &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 7686634
+ 6 1991 Dec &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 8954872
+ 7 1992 Jan &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 9616464
+ 8 1992 Feb &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 6291465
+ 9 1992 Mar &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 6806613
+10 1992 Apr &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 7651435
+# ℹ 60,830 more rows</code></pre>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-22" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-forecasting-aggregates-2">Exercise: Forecasting aggregates</h3>
+<p>Keeping it simple, base forecasts with <code>ETS()</code>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>fit_pbs <span class="ot">&lt;-</span> pbs_atc <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a></a>  <span class="fu">model</span>(<span class="at">ets =</span> <span class="fu">ETS</span>(Scripts))</span>
+<span id="cb15-3"><a></a>fit_pbs <span class="sc">|&gt;</span> </span>
+<span id="cb15-4"><a></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="st">"2 years"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A fable: 7,200 x 7 [1M]
+# Key:     Concession, ATC1, ATC2, .model [300]
+   Concession   ATC1   ATC2   .model    Month
+   &lt;chr*&gt;       &lt;chr*&gt; &lt;chr*&gt; &lt;chr&gt;     &lt;mth&gt;
+ 1 Concessional A      A01    ets    2008 Jul
+ 2 Concessional A      A01    ets    2008 Aug
+ 3 Concessional A      A01    ets    2008 Sep
+ 4 Concessional A      A01    ets    2008 Oct
+ 5 Concessional A      A01    ets    2008 Nov
+ 6 Concessional A      A01    ets    2008 Dec
+ 7 Concessional A      A01    ets    2009 Jan
+ 8 Concessional A      A01    ets    2009 Feb
+ 9 Concessional A      A01    ets    2009 Mar
+10 Concessional A      A01    ets    2009 Apr
+# ℹ 7,190 more rows
+# ℹ 2 more variables: Scripts &lt;dist&gt;, .mean &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-23" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="forecast-reconciliation-1">Forecast reconciliation</h3>
+<p>Now that we have incoherent base forecasts, how can we reconcile them?</p>
+<div class="fragment fade-up">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a></a>  <span class="fu">aggregate_key</span>(A <span class="sc">*</span> B <span class="sc">/</span> C, <span class="fu">sum</span>(???)) <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a></a>  <span class="fu">model</span>(<span class="at">base =</span> <span class="fu">ETS</span>(???)) <span class="sc">|&gt;</span></span>
+<span id="cb17-4"><a></a>  <span class="fu">reconcile</span>(<span class="at">coherent =</span> ???(base)) <span class="sc">|&gt;</span></span>
+<span id="cb17-5"><a></a>  <span class="fu">forecast</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment fade-up">
+<div class="callout callout-important no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Single-level methods</strong></p>
+</div>
+<div class="callout-content">
+<p>Traditionally coherent forecasts were made with only one level of base forecasts from the hierarchy.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-up">
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>All-level methods</strong></p>
+</div>
+<div class="callout-content">
+<p>Fortunately better methods exist that use information from all base forecasts across the hierarchy.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-24" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="single-level-approaches">Single-level approaches</h3>
+<p>They choose one level of the hierarchy. The other levels are forecasted by aggregation or disaggregation of this level.</p>
+<ul>
+<li><strong>Bottom-up</strong></li>
+<li><strong>Top-down</strong></li>
+<li><strong>Middle-out</strong></li>
+</ul>
+</div></div>
+
+<img data-src="../backgrounds/aaron-burden-y3VfIVhskks-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-25" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="bottom-up-bottom_up">Bottom-up: <code>bottom_up()</code></h3>
+<p>Forecast every bottom-level series. Add them to get the higher levels (convolution).</p>
+<p>This uses the bottom-level information (and noise), but ignores other forecasts.</p>
+</div></div>
+
+<img data-src="../backgrounds/elimende-inagella-hb4tZuQRNBc-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-26" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="top-down-top_down">Top-down: <code>top_down()</code></h3>
+<p>Forecast the total. Split that forecast across the bottom series with proportions.</p>
+<div class="fragment fade-up">
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Weighting strategies</strong></p>
+</div>
+<div class="callout-content">
+<p><code>top_down()</code> offers three weight strategies:</p>
+<ul>
+<li><p><code>average_proportions</code> Average of data ratios across time.</p></li>
+<li><p><code>proportion_averages</code> Ratio of data averages across time.</p></li>
+<li><p><code>forecast_proportions</code> (default) Ratio of forecast means over horizon.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/anatolii-bazarov-yllwTbmLJ04-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-27" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="middle-out-middle_out">Middle-out: <code>middle_out()</code></h3>
+<p>Choose a middle level of the hierarchy.<br>
+⬆️ Aggregate upward with bottom-up.<br>
+⬇️ Disaggregate downward with top-down.</p>
+<div class="fragment fade-up">
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>ℹ️ Minimum depth</strong></p>
+</div>
+<div class="callout-content">
+<p>Middle out requires &gt;2 levels of the hierarchy.</p>
+<p>(otherwise it is just bottom-up or top-down!).</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/hans-UaBK3fkTZ-Q-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-28" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="optimal-forecast-reconciliation">‘Optimal’ forecast reconciliation</h3>
+<div class="callout callout-important no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>⚠️ Sub-optimal single-level strategies</strong></p>
+</div>
+<div class="callout-content">
+<p>Single-level approaches are clearly <strong>sub-optimal</strong>.</p>
+<p>They ignore information from other levels of the hierarchy!</p>
+</div>
+</div>
+</div>
+<div class="fragment fade-up">
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🎯 ‘Optimal’ multi-level strategies</strong></p>
+</div>
+<div class="callout-content">
+<p>How can we use information from all base forecasts?</p>
+<p><span class="fragment">Solve the incoherency with a cross-sectional model!</span></p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/sung-jin-cho--S87hxapFvU-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-29" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="constraint-matrices">Constraint matrices</h3>
+<p><span class="math display">\[\text{Total}_t = \text{Business}_t + \text{Holiday}_t + \text{Other}_t + \text{Visiting}_t\]</span></p>
+<div class="fragment fade-up">
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>📐 Structural form: <span class="math inline">\(\mathbf{y}_t = \mathbf{S}\mathbf{b}_t\)</span>, <code>coherent_smat()</code></strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[\mathbf{S} = \begin{bmatrix} 1 &amp; 1 &amp; 1 &amp; 1 \\ 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{bmatrix}\]</span></p>
+<p><span class="math inline">\(\mathbf{S}\)</span> maps the <span class="math inline">\(n_b\)</span> bottom-level series <span class="math inline">\(\mathbf{b}_t\)</span> to all <span class="math inline">\(n\)</span> series.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-up">
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🔗 Zero-constrained form: <span class="math inline">\(\mathbf{C}\mathbf{y}_t = \mathbf{0}\)</span>, <code>coherent_cmat()</code></strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[\mathbf{C} = \begin{bmatrix} 1 &amp; -1 &amp; -1 &amp; -1 &amp; -1 \end{bmatrix}\]</span></p>
+<p><span class="math inline">\(\mathbf{C}\)</span> encodes <span class="math inline">\(n_a\)</span> constraints for coherent forecasts.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-up">
+<p>In most cases, <span class="math inline">\(\mathbf{C}\)</span> is more efficient (<span class="math inline">\(n_a &lt; n_b\)</span>).</p>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/sung-jin-cho--S87hxapFvU-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-30" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="regression-models-min_trace">Regression models: <code>min_trace()</code></h3>
+<p>These matrices form the basis of a regression.</p>
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Ordinary Least Squares (OLS)</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[\tilde{\mathbf{y}}_h=\mathbf{S}(\mathbf{S}'\mathbf{S})^{-1}\mathbf{S}'\hat{\mathbf{y}}_h\]</span> <span class="math display">\[\tilde{\mathbf{y}}_h=(\mathbf{I}_n-\mathbf{C}'(\mathbf{C}\mathbf{C}')^{-1}\mathbf{C})\hat{\mathbf{y}}_h\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Weighted Least Squares (WLS)</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[\tilde{\mathbf{y}}_h=\mathbf{S}(\mathbf{S}'\mathbf{W}_h^{-1}\mathbf{S})^{-1}\mathbf{S}'\mathbf{W}_h^{-1}\hat{\mathbf{y}}_h\]</span> <span class="math display">\[\tilde{\mathbf{y}}_h=(\mathbf{I}_n-\mathbf{W}\mathbf{C}'(\mathbf{C}\mathbf{W}\mathbf{C}')^{-1}\mathbf{C})\hat{\mathbf{y}}_h\]</span></p>
+</div>
+</div>
+</div>
+<div class="fragment fade-up">
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Minimum Trace (MinT)</strong></p>
+</div>
+<div class="callout-content">
+<p>This was first described in Wickramasuriya et al.&nbsp;(2019) and termed ‘minimum trace’. Several weight options exist.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/sung-jin-cho--S87hxapFvU-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-31" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="choosing-weights-again">Choosing weights (again)</h3>
+<p>The matrix <strong>W</strong> encodes the error structure.</p>
+<ul>
+<li class="fragment"><code>ols</code>: identity matrix</li>
+<li class="fragment"><code>wls_var</code>: diagonal in-sample errors</li>
+<li class="fragment"><code>wls_struct</code>: diagonal number of sums</li>
+<li class="fragment"><code>mint_cov</code>: full sample covariance</li>
+<li class="fragment"><code>mint_shrink</code>: regularised covariance</li>
+</ul>
+<div class="fragment fade-up">
+<div class="callout callout-note callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Coherency with copulas</strong></p>
+</div>
+<div class="callout-content">
+<p>The weight matrix is analagous to choosing a copula, the weights incorporate covariance structure between the series. The result is a coherent multivariate distribution.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/elena-mozhvilo-j06gLuKK0GM-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-32" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="forecasting-tourism-2">Forecasting tourism</h3>
+<p>From start to finish…</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>tourism <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a></a>  <span class="fu">aggregate_key</span>(Purpose, <span class="at">Trips =</span> <span class="fu">sum</span>(Trips))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tsibble: 400 x 3 [1Q]
+# Key:       Purpose [5]
+   Quarter Purpose       Trips
+     &lt;qtr&gt; &lt;chr*&gt;        &lt;dbl&gt;
+ 1 1998 Q1 &lt;aggregated&gt; 23182.
+ 2 1998 Q2 &lt;aggregated&gt; 20323.
+ 3 1998 Q3 &lt;aggregated&gt; 19827.
+ 4 1998 Q4 &lt;aggregated&gt; 20830.
+ 5 1999 Q1 &lt;aggregated&gt; 22087.
+ 6 1999 Q2 &lt;aggregated&gt; 21458.
+ 7 1999 Q3 &lt;aggregated&gt; 19914.
+ 8 1999 Q4 &lt;aggregated&gt; 20028.
+ 9 2000 Q1 &lt;aggregated&gt; 22339.
+10 2000 Q2 &lt;aggregated&gt; 19941.
+# ℹ 390 more rows</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>tourism_purpose_fc <span class="ot">&lt;-</span> tourism_purpose <span class="sc">|&gt;</span> </span>
+<span id="cb20-2"><a></a>  <span class="fu">model</span>(<span class="fu">ETS</span>(Trips)) <span class="sc">|&gt;</span> </span>
+<span id="cb20-3"><a></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="st">"2 years"</span>)</span>
+<span id="cb20-4"><a></a>tourism_purpose_fc <span class="sc">|&gt;</span> </span>
+<span id="cb20-5"><a></a>  <span class="fu">autoplot</span>(tourism_purpose <span class="sc">|&gt;</span> <span class="fu">filter</span>(Quarter <span class="sc">&gt;=</span> <span class="fu">yearquarter</span>(<span class="st">"2010 Q1"</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/tourism-rec-1-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/johnny-bhalla-DLbCETd599Y-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-33" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="forecasting-tourism-3">Forecasting tourism</h3>
+<p>Compute cross-sectional aggregates.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>toursim_agg <span class="ot">&lt;-</span> tourism <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a></a>  <span class="fu">aggregate_key</span>(Purpose <span class="sc">*</span> (State <span class="sc">/</span> Region), <span class="at">Trips =</span> <span class="fu">sum</span>(Trips))</span>
+<span id="cb21-3"><a></a>toursim_agg</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tsibble: 34,000 x 5 [1Q]
+# Key:       Purpose, State, Region [425]
+   Quarter Purpose      State        Region        Trips
+     &lt;qtr&gt; &lt;chr*&gt;       &lt;chr*&gt;       &lt;chr*&gt;        &lt;dbl&gt;
+ 1 1998 Q1 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 23182.
+ 2 1998 Q2 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 20323.
+ 3 1998 Q3 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 19827.
+ 4 1998 Q4 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 20830.
+ 5 1999 Q1 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 22087.
+ 6 1999 Q2 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 21458.
+ 7 1999 Q3 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 19914.
+ 8 1999 Q4 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 20028.
+ 9 2000 Q1 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 22339.
+10 2000 Q2 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 19941.
+# ℹ 33,990 more rows</code></pre>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/johnny-bhalla-DLbCETd599Y-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-34" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="forecasting-tourism-4">Forecasting tourism</h3>
+<p>Estimate base forecasting models.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>tourism_agg <span class="ot">&lt;-</span> tourism <span class="sc">|&gt;</span> </span>
+<span id="cb23-2"><a></a>  <span class="fu">aggregate_key</span>(Purpose <span class="sc">*</span> (State <span class="sc">/</span> Region), <span class="at">Trips =</span> <span class="fu">sum</span>(Trips))</span>
+<span id="cb23-3"><a></a>tourism_agg <span class="sc">|&gt;</span> </span>
+<span id="cb23-4"><a></a>  <span class="fu">model</span>(<span class="at">ets =</span> <span class="fu">ETS</span>(Trips))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A mable: 425 x 4
+# Key:     Purpose, State, Region [425]
+   Purpose  State           Region                          ets
+   &lt;chr*&gt;   &lt;chr*&gt;          &lt;chr*&gt;                      &lt;model&gt;
+ 1 Business ACT             Canberra               &lt;ETS(M,N,M)&gt;
+ 2 Business ACT             &lt;aggregated&gt;           &lt;ETS(M,N,M)&gt;
+ 3 Business New South Wales Blue Mountains         &lt;ETS(A,N,N)&gt;
+ 4 Business New South Wales Capital Country        &lt;ETS(A,N,N)&gt;
+ 5 Business New South Wales Central Coast          &lt;ETS(A,N,N)&gt;
+ 6 Business New South Wales Central NSW            &lt;ETS(M,N,A)&gt;
+ 7 Business New South Wales Hunter                 &lt;ETS(A,N,N)&gt;
+ 8 Business New South Wales New England North West &lt;ETS(A,N,A)&gt;
+ 9 Business New South Wales North Coast NSW        &lt;ETS(M,N,A)&gt;
+10 Business New South Wales Outback NSW            &lt;ETS(M,N,A)&gt;
+# ℹ 415 more rows</code></pre>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/johnny-bhalla-DLbCETd599Y-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-35" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="forecasting-tourism-5">Forecasting tourism</h3>
+<p>Transform local <code>ets</code> model to global coherent model.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>tourism_agg <span class="ot">&lt;-</span> tourism <span class="sc">|&gt;</span> </span>
+<span id="cb25-2"><a></a>  <span class="fu">aggregate_key</span>(Purpose <span class="sc">*</span> (State <span class="sc">/</span> Region), <span class="at">Trips =</span> <span class="fu">sum</span>(Trips))</span>
+<span id="cb25-3"><a></a>tourism_agg <span class="sc">|&gt;</span> </span>
+<span id="cb25-4"><a></a>  <span class="fu">model</span>(<span class="at">ets =</span> <span class="fu">ETS</span>(Trips)) <span class="sc">|&gt;</span> </span>
+<span id="cb25-5"><a></a>  <span class="fu">reconcile</span>(<span class="at">mint =</span> <span class="fu">min_trace</span>(ets, <span class="at">method =</span> <span class="st">"mint_shrink"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A mable: 425 x 5
+# Key:     Purpose, State, Region [425]
+   Purpose  State           Region                         ets mint        
+   &lt;chr*&gt;   &lt;chr*&gt;          &lt;chr*&gt;                     &lt;model&gt; &lt;model&gt;     
+ 1 Business ACT             Canberra            … &lt;ETS(M,N,M)&gt; &lt;ETS(M,N,M)&gt;
+ 2 Business ACT             &lt;aggregated&gt;          &lt;ETS(M,N,M)&gt; &lt;ETS(M,N,M)&gt;
+ 3 Business New South Wales Blue Mountains      … &lt;ETS(A,N,N)&gt; &lt;ETS(A,N,N)&gt;
+ 4 Business New South Wales Capital Country     … &lt;ETS(A,N,N)&gt; &lt;ETS(A,N,N)&gt;
+ 5 Business New South Wales Central Coast       … &lt;ETS(A,N,N)&gt; &lt;ETS(A,N,N)&gt;
+ 6 Business New South Wales Central NSW         … &lt;ETS(M,N,A)&gt; &lt;ETS(M,N,A)&gt;
+ 7 Business New South Wales Hunter              … &lt;ETS(A,N,N)&gt; &lt;ETS(A,N,N)&gt;
+ 8 Business New South Wales New England North We… &lt;ETS(A,N,A)&gt; &lt;ETS(A,N,A)&gt;
+ 9 Business New South Wales North Coast NSW     … &lt;ETS(M,N,A)&gt; &lt;ETS(M,N,A)&gt;
+10 Business New South Wales Outback NSW         … &lt;ETS(M,N,A)&gt; &lt;ETS(M,N,A)&gt;
+# ℹ 415 more rows</code></pre>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/johnny-bhalla-DLbCETd599Y-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-36" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="forecasting-tourism-6">Forecasting tourism</h3>
+<p>Produce coherent forecasts! <span class="emoji" data-emoji="tada">🎉</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>tourism_agg <span class="ot">&lt;-</span> tourism <span class="sc">|&gt;</span> </span>
+<span id="cb27-2"><a></a>  <span class="fu">aggregate_key</span>(Purpose <span class="sc">*</span> (State <span class="sc">/</span> Region), <span class="at">Trips =</span> <span class="fu">sum</span>(Trips))</span>
+<span id="cb27-3"><a></a>tourism_agg <span class="sc">|&gt;</span> </span>
+<span id="cb27-4"><a></a>  <span class="fu">model</span>(<span class="at">ets =</span> <span class="fu">ETS</span>(Trips)) <span class="sc">|&gt;</span> </span>
+<span id="cb27-5"><a></a>  <span class="fu">reconcile</span>(<span class="at">mint =</span> <span class="fu">min_trace</span>(ets, <span class="at">method =</span> <span class="st">"mint_shrink"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb27-6"><a></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="st">"2 years"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A fable: 6,800 x 7 [1Q]
+# Key:     Purpose, State, Region, .model [850]
+   Purpose  State  Region   .model Quarter
+   &lt;chr*&gt;   &lt;chr*&gt; &lt;chr*&gt;   &lt;chr&gt;    &lt;qtr&gt;
+ 1 Business ACT    Canberra ets    2018 Q1
+ 2 Business ACT    Canberra ets    2018 Q2
+ 3 Business ACT    Canberra ets    2018 Q3
+ 4 Business ACT    Canberra ets    2018 Q4
+ 5 Business ACT    Canberra ets    2019 Q1
+ 6 Business ACT    Canberra ets    2019 Q2
+ 7 Business ACT    Canberra ets    2019 Q3
+ 8 Business ACT    Canberra ets    2019 Q4
+ 9 Business ACT    Canberra mint   2018 Q1
+10 Business ACT    Canberra mint   2018 Q2
+# ℹ 6,790 more rows
+# ℹ 2 more variables: Trips &lt;dist&gt;, .mean &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/johnny-bhalla-DLbCETd599Y-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-37" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-coherent-forecasting">Exercise: Coherent forecasting</h3>
+<p>Reconcile the base forecasting models for <code>PBS</code> using minimum trace.</p>
+<div class="callout callout-caution callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Your turn</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li>Use <code>reconcile()</code> and <code>min_trace()</code> to specify a coherent forecasting model.</li>
+<li>Produce base and coherent forecasts for each series.</li>
+<li>Visually compare the base and coherent forecasts.<br>
+Hint: <code>filter(is_aggregated(ATC1))</code> to just viz aggregations.</li>
+</ol>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-38" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-coherent-forecasting-1">Exercise: Coherent forecasting</h3>
+<ol type="1">
+<li>Reconcile the base forecasting model with <code>min_trace()</code>.</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>pbs_atc <span class="ot">&lt;-</span> PBS <span class="sc">|&gt;</span> </span>
+<span id="cb29-2"><a></a>  <span class="fu">aggregate_key</span>(Concession <span class="sc">*</span> (ATC1 <span class="sc">/</span> ATC2), <span class="at">Scripts =</span> <span class="fu">sum</span>(Scripts))</span>
+<span id="cb29-3"><a></a>fit_pbs <span class="ot">&lt;-</span> pbs_atc <span class="sc">|&gt;</span> </span>
+<span id="cb29-4"><a></a>  <span class="fu">model</span>(<span class="at">ets =</span> <span class="fu">ETS</span>(Scripts)) <span class="sc">|&gt;</span> </span>
+<span id="cb29-5"><a></a>  <span class="fu">reconcile</span>(<span class="at">mint =</span> <span class="fu">min_trace</span>(ets, <span class="at">method =</span> <span class="st">"mint_shrink"</span>))</span>
+<span id="cb29-6"><a></a>fit_pbs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A mable: 300 x 5
+# Key:     Concession, ATC1, ATC2 [300]
+   Concession   ATC1   ATC2             ets mint         
+   &lt;chr*&gt;       &lt;chr*&gt; &lt;chr*&gt;       &lt;model&gt; &lt;model&gt;      
+ 1 Concessional A      A01     &lt;ETS(M,N,M)&gt; &lt;ETS(M,N,M)&gt; 
+ 2 Concessional A      A02     &lt;ETS(M,A,M)&gt; &lt;ETS(M,A,M)&gt; 
+ 3 Concessional A      A03    &lt;ETS(M,Ad,M)&gt; &lt;ETS(M,Ad,M)&gt;
+ 4 Concessional A      A04    &lt;ETS(A,Ad,A)&gt; &lt;ETS(A,Ad,A)&gt;
+ 5 Concessional A      A05    &lt;ETS(A,Ad,N)&gt; &lt;ETS(A,Ad,N)&gt;
+ 6 Concessional A      A06    &lt;ETS(M,Ad,M)&gt; &lt;ETS(M,Ad,M)&gt;
+ 7 Concessional A      A07    &lt;ETS(M,Ad,M)&gt; &lt;ETS(M,Ad,M)&gt;
+ 8 Concessional A      A09    &lt;ETS(M,Ad,A)&gt; &lt;ETS(M,Ad,A)&gt;
+ 9 Concessional A      A10     &lt;ETS(M,A,M)&gt; &lt;ETS(M,A,M)&gt; 
+10 Concessional A      A11    &lt;ETS(M,Ad,M)&gt; &lt;ETS(M,Ad,M)&gt;
+# ℹ 290 more rows</code></pre>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-39" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-coherent-forecasting-2">Exercise: Coherent forecasting</h3>
+<ol start="2" type="1">
+<li>Produce base and coherent forecasts.</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a>fit_pbs <span class="sc">|&gt;</span> </span>
+<span id="cb31-2"><a></a>  <span class="fu">forecast</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A fable: 14,400 x 7 [1M]
+# Key:     Concession, ATC1, ATC2, .model [600]
+   Concession   ATC1   ATC2   .model    Month
+   &lt;chr*&gt;       &lt;chr*&gt; &lt;chr*&gt; &lt;chr&gt;     &lt;mth&gt;
+ 1 Concessional A      A01    ets    2008 Jul
+ 2 Concessional A      A01    ets    2008 Aug
+ 3 Concessional A      A01    ets    2008 Sep
+ 4 Concessional A      A01    ets    2008 Oct
+ 5 Concessional A      A01    ets    2008 Nov
+ 6 Concessional A      A01    ets    2008 Dec
+ 7 Concessional A      A01    ets    2009 Jan
+ 8 Concessional A      A01    ets    2009 Feb
+ 9 Concessional A      A01    ets    2009 Mar
+10 Concessional A      A01    ets    2009 Apr
+# ℹ 14,390 more rows
+# ℹ 2 more variables: Scripts &lt;dist&gt;, .mean &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-40" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-coherent-forecasting-3">Exercise: Coherent forecasting</h3>
+<ol start="3" type="1">
+<li>Visually compare base and coherent forecasts.</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>fit_pbs <span class="sc">|&gt;</span> </span>
+<span id="cb33-2"><a></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="st">"2 years"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb33-3"><a></a>  <span class="fu">filter</span>(<span class="fu">if_all</span>(<span class="fu">c</span>(ATC1, ATC2, Concession), is_aggregated)) <span class="sc">|&gt;</span></span>
+<span id="cb33-4"><a></a>  <span class="fu">autoplot</span>(</span>
+<span id="cb33-5"><a></a>    pbs_atc <span class="sc">|&gt;</span> <span class="fu">filter</span>(Month <span class="sc">&gt;</span> <span class="fu">yearmonth</span>(<span class="st">"2000 Jan"</span>)),</span>
+<span id="cb33-6"><a></a>    <span class="at">alpha =</span> <span class="fl">0.4</span></span>
+<span id="cb33-7"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/exercise-coherent-plot-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg" class="image-left"></p>
+</section>
+<section id="thats-all-for-now" class="slide level2">
+<h2><span class="emoji" data-emoji="alarm_clock">⏰</span> That’s all for now!</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="callout callout-tip callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Final remarks</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Reconciliation is useful whenever forecasting many related series.</li>
+<li>Take care in finding the ‘base’ level of aggregation.</li>
+<li>Decomposition forecasts are great for simplifying forecasting.</li>
+<li>Ensemble forecasts</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout-link">
+<div class="callout callout-link callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Useful links</strong></p>
+</div>
+<div class="callout-content">
+<p><img data-src="resources/forum.svg" class="icon"> <a href="https://social.mitchelloharawild.com/">social.mitchelloharawild.com</a></p>
+<p><img data-src="resources/projector-screen-outline.svg" class="icon"> <a href="https://workshop.nectric.com.au/isf2026/">workshop.nectric.com.au/isf2026/</a></p>
+<p><img data-src="resources/github.svg" class="icon"> <a href="https://github.com/mitchelloharawild/workshop-isf2026">mitchelloharawild/workshop-isf2026</a></p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/sander-weeteling-KABfjuSOx74-unsplash.jpg" class="image-right"></p>
+<!-- Made with :heart: and [Quarto](https://quarto.org/). -->
+<!-- ## References -->
+
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":false},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: false,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 720,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script>
+    // Copy over background colors to new div
+    divs = document.querySelectorAll('[data-background-color]');
+
+    Array.from(divs).map(function (x) {
+      const color = x.dataset.backgroundColor;
+
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-color-div");
+      new_div.style.backgroundColor = color;
+      x.appendChild(new_div);
+      x.removeAttribute("data-background-color");
+    })
+
+    // Remove background colors from backgrounds div
+    Array.from(
+      document.querySelectorAll("[data-background-hash]")
+    ).map(function (x) {
+      x.removeAttribute("data-background-hash");
+      x.style.backgroundColor = null;
+    })
+    </script>
+
+    <script>
+    // Copy over background images to new div
+    divs = document.querySelectorAll('[data-background-image]');
+
+    Array.from(divs).map(function (x) {
+      var new_div = document.createElement('div');
+      new_div.setAttribute("class", "background-image-div");
+
+      if (x.dataset.backgroundImage != undefined) {
+        new_div.style.backgroundImage = "url(" + x.dataset.backgroundImage + ")";
+        x.removeAttribute("data-background-image");
+      }
+      if (x.dataset.backgroundSize != undefined) {
+        new_div.style.backgroundSize = x.dataset.backgroundSize;
+        x.removeAttribute("data-background-size");
+      }
+      if (x.dataset.backgroundPosition != undefined) {
+        new_div.style.backgroundPosition = x.dataset.backgroundPosition;
+        x.removeAttribute("data-background-position");
+      }
+      if (x.dataset.backgroundRepeat != undefined) {
+        new_div.style.backgroundRepeat = x.dataset.backgroundRepeat;
+        x.removeAttribute("data-background-repeat");
+      }
+      if (x.dataset.backgroundOpacity != undefined) {
+        new_div.style.backgroundOpacity = x.dataset.backgroundOpacity;
+        x.removeAttribute("data-background-opacity");
+      }
+
+      x.appendChild(new_div);
+    })
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var video_div = document.querySelectorAll(".backgrounds video");
+    var slide_div = document.querySelectorAll("[data-background-video]");
+
+    for (let i = 0; i < video_div.length; i++) {
+      video_div[i].setAttribute("class", "background-video-div");
+
+      slide_div[i].appendChild(video_div[i]);
+      slide_div[i].removeAttribute("data-background-video");
+    }
+
+    Reveal.getCurrentSlide().querySelectorAll("video").forEach(x => x.play());
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var video_div = document.querySelectorAll(".backgrounds video");
+      var slide_div = document.querySelectorAll("[data-background-video]");
+
+      for (let i = 0; i < video_div.length; i++) {
+        video_div[i].setAttribute("class", "background-video-div");
+
+        slide_div[i].appendChild(video_div[i]);
+        slide_div[i].removeAttribute("data-background-video");
+      }
+
+      Reveal.getCurrentSlide().querySelectorAll("video").forEach(x => x.play());
+    });
+    </script>
+
+    <script>
+    // Copy over background vidoes
+
+    // Run once when we load
+    var iframe_div = document.querySelectorAll(".backgrounds iframe");
+    var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+    for (let i = 0; i < iframe_div.length; i++) {
+      iframe_div[i].setAttribute("class", "background-iframe-div");
+
+      slide_div[i].appendChild(iframe_div[i]);
+      slide_div[i].removeAttribute("data-background-iframe");
+    }
+
+    // Each time we advance slides, as the background videos aren't loaded
+    // unless they are a few slides away
+    Reveal.on('slidechanged', event => {
+      var iframe_div = document.querySelectorAll(".backgrounds iframe");
+      var slide_div = document.querySelectorAll("[data-background-iframe]");
+
+      for (let i = 0; i < iframe_div.length; i++) {
+        iframe_div[i].setAttribute("class", "background-iframe-div");
+
+        slide_div[i].appendChild(iframe_div[i]);
+        slide_div[i].removeAttribute("data-background-iframe");
+      }
+    });
+    </script>
+
+    <script>
+    // Clean up slide background styles
+    divs = document.querySelectorAll('.slide-background-content');
+    Array.from(divs).map(function (x) {
+      x.style = null;
+    })
+    </script>
+
+    <script>
+    // Move menu button
+    menu_div = document.querySelector(".slide-menu-button");
+    document.querySelector(".slides").appendChild(menu_div);
+
+    // Move progress bar
+    menu_div = document.querySelector(".progress");
+    document.querySelector(".slides").appendChild(menu_div);
+    </script>
+
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/workshop\.nectric\.com\.au\/isf2026");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

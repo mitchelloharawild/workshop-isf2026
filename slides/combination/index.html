@@ -8,7 +8,7 @@
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-contrib/custom-callouts-0.1.0/custom-callouts.css" rel="stylesheet"><meta charset="utf-8">
+<link href="../../site_libs/quarto-contrib/custom-callouts-0.1.0/custom-callouts.scss" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.26">
 
   <title>Forecast combinations – index</title>
@@ -29,10 +29,74 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-8e28095ca6dd81caf6e8869d2af3eae1.css">
-  <link rel="stylesheet" href="theme.css">
-  <link rel="stylesheet" href="hex.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-3d043b1863240985e1d15fa0e7c8ac53.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -151,7 +215,7 @@
 <p>Forecast combinations</p>
 </div>
 <div class="subtitle" data-id="subtitle">
-<p>TBC</p>
+<p>Ensembles</p>
 </div>
 <div class="dateplace">
 <p>28th June 2026 @ ISF</p>
@@ -179,14 +243,1041 @@
 </section>
 <section id="section-1" class="slide level2">
 <h2></h2>
+<!-- 
+Combining single-series forecasts
+
+callout
+## :emoji: Decomposition forecasting
+
+Combining forecasts for components of a time series
+
+
+
+callout
+## :emoji: Ensemble forecasting
+
+Averaging many forecasts for the same time series
+-->
 <div class="columns">
 <div class="column" style="width:60%;">
-<p>…</p>
+<h3 id="single-series-combinations">Single-series combinations</h3>
+<div class="fragment fade-up">
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🧩 Decomposition forecasting</strong></p>
+</div>
+<div class="callout-content">
+<p>Combining forecasts for components of a time series.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-up">
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🎛️ Ensemble forecasting</strong></p>
+</div>
+<div class="callout-content">
+<p>Averaging different forecasts of the same time series.</p>
+</div>
+</div>
+</div>
+</div>
 </div></div>
 
-<img data-src="../backgrounds/balint-mendlik-4-ORHffEh3I-unsplash.jpg" class="image-right r-stretch"></section>
-<section id="thats-all-for-now" class="slide level2">
-<h2><span class="emoji" data-emoji="alarm_clock">⏰</span> That’s all for now!</h2>
+<img data-src="../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+<!-- 
+Why ensembling is good
+
+- averaging model uncertainty -- Uncertainty over which model is closest to the data generating process is averaged over.
+- more robust
+- better calibrated forecasts (uncertainty)
+- ...
+
+Downsides
+
+- more complex
+- more computationally expensive
+-->
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="why-use-ensemble-forecasts">Why use ensemble forecasts?</h3>
+<div class="fragment fade-up">
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>✅ Advantages</strong></p>
+</div>
+<div class="callout-content">
+<p>The fundamental benefit of ensembling is that it <strong>averages over model uncertainty</strong>. This produces forecasts that are:</p>
+<ul>
+<li><em>More accurate</em>: generally better than any single model</li>
+<li><em>More robust</em>: less sensitive to any single model</li>
+<li><em>Better calibrated</em>: forecast uncertainty incorporates uncertainty of model specification.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-up">
+<div class="callout callout-warning no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>⚠️ Downsides</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><em>More complex</em>: to specify, tune, and interpret</li>
+<li><em>More expensive</em>: many models to fit and forecast</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-3" class="slide level2">
+<h2></h2>
+<!-- 
+Three ways to average forecasts
+-->
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="three-ways-to-average-forecasts">Three ways to average forecasts</h3>
+<div class="fragment fade-up">
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🎲 Mean of random variables</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[\bar{X} = \sum_{i} w_i X_i\]</span></p>
+<p>Averaging <strong>outcomes</strong> (samples)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-up">
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🔀 Probability Mixture (linear pooling)</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[ F(x) = \sum_{i=1}^{n} w_i \cdot F_i(x), \hspace{1em} f(x) = \sum_{i=1}^{n} w_i \cdot f_i(x) \]</span></p>
+<p>Averaging <strong>probabilities</strong> (PDF/CDF)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-up">
+<div class="callout callout-warning no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>📊 Quantile Mixture (Vincentization)</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[ F^{-1}(p) = \sum_{i=1}^{n} w_i \cdot F_i^{-1}(p) \]</span></p>
+<p>Averaging <strong>quantiles</strong> (inverse CDF)</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<!-- 
+## {}
+
+Three ways to average forecasts
+
+: callout
+Mean of random variables
+Xˉ=i∑​wiXi​
+
+    combines actual random quantities
+    distribution depends on dependence/covariance
+
+: callout
+Probability Mixture (linear pooling)
+
+$$ F(x) = \sum_{i=1}^{n} w_i \cdot F_i(x), \hspace{1em} f(x) = \sum_{i=1}^{n} w_i \cdot f_i(x) $$
+
+    averages probabilities directly
+    preserves multimodality
+    easy to compute
+
+: callout
+Quantile Mixture (Vincentization)
+
+$$ F^{-1}(p) = \sum_{i=1}^{n} w_i \cdot F_i^{-1}(p) $$
+
+    averages outcome levels at each probability
+    often used for forecast combination
+    generally different from the mixture
+
+![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+-->
+<img data-src="../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-4" class="slide level2">
+<h2></h2>
+<!-- 
+### Ensemble weights $w_i$
+
+Note: inverse variance weighting is the optimal choice for minimising the variance of
+the combined point forecast when model errors are uncorrelated. When errors are
+correlated, the optimal weights require the full error covariance matrix — an analogy
+to the OLS vs MinT distinction in reconciliation.
+-->
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="ensemble-weights-w_i">Ensemble weights <span class="math inline">\(w_i\)</span></h3>
+<div class="fragment fade-up">
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>⚖️ Equal weighting</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[w_i = 1/N\]</span></p>
+<p>Default; robust when model ranking is uncertain.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-up">
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>📉 Performance-based weighting</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[w_i \propto 1/\hat\sigma^2_i \quad \text{or} \quad w_i \propto 1/\widehat{\text{MSE}}_i\]</span></p>
+<p>Weight by inverse variance or inverse MSE.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-up">
+<div class="callout callout-warning no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🗺️ Feature-based weighting</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[w_i = f(\text{series features})\]</span></p>
+<p>FFORMS selects a single model (<span class="math inline">\(w_i \in \{0,1\}\)</span>);<br>
+FFORMA estimates weights from series features (<span class="math inline">\(w_i \in [0,1]\)</span>).</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-5" class="slide level2">
+<h2></h2>
+<!-- Other weighting strategies not shown:
+  - Bayesian model averaging (BMA): weights as posterior model probabilities given data
+  - Regime-switching weights: weights change depending on detected state (e.g. expansion vs recession)
+  - Online learning / aggregation of experts: weights updated sequentially as new data arrives (e.g. exponential weighting)
+-->
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="other-weighting-strategies">Other weighting strategies</h3>
+<div class="fragment fade-up">
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>⏳ Time-varying weights</strong></p>
+</div>
+<div class="callout-content">
+<p>Some models are better short-term, others long-term.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-up">
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🔄 Online / adaptive weights</strong></p>
+</div>
+<div class="callout-content">
+<p>Weights updated iteratively as new observations arrive.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-up">
+<div class="callout callout-warning no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🧑‍💼 Expert judgement</strong></p>
+</div>
+<div class="callout-content">
+<p>Weights reflect model credibility rather than past performance alone.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-6" class="slide level2 fragment-remove">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="australian-ambulance-costs">Australian ambulance costs</h3>
+<div class="fragment fade-out" data-fragment-index="1">
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(fable)</span>
+<span id="cb1-2"><a></a><span class="fu">library</span>(tsibble)</span>
+<span id="cb1-3"><a></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a></a>ambulance <span class="ot">&lt;-</span> <span class="fu">tsibble</span>(</span>
+<span id="cb1-5"><a></a>  <span class="at">Year =</span> <span class="dv">2005</span><span class="sc">:</span><span class="dv">2024</span>, </span>
+<span id="cb1-6"><a></a>  <span class="at">Revenue =</span> <span class="fu">c</span>(<span class="fl">2.25</span>, <span class="fl">2.38</span>, <span class="fl">2.47</span>, <span class="fl">2.67</span>, <span class="fl">2.9</span>, <span class="fl">2.99</span>, <span class="fl">3.09</span>, </span>
+<span id="cb1-7"><a></a>              <span class="fl">3.25</span>, <span class="fl">3.45</span>, <span class="fl">3.48</span>, <span class="fl">3.44</span>, <span class="fl">3.66</span>, <span class="fl">3.96</span>, <span class="fl">4.26</span>,</span>
+<span id="cb1-8"><a></a>              <span class="fl">4.46</span>, <span class="fl">4.64</span>, <span class="dv">5</span>, <span class="fl">5.29</span>, <span class="fl">5.74</span>, <span class="fl">5.64</span>),</span>
+<span id="cb1-9"><a></a>  <span class="at">index =</span> Year</span>
+<span id="cb1-10"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/ambulance_plot-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment fade-up" data-fragment-index="1">
+<div class="callout callout-caution callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Future trend?</strong></p>
+</div>
+<div class="callout-content">
+<p>The trend changed in 2015 after a drop.</p>
+<p>Will it change again following the 2024 drop?</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/mpho-mojapelo-s6Vv9u2qZyc-unsplash.jpg" class="image-left"></p>
+</section>
+<section id="section-7" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="australian-ambulance-costs-1">Australian ambulance costs</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>ambulance_fc <span class="ot">&lt;-</span> ambulance <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a></a>  <span class="fu">model</span>(</span>
+<span id="cb2-3"><a></a>    <span class="at">ETS =</span> <span class="fu">ETS</span>(Revenue),</span>
+<span id="cb2-4"><a></a>    <span class="st">`</span><span class="at">TSLM Piecewise</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">TSLM</span>(Revenue <span class="sc">~</span> <span class="fu">trend</span>(<span class="at">knots =</span> <span class="dv">2015</span>))</span>
+<span id="cb2-5"><a></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb2-6"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-7"><a></a>    <span class="st">`</span><span class="at">Mean of RV</span><span class="st">`</span> <span class="ot">=</span> (ETS <span class="sc">+</span> <span class="st">`</span><span class="at">TSLM Piecewise</span><span class="st">`</span>)<span class="sc">/</span><span class="dv">2</span>L</span>
+<span id="cb2-8"><a></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb2-9"><a></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="st">"10 years"</span>)</span>
+<span id="cb2-10"><a></a>avg_ensemble <span class="ot">&lt;-</span> ambulance_fc <span class="sc">|&gt;</span></span>
+<span id="cb2-11"><a></a>  <span class="fu">filter</span>(.model <span class="sc">==</span> <span class="st">"Mean of RV"</span>)</span>
+<span id="cb2-12"><a></a>ambulance_fc <span class="ot">&lt;-</span> ambulance_fc <span class="sc">|&gt;</span></span>
+<span id="cb2-13"><a></a>  <span class="fu">filter</span>(.model <span class="sc">!=</span> <span class="st">"Mean of RV"</span>)</span>
+<span id="cb2-14"><a></a>ambulance_fc <span class="sc">|&gt;</span></span>
+<span id="cb2-15"><a></a>  <span class="fu">autoplot</span>(ambulance) <span class="sc">+</span></span>
+<span id="cb2-16"><a></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/ambulance_forecast-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/mpho-mojapelo-s6Vv9u2qZyc-unsplash.jpg" class="image-left"></p>
+</section>
+<section id="section-8" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="australian-ambulance-costs-2">Australian ambulance costs</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">library</span>(ggdist)</span>
+<span id="cb3-2"><a></a>ambulance_fc <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a></a>  <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="dv">2030</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> .model, <span class="at">xdist =</span> Revenue)) <span class="sc">+</span> </span>
+<span id="cb3-5"><a></a>  <span class="fu">stat_slab</span>() <span class="sc">+</span> </span>
+<span id="cb3-6"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Revenue"</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="st">"Forecasts of ambulance costs in 2030"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/ambulance_2030_density-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/mpho-mojapelo-s6Vv9u2qZyc-unsplash.jpg" class="image-left"></p>
+</section>
+<section id="section-9" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="australian-ambulance-costs-3">Australian ambulance costs</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/ambulance_2030_cdf-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/mpho-mojapelo-s6Vv9u2qZyc-unsplash.jpg" class="image-left"></p>
+</section>
+<section id="section-10" class="slide level2">
+<h2></h2>
+<!-- 
+Three ways to average forecasts
+-->
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="three-ways-to-average-forecasts-1">Three ways to average forecasts</h3>
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🎲 Mean of random variables (averaging outcomes)</strong></p>
+</div>
+<div class="callout-content">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">combination_ensemble</span>(ETS, ARIMA) <span class="co"># OR (ETS + ARIMA)/2L</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><span class="math display">\[\bar{X} = \sum_{i} w_i X_i\]</span></p>
+</div>
+</div>
+</div>
+<div class="blur">
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🔀 Probability Mixture (averaging probabilities)</strong></p>
+</div>
+<div class="callout-content">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">dist_mixture</span>(fc1, fc2, <span class="at">type =</span> <span class="st">"probability"</span>, <span class="at">weights =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><span class="math display">\[ F(x) = \sum_{i=1}^{n} w_i \cdot F_i(x), \hspace{1em} f(x) = \sum_{i=1}^{n} w_i \cdot f_i(x) \]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="blur">
+<div class="callout callout-warning no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>📊 Quantile Mixture (averaging quantiles)</strong></p>
+</div>
+<div class="callout-content">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">dist_mixture</span>(fc1, fc2, <span class="at">type =</span> <span class="st">"quantile"</span>, <span class="at">weights =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><span class="math display">\[ F^{-1}(p) = \sum_{i=1}^{n} w_i \cdot F_i^{-1}(p) \]</span></p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-11" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="mean-of-random-variables-1">Mean of random variables</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/forecast_averaging_cdf-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-12" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="mean-of-random-variables-2">Mean of random variables</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/forecast_averaging_density-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-13" class="slide level2">
+<h2></h2>
+<!-- 
+Three ways to average forecasts
+-->
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="three-ways-to-average-forecasts-2">Three ways to average forecasts</h3>
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🎲 Mean of random variables (averaging outcomes)</strong></p>
+</div>
+<div class="callout-content">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">combination_ensemble</span>(ETS, ARIMA) <span class="co"># OR (ETS + ARIMA)/2L</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><span class="math display">\[\bar{X} = \sum_{i} w_i X_i\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🔀 Probability Mixture (averaging probabilities)</strong></p>
+</div>
+<div class="callout-content">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">dist_mixture</span>(fc1, fc2, <span class="at">type =</span> <span class="st">"probability"</span>, <span class="at">weights =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><span class="math display">\[ F(x) = \sum_{i=1}^{n} w_i \cdot F_i(x), \hspace{1em} f(x) = \sum_{i=1}^{n} w_i \cdot f_i(x) \]</span></p>
+</div>
+</div>
+</div>
+<div class="blur">
+<div class="callout callout-warning no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>📊 Quantile Mixture (averaging quantiles)</strong></p>
+</div>
+<div class="callout-content">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">dist_mixture</span>(fc1, fc2, <span class="at">type =</span> <span class="st">"quantile"</span>, <span class="at">weights =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><span class="math display">\[ F^{-1}(p) = \sum_{i=1}^{n} w_i \cdot F_i^{-1}(p) \]</span></p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-14" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="probability-mixtures">Probability mixtures</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/prob_mixture_cdf-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-15" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="probability-mixtures-1">Probability mixtures</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/prob_mixture_density-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-16" class="slide level2">
+<h2></h2>
+<!-- 
+Three ways to average forecasts
+-->
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="three-ways-to-average-forecasts-3">Three ways to average forecasts</h3>
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🎲 Mean of random variables (averaging outcomes)</strong></p>
+</div>
+<div class="callout-content">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">combination_ensemble</span>(ETS, ARIMA) <span class="co"># OR (ETS + ARIMA)/2L</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><span class="math display">\[\bar{X} = \sum_{i} w_i X_i\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🔀 Probability Mixture (averaging probabilities)</strong></p>
+</div>
+<div class="callout-content">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">dist_mixture</span>(fc1, fc2, <span class="at">type =</span> <span class="st">"probability"</span>, <span class="at">weights =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><span class="math display">\[ F(x) = \sum_{i=1}^{n} w_i \cdot F_i(x), \hspace{1em} f(x) = \sum_{i=1}^{n} w_i \cdot f_i(x) \]</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-warning no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>📊 Quantile Mixture (averaging quantiles)</strong></p>
+</div>
+<div class="callout-content">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">dist_mixture</span>(fc1, fc2, <span class="at">type =</span> <span class="st">"quantile"</span>, <span class="at">weights =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><span class="math display">\[ F^{-1}(p) = \sum_{i=1}^{n} w_i \cdot F_i^{-1}(p) \]</span></p>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-17" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="quantile-mixtures">Quantile mixtures</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/quant_mixture_cdf-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-18" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="quantile-mixtures-1">Quantile mixtures</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/quant_mixture_density-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-19" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="ensemble-methods">Ensemble methods</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/ensemble_mixtures_density-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-20" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="ensemble-forecasts">Ensemble forecasts</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/ensemble_mixtures_plot-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/mpho-mojapelo-s6Vv9u2qZyc-unsplash.jpg" class="image-left"></p>
+</section>
+<section id="section-21" class="slide level2 center">
+<h2></h2>
+<p><span style="font-size:3em;">Demo</span></p>
+</section>
+<section id="section-22" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-ensemble-forecasting">Exercise: Ensemble forecasting</h3>
+<p>Produce an ensemble for Australian Electricity Production (<code>aus_production</code>).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>aus_production <span class="sc">|&gt;</span> <span class="fu">autoplot</span>(Electricity)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-caution callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Your turn</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li>Fit several models for electricity production</li>
+<li>Combine them into an equal-weighted ensemble<br>
+(averaging random variables is currently simplest)</li>
+<li>Compare the accuracy of the ensemble with individual models</li>
+<li>Experiment with unequal weights.<br>
+Can you beat equal weighting?</li>
+</ol>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-23" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-ensemble-forecasting-1">Exercise: Ensemble forecasting</h3>
+<p>Produce an ensemble for Australian Electricity Production (<code>aus_production</code>).</p>
+<ol type="1">
+<li>Fit several models for electricity production</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>fit <span class="ot">&lt;-</span> aus_production <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a></a>  <span class="fu">model</span>(</span>
+<span id="cb14-3"><a></a>    <span class="at">ETS   =</span> <span class="fu">ETS</span>(Electricity),</span>
+<span id="cb14-4"><a></a>    <span class="at">ARIMA =</span> <span class="fu">ARIMA</span>(<span class="fu">sqrt</span>(Electricity))</span>
+<span id="cb14-5"><a></a>  )</span>
+<span id="cb14-6"><a></a>fit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A mable: 1 x 2
+           ETS                    ARIMA
+       &lt;model&gt;                  &lt;model&gt;
+1 &lt;ETS(M,A,M)&gt; &lt;ARIMA(1,1,4)(0,1,1)[4]&gt;</code></pre>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-24" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-ensemble-forecasting-2">Exercise: Ensemble forecasting</h3>
+<ol start="2" type="1">
+<li>Combine them into an equal-weighted ensemble</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>fit_ensemble <span class="ot">&lt;-</span> fit <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb16-3"><a></a>    <span class="at">Ensemble =</span> <span class="fu">combination_ensemble</span>(ETS, ARIMA)</span>
+<span id="cb16-4"><a></a>    <span class="co"># Ensemble = (ETS + ARIMA) / 2L</span></span>
+<span id="cb16-5"><a></a>  )</span>
+<span id="cb16-6"><a></a>fit_ensemble <span class="sc">|&gt;</span></span>
+<span id="cb16-7"><a></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="st">"2 years"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-8"><a></a>  <span class="fu">autoplot</span>(<span class="fu">tail</span>(aus_production, <span class="dv">20</span>), <span class="at">alpha =</span> <span class="fl">0.3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/exercise-ensemble-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg" class="image-left"></p>
+</section>
+<section id="section-25" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-ensemble-forecasting-3">Exercise: Ensemble forecasting</h3>
+<ol start="3" type="1">
+<li>Compare the accuracy of the ensemble with individual models</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>fit_ensemble <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a></a>  <span class="fu">accuracy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a></a>  <span class="fu">arrange</span>(RMSE)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 10
+  .model   .type        ME  RMSE   MAE     MPE  MAPE  MASE RMSSE    ACF1
+  &lt;chr&gt;    &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1 ARIMA    Training -38.6   708.  445. -0.0136  1.45 0.394 0.513 -0.0387
+2 Ensemble Training -17.6   718.  449.  0.0627  1.42 0.398 0.520 -0.0305
+3 ETS      Training   3.44  753.  474.  0.139   1.48 0.420 0.545 -0.0145</code></pre>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-26" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-ensemble-forecasting-4">Exercise: Ensemble forecasting</h3>
+<ol start="4" type="1">
+<li>Experiment with unequal weights<br>
+Can you beat equal weighting?</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>fit_ensemble <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb19-3"><a></a>    <span class="at">W_Ensemble =</span> <span class="fu">combination_ensemble</span>(ETS, ARIMA, <span class="at">weights =</span> <span class="st">"inv_var"</span>)</span>
+<span id="cb19-4"><a></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb19-5"><a></a>  <span class="fu">accuracy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb19-6"><a></a>  <span class="fu">arrange</span>(RMSE)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 10
+  .model     .type        ME  RMSE   MAE     MPE  MAPE  MASE RMSSE    ACF1
+  &lt;chr&gt;      &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1 ARIMA      Training -38.6   708.  445. -0.0136  1.45 0.394 0.513 -0.0387
+2 W_Ensemble Training -18.9   717.  448.  0.0579  1.42 0.397 0.519 -0.0313
+3 Ensemble   Training -17.6   718.  449.  0.0627  1.42 0.398 0.520 -0.0305
+4 ETS        Training   3.44  753.  474.  0.139   1.48 0.420 0.545 -0.0145</code></pre>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-27" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-ensemble-forecasting-5">Exercise: Ensemble forecasting</h3>
+<ol start="4" type="1">
+<li>Experiment with unequal weights<br>
+Can you beat equal weighting?</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>aus_production <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a></a>  <span class="fu">stretch_tsibble</span>(<span class="at">.init =</span> <span class="dv">40</span>, <span class="at">.step =</span> <span class="dv">4</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-3"><a></a>  <span class="fu">model</span>(</span>
+<span id="cb21-4"><a></a>    <span class="at">ETS   =</span> <span class="fu">ETS</span>(Electricity),</span>
+<span id="cb21-5"><a></a>    <span class="at">ARIMA =</span> <span class="fu">ARIMA</span>(<span class="fu">sqrt</span>(Electricity))</span>
+<span id="cb21-6"><a></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb21-7"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb21-8"><a></a>    <span class="at">Ensemble   =</span> <span class="fu">combination_ensemble</span>(ETS, ARIMA),</span>
+<span id="cb21-9"><a></a>    <span class="at">W_Ensemble =</span> <span class="fu">combination_ensemble</span>(ETS, ARIMA, <span class="at">weights =</span> <span class="st">"inv_var"</span>)</span>
+<span id="cb21-10"><a></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb21-11"><a></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">4</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-12"><a></a>  <span class="fu">accuracy</span>(aus_production) <span class="sc">|&gt;</span></span>
+<span id="cb21-13"><a></a>  <span class="fu">arrange</span>(RMSE)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 10
+  .model     .type      ME  RMSE   MAE     MPE  MAPE  MASE RMSSE  ACF1
+  &lt;chr&gt;      &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Ensemble   Test   -78.0  1005.  646. -0.0880  1.77 0.569 0.724 0.425
+2 W_Ensemble Test   -83.9  1006.  647. -0.102   1.77 0.569 0.725 0.426
+3 ETS        Test     3.43 1010.  657.  0.0956  1.78 0.578 0.728 0.430
+4 ARIMA      Test  -159.   1024.  658. -0.272   1.81 0.579 0.738 0.428</code></pre>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Out-of-sample evaluation</strong></p>
+</div>
+<div class="callout-content">
+<p>In-sample accuracy is unrealistic for actual forecasting performance.<br>
+What about cross-validated accuracy?</p>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-28" class="slide level2">
+<h2></h2>
+<!-- 
+- The **forecast combination puzzle** is the recurring empirical pattern that optimally weighted combinations often do not beat simple equal-weighted averages, even when the component models differ in quality.
+ 
+  - Frazier, Covey, Martin & Poskitt (2023, arXiv:2308.05263) argue that much of the puzzle comes from the usual **two-step** workflow: estimate the component models first, then estimate the combination weights.
+  
+  - In this setting, standard predictive-accuracy tests can have a **nonstandard asymptotic null distribution**, which leads to size distortions and low power.
+  
+  - Their proposed fix is to estimate the component-model parameters and combination weights **jointly in one step, when feasible**. Under that approach, the puzzle largely disappears and the optimally estimated combination can show its advantage when it is genuinely better.
+-->
+<!-- nonstandard asymptotic null distribution → size distortions and low power in predictive-accuracy tests -->
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="forecast-combination-puzzle">Forecast combination puzzle</h3>
+<p>Finding ensemble weights that outperform equal weights is surprisingly difficult.</p>
+<p>(Even when models clearly differ in quality.)</p>
+<div class="fragment fade-up">
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>✅ Solving the puzzle</strong></p>
+</div>
+<div class="callout-content">
+<p>Frazier, Covey, Martin &amp; Poskitt (2023) solve the puzzle and explain the root cause.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-29" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="forecast-combination-puzzle-1">Forecast combination puzzle</h3>
+<div class="fragment fade-up">
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🪜 The two-step workflow</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li>Estimate component models</li>
+<li>Estimate combination weights</li>
+</ol>
+<p>Each step ignores uncertainty from the other.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-up">
+<p>Frazier, Covey, Martin &amp; Poskitt (2023) explore jointly estimating models with weights.</p>
+</div>
+<div class="fragment fade-up">
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🔗 Joint estimation</strong></p>
+</div>
+<div class="callout-content">
+<p>Estimate model parameters and weights together:</p>
+<p><span class="math display">\[(\hat\theta, \hat w) = \arg\min_{\theta,\, w} \mathcal{L}(y, \textstyle\sum_i w_i f_i(\theta_i))\]</span></p>
+<p>Joint estimation produces better results with unequal weights.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-30" class="slide level2">
+<h2></h2>
+<!-- 
+Aside: Large forecasting models
+
+Synthetic data is widely used in training foundation models for forecasting.
+
+Simulating data from weighted ensembles allows learning of more generalised patterns, essentially training large models to learn solutions to the forecast combination problem.
+-->
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="aside-synthetic-data-for-lfms">Aside: Synthetic data for LFMs</h3>
+<p>Weighted ensembles are used to simulate synthetic time series for training large forecasting models (LFMs).</p>
+<div class="fragment fade-up">
+<div class="callout callout-note no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🎲 Simulating from an ensemble</strong></p>
+</div>
+<div class="callout-content">
+<p>Generate diverse synthetic time series with different weighted combinations of component model simulations.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-up">
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>📐 Why this is useful</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Foundation models learn unequal weights of models</li>
+<li>Essentially learns combinations without the puzzle</li>
+<li>Covers a wider range of temporal structures</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="time-for-a-short-break" class="slide level2">
+<h2><span class="emoji" data-emoji="alarm_clock">⏰</span> Time for a (short) break!</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="callout callout-tip callout-titled callout-style-simple">
@@ -195,10 +1286,14 @@
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Final remarks</strong></p>
+<p><strong>Up next… reconciliation</strong></p>
 </div>
 <div class="callout-content">
-<p>…</p>
+<ul>
+<li>Combine forecasts across multiple series</li>
+<li>Archetypes for common coherency constraints</li>
+<li>Learn various reconciliation methods and weights</li>
+</ul>
 </div>
 </div>
 </div>

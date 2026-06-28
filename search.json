@@ -1,24 +1,605 @@
 [
   {
+    "objectID": "slides/reconciliation/index.html#section",
+    "href": "slides/reconciliation/index.html#section",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Forecast combinations\n\n\nReconciliation\n\n\n28th June 2026 @ ISF - Montreal, Canada\n\nMitchell O’Hara-Wild, Nectric\n\n\n\n\n\n\n\nUseful links\n\n\n social.mitchelloharawild.com\n workshop.nectric.com.au/isf2026/\n mitchelloharawild/workshop-isf2026"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-1",
+    "href": "slides/reconciliation/index.html#section-1",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Forecast combinations\n\n\n\n\n1️⃣ Single-series\n\n\nDecomposition and ensemble forecasting combines models to forecast a single series.\n\n\n\n\n\n\n\n\n🔢 Multi-series\n\n\nReconciliation combines forecasts across many related series, sharing information by enforcing coherency constraints."
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-2",
+    "href": "slides/reconciliation/index.html#section-2",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Coherent combinations\nIndependent models produce incoherent base forecasts \\(\\hat{\\mathbf{y}}_h\\) - i.e. they don’t add up.\nReconciling base forecasts produces coherent forecasts \\(\\tilde{\\mathbf{y}}_h\\) that do add up.\n\n\n\n\n📡 Forecast reconciliation\n\n\nThe adjustment generally improves accuracy, propagating information across the hierarchy.\n\n\n\n\n\n\n\n\n✅ Independently coherent?\n\n\nSome independent models can produce forecasts that are already coherent.\nHow is this possible?"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-3",
+    "href": "slides/reconciliation/index.html#section-3",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Coherency constraints\nThe structural relationships between each time series form constraints.\n\n\n\n\n\n\n\nFor example… tourism 🏖️\n\n\nThe total visitors must be the sum of visitors by purpose.\n\\[\\text{Total}_t = \\text{Business}_t + \\text{Holiday}_t + \\text{Other}_t + \\text{Visiting}_t\\]\n\ntourism |&gt; \n  aggregate_key(Purpose, Trips = sum(Trips)) |&gt; \n  filter(Quarter == yearquarter(\"2015 Q1\"))\n\n# A tsibble: 5 x 3 [1Q]\n# Key:       Purpose [5]\n  Quarter Purpose       Trips\n    &lt;qtr&gt; &lt;chr*&gt;        &lt;dbl&gt;\n1 2015 Q1 &lt;aggregated&gt; 25024.\n2 2015 Q1 Business      3977.\n3 2015 Q1 Holiday      11631.\n4 2015 Q1 Other         1214.\n5 2015 Q1 Visiting      8202."
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-4",
+    "href": "slides/reconciliation/index.html#section-4",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Forecasting tourism\nETS forecasts for each series are incoherent.\n\n\nCode\ntourism_purpose &lt;- tourism |&gt; \n  aggregate_key(Purpose, Trips = sum(Trips))\ntourism_purpose_fc &lt;- tourism_purpose |&gt; \n  model(ETS(Trips)) |&gt; \n  forecast(h = \"2 years\")\ntourism_purpose_fc |&gt; \n  autoplot(tourism_purpose |&gt; filter(Quarter &gt;= yearquarter(\"2010 Q1\")))"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-5",
+    "href": "slides/reconciliation/index.html#section-5",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Forecasting tourism\nThe sum of forecasts for each Purpose (convolution) is not equal to the total.\n\n\nCode\nlibrary(distributional)\ntourism_purpose_fc |&gt;\n  # Compute the convolution of the base forecasts by Purpose\n  filter(!is_aggregated(Purpose)) |&gt;\n  group_by(.model) |&gt; \n  summarise(.model = \"Sum of base forecasts\", Trips = sum(Trips)) |&gt;\n  # sum() is invalid somehow? Likely a distributional bug. Recreate it.\n  mutate(Trips = dist_normal(mean(Trips), sqrt(variance(Trips)))) |&gt; \n  # Add back the base forecast for total\n  bind_rows(\n    tourism_purpose_fc |&gt;\n      filter(is_aggregated(Purpose)) |&gt;\n      transmute(.model = \"Forecast of total\", Trips)\n  ) |&gt;\n  # Plot forecasts against the actual total\n  autoplot(tourism_purpose |&gt; filter(is_aggregated(Purpose), Quarter &gt;= yearquarter(\"2010 Q1\")) |&gt; select(-Purpose)) +\n  facet_grid(vars(.model), scales = \"free_y\") +\n  theme(legend.position = \"bottom\")"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-6",
+    "href": "slides/reconciliation/index.html#section-6",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Coherency structures\nThere are three coherency structures of increasing generality.\nRelated time series are described in three ways:\n\n\n\n\n\n🌳 Hierarchical\n\n\nOne path from top to bottom.\n\n\n\n\n\n\n\nG\n\n\ncluster_1\n\nBottom\n\n\ncluster_0\n\nUpper\n\n\n\nAX\n\nAX\n\n\n\nAY\n\nAY\n\n\n\nBX\n\nBX\n\n\n\nBY\n\nBY\n\n\n\nTotal\n\nTotal\n\n\n\nA\n\nA\n\n\n\nTotal-&gt;A\n\n\n\n\n\nB\n\nB\n\n\n\nTotal-&gt;B\n\n\n\n\n\nA-&gt;AX\n\n\n\n\n\nA-&gt;AY\n\n\n\n\n\nB-&gt;BX\n\n\n\n\n\nB-&gt;BY\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n🧩 Grouped\n\n\nMany paths from top to bottom.\n\n\n\n\n\n\n\nG\n\n\ncluster_2\n\nPath AB\n\n\ncluster_3\n\nPath XY\n\n\ncluster_0\n\nBottom\n\n\ncluster_1\n\nTop\n\n\n\nBY\n\nBY\n\n\n\nBX\n\nBX\n\n\n\nAY\n\nAY\n\n\n\nAX\n\nAX\n\n\n\nTotal\n\nTotal\n\n\n\nA\n\nA\n\n\n\nTotal-&gt;A\n\n\n\n\n\nB\n\nB\n\n\n\nTotal-&gt;B\n\n\n\n\n\nX\n\nX\n\n\n\nTotal-&gt;X\n\n\n\n\n\nY\n\nY\n\n\n\nTotal-&gt;Y\n\n\n\n\n\nA-&gt;AY\n\n\n\n\n\nA-&gt;AX\n\n\n\n\n\nB-&gt;BY\n\n\n\n\n\nB-&gt;BX\n\n\n\n\n\nX-&gt;BX\n\n\n\n\n\nX-&gt;AX\n\n\n\n\n\nY-&gt;BY\n\n\n\n\n\nY-&gt;AY\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n🕸️ Graph\n\n\nMany paths from (many) top to (many) bottom series.\n\n\n\n\n\n\n\nG\n\n\ncluster_1\n\nUnconstrained XY\n\n\ncluster_2\n\nUnconstrained AB\n\n\ncluster_0\n\nConstrained\n\n\n\nX2\n\nX2\n\n\n\nX1\n\nX1\n\n\n\nY\n\nY\n\n\n\nB2\n\nB2\n\n\n\nB1\n\nB1\n\n\n\nA3\n\nA3\n\n\n\nA2\n\nA2\n\n\n\nA1\n\nA1\n\n\n\nTotal\n\nTotal\n\n\n\nTotal-&gt;Y\n\n\n\n\n\nX\n\nX\n\n\n\nTotal-&gt;X\n\n\n\n\n\nA\n\nA\n\n\n\nTotal-&gt;A\n\n\n\n\n\nB\n\nB\n\n\n\nTotal-&gt;B\n\n\n\n\n\nX-&gt;X2\n\n\n\n\n\nX-&gt;X1\n\n\n\n\n\nA-&gt;A3\n\n\n\n\n\nA-&gt;A2\n\n\n\n\n\nA-&gt;A1\n\n\n\n\n\nB-&gt;B2\n\n\n\n\n\nB-&gt;B1"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-7",
+    "href": "slides/reconciliation/index.html#section-7",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Hierarchical aggregation\n\n\n\n\n\n\nEach aggregate has a single constraint\n\n\nThe basic constraint shown before is ‘hierarchical’"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-8",
+    "href": "slides/reconciliation/index.html#section-8",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Hierarchical aggregation\n\n\n\n\n\n\nEach aggregate has a single constraint\n\n\nHierarchical series often have multiple layers"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-9",
+    "href": "slides/reconciliation/index.html#section-9",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Grouped aggregation\nThere are many ways to disaggregate a series.\nConsider where attendees have travelled from, domestic or international?"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-10",
+    "href": "slides/reconciliation/index.html#section-10",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Grouped aggregation\n\n\n\n\n\n\nConsidering origin and workplace\n\n\nAttendance can be disaggregated by both origin and workplace…"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-11",
+    "href": "slides/reconciliation/index.html#section-11",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Grouped aggregation\n\n\n\n\n\n\nConsidering origin and workplace\n\n\nand then further disaggregated by the other.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA grouped structure has the same top and bottom series."
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-12",
+    "href": "slides/reconciliation/index.html#section-12",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Grouped aggregation\n\n\n\n\n\n\nConsidering origin and workplace\n\n\nThe grouped structure can be plotted in a single graph."
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-13",
+    "href": "slides/reconciliation/index.html#section-13",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Cross-sectional aggregation\naggregate_key() produces hierarchical and grouped aggregations of the data.\n\n\ntourism\n\n# A tsibble: 24,320 x 5 [1Q]\n# Key:       Region, State, Purpose [304]\n   Quarter Region   State           Purpose  Trips\n     &lt;qtr&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;dbl&gt;\n 1 1998 Q1 Adelaide South Australia Business  135.\n 2 1998 Q2 Adelaide South Australia Business  110.\n 3 1998 Q3 Adelaide South Australia Business  166.\n 4 1998 Q4 Adelaide South Australia Business  127.\n 5 1999 Q1 Adelaide South Australia Business  137.\n 6 1999 Q2 Adelaide South Australia Business  200.\n 7 1999 Q3 Adelaide South Australia Business  169.\n 8 1999 Q4 Adelaide South Australia Business  134.\n 9 2000 Q1 Adelaide South Australia Business  154.\n10 2000 Q2 Adelaide South Australia Business  169.\n# ℹ 24,310 more rows\n\n\n\n\ntourism |&gt; \n  aggregate_key(Purpose * (State / Region), Trips = sum(Trips))\n\n\n\n# A tsibble: 34,000 x 5 [1Q]\n# Key:       Purpose, State, Region [425]\n   Quarter Purpose      State        Region        Trips\n     &lt;qtr&gt; &lt;chr*&gt;       &lt;chr*&gt;       &lt;chr*&gt;        &lt;dbl&gt;\n 1 1998 Q1 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 23182.\n 2 1998 Q2 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 20323.\n 3 1998 Q3 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 19827.\n 4 1998 Q4 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 20830.\n 5 1999 Q1 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 22087.\n 6 1999 Q2 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 21458.\n 7 1999 Q3 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 19914.\n 8 1999 Q4 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 20028.\n 9 2000 Q1 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 22339.\n10 2000 Q2 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 19941.\n# ℹ 33,990 more rows\n\n\n\n\n\n\n\n\nSymbolic factors\n\n\nSymbolic factors concisely encode the structure:\n\nparent/child encodes hierarchical structure (nested)\nA*B encodes grouped structure (crossed)"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-14",
+    "href": "slides/reconciliation/index.html#section-14",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Temporal aggregation\nAggregations can also be computed over temporal granularities."
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-15",
+    "href": "slides/reconciliation/index.html#section-15",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Temporal aggregation\nMany granules can aggregate time."
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-16",
+    "href": "slides/reconciliation/index.html#section-16",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Temporal aggregation\n\n\n\n\n\n\nA single graph can represent both temporal hierarchies."
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-17",
+    "href": "slides/reconciliation/index.html#section-17",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Temporal aggregation\naggregate_index() produces temporal aggregations of the data (experimental!).\n\n\ntourism\n\n# A tsibble: 24,320 x 5 [1Q]\n# Key:       Region, State, Purpose [304]\n   Quarter Region   State           Purpose  Trips\n     &lt;qtr&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;dbl&gt;\n 1 1998 Q1 Adelaide South Australia Business  135.\n 2 1998 Q2 Adelaide South Australia Business  110.\n 3 1998 Q3 Adelaide South Australia Business  166.\n 4 1998 Q4 Adelaide South Australia Business  127.\n 5 1999 Q1 Adelaide South Australia Business  137.\n 6 1999 Q2 Adelaide South Australia Business  200.\n 7 1999 Q3 Adelaide South Australia Business  169.\n 8 1999 Q4 Adelaide South Australia Business  134.\n 9 2000 Q1 Adelaide South Australia Business  154.\n10 2000 Q2 Adelaide South Australia Business  169.\n# ℹ 24,310 more rows\n\n\n\n\ntourism |&gt; \n  aggregate_index(list(quarter(1L), year(1L)), Trips = sum(Trips))\n\n\n\n# A tsibble: 30,400 x 6 [1Q, 1Y]\n# Key:       Region, State, Purpose, .granule [608]\n   Quarter   Region         State              Purpose  .granule   Trips\n   &lt;mixtime&gt; &lt;chr&gt;          &lt;chr&gt;              &lt;chr&gt;    &lt;mixtime&gt;  &lt;dbl&gt;\n 1 1998 Q1   Adelaide       South Australia    Business 1 quarter 135.  \n 2 1998 Q1   Adelaide       South Australia    Holiday  1 quarter 224.  \n 3 1998 Q1   Adelaide       South Australia    Other    1 quarter  58.4 \n 4 1998 Q1   Adelaide       South Australia    Visiting 1 quarter 242.  \n 5 1998 Q1   Adelaide Hills South Australia    Business 1 quarter   0   \n 6 1998 Q1   Adelaide Hills South Australia    Holiday  1 quarter   6.81\n 7 1998 Q1   Adelaide Hills South Australia    Other    1 quarter   0   \n 8 1998 Q1   Adelaide Hills South Australia    Visiting 1 quarter   2.99\n 9 1998 Q1   Alice Springs  Northern Territory Business 1 quarter   7.54\n10 1998 Q1   Alice Springs  Northern Territory Holiday  1 quarter   8.15\n# ℹ 30,390 more rows\n\n\n\n\n\n\n\n\n🕰️ Time granules\n\n\nThe time granules are defined in the mixtime package.\nThey are calendar specific, and can be n-length\n(e.g. cal_gregorian$month(4L) for 4-month bins).\n\n\n\n\n\n\n\n\n🚧 In-development\n\n\nThe mixtime package is fresh!\nIt will take some time for tsibble and fable to fully support it (and consequently temporal reconciliation is ‘coming soon’)."
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-18",
+    "href": "slides/reconciliation/index.html#section-18",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Cross-Temporal aggregation\n\n\n\n\n\n\nBoth temporal and cross-sectional aggregation together."
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-20",
+    "href": "slides/reconciliation/index.html#section-20",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: Forecasting aggregates\nExplore the PBS dataset and produce cross-sectional aggregations of Scripts. Then produce base forecasts for each series.\n\n\n\n\n\n\nYour turn\n\n\n\nIdentify a suitable hierarchical/grouped structure using ATC1, ATC2, and Concession\nAggregate the data with aggregate_key()\nFit models to each series in the hierarchy\nProduce base forecasts for each series"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-21",
+    "href": "slides/reconciliation/index.html#section-21",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: Forecasting aggregates\nA suitable grouped structure is\nConcession * (ATC1 / ATC2).\n\n\nCode\npbs_atc &lt;- PBS |&gt; \n  aggregate_key(Concession * (ATC1 / ATC2), Scripts = sum(Scripts))\n\npbs_atc\n\n\n# A tsibble: 60,840 x 5 [1M]\n# Key:       Concession, ATC1, ATC2 [300]\n      Month Concession   ATC1         ATC2         Scripts\n      &lt;mth&gt; &lt;chr*&gt;       &lt;chr*&gt;       &lt;chr*&gt;         &lt;dbl&gt;\n 1 1991 Jul &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 8090395\n 2 1991 Aug &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 7308118\n 3 1991 Sep &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 7614644\n 4 1991 Oct &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 8206248\n 5 1991 Nov &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 7686634\n 6 1991 Dec &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 8954872\n 7 1992 Jan &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 9616464\n 8 1992 Feb &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 6291465\n 9 1992 Mar &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 6806613\n10 1992 Apr &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 7651435\n# ℹ 60,830 more rows"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-22",
+    "href": "slides/reconciliation/index.html#section-22",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: Forecasting aggregates\nKeeping it simple, base forecasts with ETS().\n\n\nCode\nfit_pbs &lt;- pbs_atc |&gt; \n  model(ets = ETS(Scripts))\nfit_pbs |&gt; \n  forecast(h = \"2 years\")\n\n\n# A fable: 7,200 x 7 [1M]\n# Key:     Concession, ATC1, ATC2, .model [300]\n   Concession   ATC1   ATC2   .model    Month\n   &lt;chr*&gt;       &lt;chr*&gt; &lt;chr*&gt; &lt;chr&gt;     &lt;mth&gt;\n 1 Concessional A      A01    ets    2008 Jul\n 2 Concessional A      A01    ets    2008 Aug\n 3 Concessional A      A01    ets    2008 Sep\n 4 Concessional A      A01    ets    2008 Oct\n 5 Concessional A      A01    ets    2008 Nov\n 6 Concessional A      A01    ets    2008 Dec\n 7 Concessional A      A01    ets    2009 Jan\n 8 Concessional A      A01    ets    2009 Feb\n 9 Concessional A      A01    ets    2009 Mar\n10 Concessional A      A01    ets    2009 Apr\n# ℹ 7,190 more rows\n# ℹ 2 more variables: Scripts &lt;dist&gt;, .mean &lt;dbl&gt;"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-23",
+    "href": "slides/reconciliation/index.html#section-23",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Forecast reconciliation\nNow that we have incoherent base forecasts, how can we reconcile them?\n\ndata |&gt; \n  aggregate_key(A * B / C, sum(???)) |&gt;\n  model(base = ETS(???)) |&gt;\n  reconcile(coherent = ???(base)) |&gt;\n  forecast()\n\n\n\n\n\nSingle-level methods\n\n\nTraditionally coherent forecasts were made with only one level of base forecasts from the hierarchy.\n\n\n\n\n\n\n\n\nAll-level methods\n\n\nFortunately better methods exist that use information from all base forecasts across the hierarchy."
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-24",
+    "href": "slides/reconciliation/index.html#section-24",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Single-level approaches\nThey choose one level of the hierarchy. The other levels are forecasted by aggregation or disaggregation of this level.\n\nBottom-up\nTop-down\nMiddle-out"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-25",
+    "href": "slides/reconciliation/index.html#section-25",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Bottom-up: bottom_up()\nForecast every bottom-level series. Add them to get the higher levels (convolution).\nThis uses the bottom-level information (and noise), but ignores other forecasts."
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-26",
+    "href": "slides/reconciliation/index.html#section-26",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Top-down: top_down()\nForecast the total. Split that forecast across the bottom series with proportions.\n\n\n\n\nWeighting strategies\n\n\ntop_down() offers three weight strategies:\n\naverage_proportions Average of data ratios across time.\nproportion_averages Ratio of data averages across time.\nforecast_proportions (default) Ratio of forecast means over horizon."
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-27",
+    "href": "slides/reconciliation/index.html#section-27",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Middle-out: middle_out()\nChoose a middle level of the hierarchy.\n⬆️ Aggregate upward with bottom-up.\n⬇️ Disaggregate downward with top-down.\n\n\n\n\nℹ️ Minimum depth\n\n\nMiddle out requires &gt;2 levels of the hierarchy.\n(otherwise it is just bottom-up or top-down!)."
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-28",
+    "href": "slides/reconciliation/index.html#section-28",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "‘Optimal’ forecast reconciliation\n\n\n\n⚠️ Sub-optimal single-level strategies\n\n\nSingle-level approaches are clearly sub-optimal.\nThey ignore information from other levels of the hierarchy!\n\n\n\n\n\n\n\n🎯 ‘Optimal’ multi-level strategies\n\n\nHow can we use information from all base forecasts?\nSolve the incoherency with a cross-sectional model!"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-29",
+    "href": "slides/reconciliation/index.html#section-29",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Constraint matrices\n\\[\\text{Total}_t = \\text{Business}_t + \\text{Holiday}_t + \\text{Other}_t + \\text{Visiting}_t\\]\n\n\n\n\n📐 Structural form: \\(\\mathbf{y}_t = \\mathbf{S}\\mathbf{b}_t\\), coherent_smat()\n\n\n\\[\\mathbf{S} = \\begin{bmatrix} 1 & 1 & 1 & 1 \\\\ 1 & 0 & 0 & 0 \\\\ 0 & 1 & 0 & 0 \\\\ 0 & 0 & 1 & 0 \\\\ 0 & 0 & 0 & 1 \\end{bmatrix}\\]\n\\(\\mathbf{S}\\) maps the \\(n_b\\) bottom-level series \\(\\mathbf{b}_t\\) to all \\(n\\) series.\n\n\n\n\n\n\n\n\n🔗 Zero-constrained form: \\(\\mathbf{C}\\mathbf{y}_t = \\mathbf{0}\\), coherent_cmat()\n\n\n\\[\\mathbf{C} = \\begin{bmatrix} 1 & -1 & -1 & -1 & -1 \\end{bmatrix}\\]\n\\(\\mathbf{C}\\) encodes \\(n_a\\) constraints for coherent forecasts.\n\n\n\n\n\nIn most cases, \\(\\mathbf{C}\\) is more efficient (\\(n_a &lt; n_b\\))."
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-30",
+    "href": "slides/reconciliation/index.html#section-30",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Regression models: min_trace()\nThese matrices form the basis of a regression.\n\n\n\nOrdinary Least Squares (OLS)\n\n\n\\[\\tilde{\\mathbf{y}}_h=\\mathbf{S}(\\mathbf{S}'\\mathbf{S})^{-1}\\mathbf{S}'\\hat{\\mathbf{y}}_h\\] \\[\\tilde{\\mathbf{y}}_h=(\\mathbf{I}_n-\\mathbf{C}'(\\mathbf{C}\\mathbf{C}')^{-1}\\mathbf{C})\\hat{\\mathbf{y}}_h\\]\n\n\n\n\n\n\nWeighted Least Squares (WLS)\n\n\n\\[\\tilde{\\mathbf{y}}_h=\\mathbf{S}(\\mathbf{S}'\\mathbf{W}_h^{-1}\\mathbf{S})^{-1}\\mathbf{S}'\\mathbf{W}_h^{-1}\\hat{\\mathbf{y}}_h\\] \\[\\tilde{\\mathbf{y}}_h=(\\mathbf{I}_n-\\mathbf{W}\\mathbf{C}'(\\mathbf{C}\\mathbf{W}\\mathbf{C}')^{-1}\\mathbf{C})\\hat{\\mathbf{y}}_h\\]\n\n\n\n\n\n\n\nMinimum Trace (MinT)\n\n\nThis was first described in Wickramasuriya et al. (2019) and termed ‘minimum trace’. Several weight options exist."
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-31",
+    "href": "slides/reconciliation/index.html#section-31",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Choosing weights (again)\nThe matrix W encodes the error structure.\n\nols: identity matrix\nwls_var: diagonal in-sample errors\nwls_struct: diagonal number of sums\nmint_cov: full sample covariance\nmint_shrink: regularised covariance\n\n\n\n\n\n\n\n\nCoherency with copulas\n\n\nThe weight matrix is analagous to choosing a copula, the weights incorporate covariance structure between the series. The result is a coherent multivariate distribution."
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-32",
+    "href": "slides/reconciliation/index.html#section-32",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Forecasting tourism\nFrom start to finish…\n\ntourism |&gt; \n  aggregate_key(Purpose, Trips = sum(Trips))\n\n# A tsibble: 400 x 3 [1Q]\n# Key:       Purpose [5]\n   Quarter Purpose       Trips\n     &lt;qtr&gt; &lt;chr*&gt;        &lt;dbl&gt;\n 1 1998 Q1 &lt;aggregated&gt; 23182.\n 2 1998 Q2 &lt;aggregated&gt; 20323.\n 3 1998 Q3 &lt;aggregated&gt; 19827.\n 4 1998 Q4 &lt;aggregated&gt; 20830.\n 5 1999 Q1 &lt;aggregated&gt; 22087.\n 6 1999 Q2 &lt;aggregated&gt; 21458.\n 7 1999 Q3 &lt;aggregated&gt; 19914.\n 8 1999 Q4 &lt;aggregated&gt; 20028.\n 9 2000 Q1 &lt;aggregated&gt; 22339.\n10 2000 Q2 &lt;aggregated&gt; 19941.\n# ℹ 390 more rows\n\ntourism_purpose_fc &lt;- tourism_purpose |&gt; \n  model(ETS(Trips)) |&gt; \n  forecast(h = \"2 years\")\ntourism_purpose_fc |&gt; \n  autoplot(tourism_purpose |&gt; filter(Quarter &gt;= yearquarter(\"2010 Q1\")))"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-33",
+    "href": "slides/reconciliation/index.html#section-33",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Forecasting tourism\nCompute cross-sectional aggregates.\n\ntoursim_agg &lt;- tourism |&gt; \n  aggregate_key(Purpose * (State / Region), Trips = sum(Trips))\ntoursim_agg\n\n# A tsibble: 34,000 x 5 [1Q]\n# Key:       Purpose, State, Region [425]\n   Quarter Purpose      State        Region        Trips\n     &lt;qtr&gt; &lt;chr*&gt;       &lt;chr*&gt;       &lt;chr*&gt;        &lt;dbl&gt;\n 1 1998 Q1 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 23182.\n 2 1998 Q2 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 20323.\n 3 1998 Q3 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 19827.\n 4 1998 Q4 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 20830.\n 5 1999 Q1 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 22087.\n 6 1999 Q2 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 21458.\n 7 1999 Q3 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 19914.\n 8 1999 Q4 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 20028.\n 9 2000 Q1 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 22339.\n10 2000 Q2 &lt;aggregated&gt; &lt;aggregated&gt; &lt;aggregated&gt; 19941.\n# ℹ 33,990 more rows"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-34",
+    "href": "slides/reconciliation/index.html#section-34",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Forecasting tourism\nEstimate base forecasting models.\n\ntourism_agg &lt;- tourism |&gt; \n  aggregate_key(Purpose * (State / Region), Trips = sum(Trips))\ntourism_agg |&gt; \n  model(ets = ETS(Trips))\n\n# A mable: 425 x 4\n# Key:     Purpose, State, Region [425]\n   Purpose  State           Region                          ets\n   &lt;chr*&gt;   &lt;chr*&gt;          &lt;chr*&gt;                      &lt;model&gt;\n 1 Business ACT             Canberra               &lt;ETS(M,N,M)&gt;\n 2 Business ACT             &lt;aggregated&gt;           &lt;ETS(M,N,M)&gt;\n 3 Business New South Wales Blue Mountains         &lt;ETS(A,N,N)&gt;\n 4 Business New South Wales Capital Country        &lt;ETS(A,N,N)&gt;\n 5 Business New South Wales Central Coast          &lt;ETS(A,N,N)&gt;\n 6 Business New South Wales Central NSW            &lt;ETS(M,N,A)&gt;\n 7 Business New South Wales Hunter                 &lt;ETS(A,N,N)&gt;\n 8 Business New South Wales New England North West &lt;ETS(A,N,A)&gt;\n 9 Business New South Wales North Coast NSW        &lt;ETS(M,N,A)&gt;\n10 Business New South Wales Outback NSW            &lt;ETS(M,N,A)&gt;\n# ℹ 415 more rows"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-35",
+    "href": "slides/reconciliation/index.html#section-35",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Forecasting tourism\nTransform local ets model to global coherent model.\n\ntourism_agg &lt;- tourism |&gt; \n  aggregate_key(Purpose * (State / Region), Trips = sum(Trips))\ntourism_agg |&gt; \n  model(ets = ETS(Trips)) |&gt; \n  reconcile(mint = min_trace(ets, method = \"mint_shrink\"))\n\n# A mable: 425 x 5\n# Key:     Purpose, State, Region [425]\n   Purpose  State           Region                         ets mint        \n   &lt;chr*&gt;   &lt;chr*&gt;          &lt;chr*&gt;                     &lt;model&gt; &lt;model&gt;     \n 1 Business ACT             Canberra            … &lt;ETS(M,N,M)&gt; &lt;ETS(M,N,M)&gt;\n 2 Business ACT             &lt;aggregated&gt;          &lt;ETS(M,N,M)&gt; &lt;ETS(M,N,M)&gt;\n 3 Business New South Wales Blue Mountains      … &lt;ETS(A,N,N)&gt; &lt;ETS(A,N,N)&gt;\n 4 Business New South Wales Capital Country     … &lt;ETS(A,N,N)&gt; &lt;ETS(A,N,N)&gt;\n 5 Business New South Wales Central Coast       … &lt;ETS(A,N,N)&gt; &lt;ETS(A,N,N)&gt;\n 6 Business New South Wales Central NSW         … &lt;ETS(M,N,A)&gt; &lt;ETS(M,N,A)&gt;\n 7 Business New South Wales Hunter              … &lt;ETS(A,N,N)&gt; &lt;ETS(A,N,N)&gt;\n 8 Business New South Wales New England North We… &lt;ETS(A,N,A)&gt; &lt;ETS(A,N,A)&gt;\n 9 Business New South Wales North Coast NSW     … &lt;ETS(M,N,A)&gt; &lt;ETS(M,N,A)&gt;\n10 Business New South Wales Outback NSW         … &lt;ETS(M,N,A)&gt; &lt;ETS(M,N,A)&gt;\n# ℹ 415 more rows"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-36",
+    "href": "slides/reconciliation/index.html#section-36",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Forecasting tourism\nProduce coherent forecasts! 🎉\n\ntourism_agg &lt;- tourism |&gt; \n  aggregate_key(Purpose * (State / Region), Trips = sum(Trips))\ntourism_agg |&gt; \n  model(ets = ETS(Trips)) |&gt; \n  reconcile(mint = min_trace(ets, method = \"mint_shrink\")) |&gt; \n  forecast(h = \"2 years\")\n\n# A fable: 6,800 x 7 [1Q]\n# Key:     Purpose, State, Region, .model [850]\n   Purpose  State  Region   .model Quarter\n   &lt;chr*&gt;   &lt;chr*&gt; &lt;chr*&gt;   &lt;chr&gt;    &lt;qtr&gt;\n 1 Business ACT    Canberra ets    2018 Q1\n 2 Business ACT    Canberra ets    2018 Q2\n 3 Business ACT    Canberra ets    2018 Q3\n 4 Business ACT    Canberra ets    2018 Q4\n 5 Business ACT    Canberra ets    2019 Q1\n 6 Business ACT    Canberra ets    2019 Q2\n 7 Business ACT    Canberra ets    2019 Q3\n 8 Business ACT    Canberra ets    2019 Q4\n 9 Business ACT    Canberra mint   2018 Q1\n10 Business ACT    Canberra mint   2018 Q2\n# ℹ 6,790 more rows\n# ℹ 2 more variables: Trips &lt;dist&gt;, .mean &lt;dbl&gt;"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-37",
+    "href": "slides/reconciliation/index.html#section-37",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: Coherent forecasting\nReconcile the base forecasting models for PBS using minimum trace.\n\n\n\n\n\n\nYour turn\n\n\n\nUse reconcile() and min_trace() to specify a coherent forecasting model.\nProduce base and coherent forecasts for each series.\nVisually compare the base and coherent forecasts.\nHint: filter(is_aggregated(ATC1)) to just viz aggregations."
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-38",
+    "href": "slides/reconciliation/index.html#section-38",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: Coherent forecasting\n\nReconcile the base forecasting model with min_trace().\n\n\n\nCode\npbs_atc &lt;- PBS |&gt; \n  aggregate_key(Concession * (ATC1 / ATC2), Scripts = sum(Scripts))\nfit_pbs &lt;- pbs_atc |&gt; \n  model(ets = ETS(Scripts)) |&gt; \n  reconcile(mint = min_trace(ets, method = \"mint_shrink\"))\nfit_pbs\n\n\n\n\n# A mable: 300 x 5\n# Key:     Concession, ATC1, ATC2 [300]\n   Concession   ATC1   ATC2             ets mint         \n   &lt;chr*&gt;       &lt;chr*&gt; &lt;chr*&gt;       &lt;model&gt; &lt;model&gt;      \n 1 Concessional A      A01     &lt;ETS(M,N,M)&gt; &lt;ETS(M,N,M)&gt; \n 2 Concessional A      A02     &lt;ETS(M,A,M)&gt; &lt;ETS(M,A,M)&gt; \n 3 Concessional A      A03    &lt;ETS(M,Ad,M)&gt; &lt;ETS(M,Ad,M)&gt;\n 4 Concessional A      A04    &lt;ETS(A,Ad,A)&gt; &lt;ETS(A,Ad,A)&gt;\n 5 Concessional A      A05    &lt;ETS(A,Ad,N)&gt; &lt;ETS(A,Ad,N)&gt;\n 6 Concessional A      A06    &lt;ETS(M,Ad,M)&gt; &lt;ETS(M,Ad,M)&gt;\n 7 Concessional A      A07    &lt;ETS(M,Ad,M)&gt; &lt;ETS(M,Ad,M)&gt;\n 8 Concessional A      A09    &lt;ETS(M,Ad,A)&gt; &lt;ETS(M,Ad,A)&gt;\n 9 Concessional A      A10     &lt;ETS(M,A,M)&gt; &lt;ETS(M,A,M)&gt; \n10 Concessional A      A11    &lt;ETS(M,Ad,M)&gt; &lt;ETS(M,Ad,M)&gt;\n# ℹ 290 more rows"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-39",
+    "href": "slides/reconciliation/index.html#section-39",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: Coherent forecasting\n\nProduce base and coherent forecasts.\n\n\n\nCode\nfit_pbs |&gt; \n  forecast()\n\n\n# A fable: 14,400 x 7 [1M]\n# Key:     Concession, ATC1, ATC2, .model [600]\n   Concession   ATC1   ATC2   .model    Month\n   &lt;chr*&gt;       &lt;chr*&gt; &lt;chr*&gt; &lt;chr&gt;     &lt;mth&gt;\n 1 Concessional A      A01    ets    2008 Jul\n 2 Concessional A      A01    ets    2008 Aug\n 3 Concessional A      A01    ets    2008 Sep\n 4 Concessional A      A01    ets    2008 Oct\n 5 Concessional A      A01    ets    2008 Nov\n 6 Concessional A      A01    ets    2008 Dec\n 7 Concessional A      A01    ets    2009 Jan\n 8 Concessional A      A01    ets    2009 Feb\n 9 Concessional A      A01    ets    2009 Mar\n10 Concessional A      A01    ets    2009 Apr\n# ℹ 14,390 more rows\n# ℹ 2 more variables: Scripts &lt;dist&gt;, .mean &lt;dbl&gt;"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#section-40",
+    "href": "slides/reconciliation/index.html#section-40",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: Coherent forecasting\n\nVisually compare base and coherent forecasts.\n\n\n\nCode\nfit_pbs |&gt; \n  forecast(h = \"2 years\") |&gt; \n  filter(if_all(c(ATC1, ATC2, Concession), is_aggregated)) |&gt;\n  autoplot(\n    pbs_atc |&gt; filter(Month &gt; yearmonth(\"2000 Jan\")),\n    alpha = 0.4\n  )"
+  },
+  {
+    "objectID": "slides/reconciliation/index.html#thats-all-for-now",
+    "href": "slides/reconciliation/index.html#thats-all-for-now",
+    "title": "Forecast combinations",
+    "section": "⏰ That’s all for now!",
+    "text": "⏰ That’s all for now!\n\n\n\n\n\n\n\n\nFinal remarks\n\n\n\nReconciliation is useful whenever forecasting many related series.\nTake care in finding the ‘base’ level of aggregation.\nDecomposition forecasts are great for simplifying forecasting.\nEnsemble forecasts\n\n\n\n\n\n\n\n\n\n\n\nUseful links\n\n\n social.mitchelloharawild.com\n workshop.nectric.com.au/isf2026/\n mitchelloharawild/workshop-isf2026"
+  },
+  {
     "objectID": "slides/decomposition/index.html#section",
     "href": "slides/decomposition/index.html#section",
     "title": "Forecast combinations",
     "section": "",
-    "text": "Forecast combinations\n\n\nTBC\n\n\n28th June 2026 @ ISF\n\nMitchell O’Hara-Wild, Nectric\n\n\n\n\n\n\n\nUseful links\n\n\n social.mitchelloharawild.com\n workshop.nectric.com.au/isf2026/\n mitchelloharawild/workshop-isf2026"
+    "text": "Forecast combinations\n\n\nDecomposition\n\n\n28th June 2026 @ ISF - Montreal, Canada\n\nMitchell O’Hara-Wild, Nectric\n\n\n\n\n\n\n\nUseful links\n\n\n social.mitchelloharawild.com\n workshop.nectric.com.au/isf2026/\n mitchelloharawild/workshop-isf2026"
   },
   {
     "objectID": "slides/decomposition/index.html#section-1",
     "href": "slides/decomposition/index.html#section-1",
     "title": "Forecast combinations",
     "section": "",
-    "text": "🎯 Today’s goals\n\n\n\nDecompose time series into trend, seasonal, and remainder components\nLearn how to probablistically combine forecasts from:\n\nA set of components (decomposition forecasting),\nMultiple models (ensemble), and\nRelated time series (reconciliation)\n\nUnderstand the distributional statistics underpinning forecast combinations\n\n\n\n\n\n\n\n\n🌻 Expectations\n\n\n\nFollow the code of conduct.\nBe kind and respectful.\nAsk relevant questions any time, Q&A during breaks.\nMake mistakes and learn!\n\n\n\n\n\nhttps://workshop.nectric.com.au/isf2026/"
+    "text": "Time series decomposition\nA decomposition model decomposes a time series into multiple components.\nUsual components include:\ntrend (\\(T\\)), seasonality (\\(S\\)), remainder (\\(R\\))\n\n\n\n\n\n\nWhy decompose data?\n\n\n\nExplore constituent patterns in a time series\nSeasonal adjustment for long-term decision making\nSimplifies modelling of complex patterns"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-2",
+    "href": "slides/decomposition/index.html#section-2",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Decomposition structure\nDecomposition models are usually either\n\nAdditive: \\(Y = T + S + R\\)\nMultiplicative: \\(Y = T \\times S \\times R\\)\n\n\n\n\n\n💡 The sum of its parts\n\n\nWe can forecast each component independently, then combine to forecast the original series.\n\nProbablistic forecasts are convolutions of additive parts.\n\\[y_{T+h|T} = T_{T+h|T} + S_{T+h|T} + R_{T+h|T}\\]"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-3",
+    "href": "slides/decomposition/index.html#section-3",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Decomposition models\n\nClassical decomposition\nSTL decomposition\nX11 decomposition\nSEATS decomposition\nSTR decomposition\n… and more."
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-4",
+    "href": "slides/decomposition/index.html#section-4",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "(M)STL Decomposition\nSeasonal and\nTrend decomposition using\nLoess\n\n\n\n\n\n\nAdditive decomposition via STL\n\n\n\\[ y_t = S_t + T_t + R_t \\]\n\n\\(y_t=\\) data at time \\(t\\)\n\\(T_t=\\) trend-cycle component at time \\(t\\)\n\\(S_t=\\) seasonal component at time \\(t\\)\n\\(R_t=\\) remainder component at time \\(t\\)"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-5",
+    "href": "slides/decomposition/index.html#section-5",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "(M)STL Decomposition\n\n\n\n\n\n\nAdvantages\n\n\n\nHandles any seasonality of any periodicity.\nAllows seasonality and trend to change over time.\nChange sensitivity can be tuned via window sizes.\nOptionally robust to outliers.\n\n\n\n\n\n\n\n\n\n\nDisadvantages\n\n\n\nAdditive decomposition only.\nSimplistic model (no trading day or holiday effects)."
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-6",
+    "href": "slides/decomposition/index.html#section-6",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Time series components\nConsider these (synthetic) components.\n\n\nCode\nlibrary(ggplot2)\n\ni &lt;- 1:119\npattern_types_demo &lt;- tsibble(\n  time = yearmonth(i),\n  season = sin(i*2*pi/12),\n  trend = i,\n  remainder = rnorm(length(i)),\n  index = time\n)\npattern_types_demo |&gt; \n  tidyr::pivot_longer(c(season, trend, remainder)) |&gt; \n  ggplot(aes(x = time, y = value, group = name)) +\n  geom_line() +\n  facet_grid(vars(name), scales = \"free_y\") + \n  labs(x = NULL, y = NULL)"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-7",
+    "href": "slides/decomposition/index.html#section-7",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Additive patterns\n\\[y_t = S_t + T_t + R_t\\]\n\n\nCode\npattern_types_demo |&gt;\n  autoplot(trend + 10 * season + 3 * remainder)"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-8",
+    "href": "slides/decomposition/index.html#section-8",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Multiplicative patterns\n\\[y_t = S_t \\times T_t \\times R_t\\]\n\n\nCode\npattern_types_demo |&gt;\n  autoplot((2 + season) * trend * (5 + remainder))"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-9",
+    "href": "slides/decomposition/index.html#section-9",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Additive or multiplicative?\nPharmaceutical benefit scheme (PBS) scripts.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAdditive!\n\n\nThe variation is roughly constant over time."
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-10",
+    "href": "slides/decomposition/index.html#section-10",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Additive or multiplicative?\nTotal Australian retail turnover.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMultiplicative!\n\n\nThe variation increases with the level of the series."
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-11",
+    "href": "slides/decomposition/index.html#section-11",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Decomposing multiplicative data\nSTL can’t decompose multiplicative patterns.\nThis isn’t a problem though, since we\nhave a transformational trick 🪄\n\n\\[\\begin{aligned}\n\\log(Y) &= \\log(T \\times S \\times R) \\\\\n        &= \\log(T) + \\log(S) + \\log(R)\n\\end{aligned}\\]\nWe must transform multiplicative patterns to additive patterns before STL decomposition."
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-12",
+    "href": "slides/decomposition/index.html#section-12",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Decomposing multiplicative data\nTotal Australian retail turnover is multiplicative, so we cannot use STL directly.\n\naus_retail |&gt;\n  summarise(Turnover = sum(Turnover)) |&gt; \n  autoplot(Turnover)"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-13",
+    "href": "slides/decomposition/index.html#section-13",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Decomposing multiplicative data\nLog transform the data to make multiplicative patterns additive.\n\naus_retail |&gt;\n  summarise(Turnover = sum(Turnover)) |&gt; \n  autoplot(log(Turnover))"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-14",
+    "href": "slides/decomposition/index.html#section-14",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Decomposing multiplicative data\nBox-Cox transformations are more flexible.\n\\(\\lambda = 0\\) is \\(f(x) = \\log(x)\\), \\(\\lambda = 1\\) is \\(f(x) = x\\).\n\naus_retail |&gt;\n  summarise(Turnover = sum(Turnover)) |&gt; \n  autoplot(box_cox(Turnover, lambda = 0.2))"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-15",
+    "href": "slides/decomposition/index.html#section-15",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "STL Decomposition\nThe STL model decomposes a time series into trend, seasonal, and remainder components.\n\naus_retail |&gt;\n  summarise(Turnover = sum(Turnover)) |&gt; \n  model(STL(box_cox(Turnover, lambda = 0.2))) |&gt; \n  components()\n\n# A dable: 441 x 7 [1M]\n# Key:     .model [1]\n# :        box_cox(Turnover, lambda = 0.2) = trend + season_year + remainder\n   .model               Month box_cox(Turnover, la…¹ trend season_year remainder\n   &lt;chr&gt;                &lt;mth&gt;                  &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;\n 1 STL(box_cox(Turn… 1982 Apr                   23.7  23.8     -0.293     0.156 \n 2 STL(box_cox(Turn… 1982 May                   23.8  23.9      0.0587   -0.0933\n 3 STL(box_cox(Turn… 1982 Jun                   23.6  23.9     -0.365     0.0873\n 4 STL(box_cox(Turn… 1982 Jul                   23.9  24.0     -0.176     0.0747\n 5 STL(box_cox(Turn… 1982 Aug                   23.6  24.0     -0.180    -0.179 \n 6 STL(box_cox(Turn… 1982 Sep                   23.8  24.0     -0.261     0.0143\n 7 STL(box_cox(Turn… 1982 Oct                   24.0  24.1      0.0413   -0.146 \n 8 STL(box_cox(Turn… 1982 Nov                   24.4  24.1      0.293    -0.0205\n 9 STL(box_cox(Turn… 1982 Dec                   26.1  24.2      1.97     -0.0228\n10 STL(box_cox(Turn… 1983 Jan                   23.8  24.2     -0.310    -0.144 \n# ℹ 431 more rows\n# ℹ abbreviated name: ¹​`box_cox(Turnover, lambda = 0.2)`\n# ℹ 1 more variable: season_adjust &lt;dbl&gt;"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-16",
+    "href": "slides/decomposition/index.html#section-16",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "STL Decomposition\nautoplot() plots the components.\n\naus_retail |&gt;\n  summarise(Turnover = sum(Turnover)) |&gt; \n  model(STL(box_cox(Turnover, lambda = 0.2))) |&gt; \n  components() |&gt; \n  autoplot()"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-17",
+    "href": "slides/decomposition/index.html#section-17",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "STL Decomposition\nwindow sizes adjust the fit.\n\naus_retail |&gt;\n  summarise(Turnover = sum(Turnover)) |&gt; \n  model(STL(box_cox(Turnover, lambda = 0.2) ~ season(window = Inf))) |&gt; \n  components() |&gt; \n  autoplot()"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-18",
+    "href": "slides/decomposition/index.html#section-18",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: STL Decomposition\nDecompose Australian Electricity production (aus_production).\naus_production |&gt; autoplot(Electricity)\n\n\n\n\n\n\nYour turn\n\n\n\nFind a suitable transformation if needed\nEstimate an STL decomposition model\nExtract and plot the components\nTune the STL model as needed"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-19",
+    "href": "slides/decomposition/index.html#section-19",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: STL Decomposition\nDecompose Australian Electricity production. (aus_production).\n\nFind a suitable transformation if needed\n\n\n\nCode\naus_production |&gt; \n  autoplot(Electricity)"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-20",
+    "href": "slides/decomposition/index.html#section-20",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: STL Decomposition\nDecompose Australian Electricity production. (aus_production).\n\nFind a suitable transformation if needed\n\n\n\nCode\naus_production |&gt; \n  autoplot(log(Electricity))"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-21",
+    "href": "slides/decomposition/index.html#section-21",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: STL Decomposition\nDecompose Australian Electricity production. (aus_production).\n\nFind a suitable transformation if needed\n\n\n\nCode\naus_production |&gt; \n  autoplot(box_cox(Electricity, 0.5))"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-22",
+    "href": "slides/decomposition/index.html#section-22",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: STL Decomposition\nDecompose Australian Electricity production. (aus_production).\n\nEstimate an STL decomposition model\n\n\n\nCode\naus_production |&gt; \n  model(STL(box_cox(Electricity, 0.5)))\n\n\n# A mable: 1 x 1\n  `STL(box_cox(Electricity, 0.5))`\n                           &lt;model&gt;\n1                            &lt;STL&gt;"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-23",
+    "href": "slides/decomposition/index.html#section-23",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: STL Decomposition\nDecompose Australian Electricity production. (aus_production).\n\nExtract and plot the components\n\n\n\nCode\naus_production |&gt; \n  model(STL(box_cox(Electricity, 0.5))) |&gt; \n  components() |&gt; \n  autoplot()"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-24",
+    "href": "slides/decomposition/index.html#section-24",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: STL Decomposition\nDecompose Australian Electricity production. (aus_production).\n\nTune the STL model as needed\n\n\n\nCode\naus_production |&gt; \n  model(STL(box_cox(Electricity, 0.5), robust = TRUE)) |&gt; \n  components() |&gt; \n  autoplot()"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-25",
+    "href": "slides/decomposition/index.html#section-25",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Decomposition forecasting\nForecast components with simple models, then combine the component forecasts.\n\n\n\n\n\n\n\nSeasonal adjustment\n\n\nWe usually model/forecast trend (\\(T\\)) and remainder (\\(R\\)) together using a single model - this is known seasonally adjusted.\n\\[\ny_{T+h|T} = (T+R)_{T+h|T} + S_{T+h|T}\n\\]"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-26",
+    "href": "slides/decomposition/index.html#section-26",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Decomposition forecasting\n\n\nCode\nretail_components &lt;- aus_retail |&gt;\n  summarise(Turnover = sum(Turnover)) |&gt; \n  model(STL(box_cox(Turnover, lambda = 0.2) ~ season(window = Inf))) |&gt; \n  components() |&gt; \n  transmute(`box_cox(Turnover, lambda = 0.2)`, `Seasonally Adjusted (T + R)` = season_adjust, `Seasonality (S)` = season_year) |&gt; \n  pivot_longer(c(`box_cox(Turnover, lambda = 0.2)`, `Seasonally Adjusted (T + R)`, `Seasonality (S)`), names_to = \"component\")\n\nretail_components |&gt; \n  ggplot(aes(x = Month, y = value)) +\n  geom_line() +\n  facet_wrap(vars(component), ncol = 1, scales = \"free_y\")"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-27",
+    "href": "slides/decomposition/index.html#section-27",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Decomposition forecasting\n\n\nCode\nretail_fc_snaive &lt;- retail_components |&gt; \n  filter(component == \"Seasonality (S)\") |&gt; \n  model(SNAIVE(value)) |&gt; \n  forecast(h = \"2 years\") |&gt; \n  mutate(component = \"Seasonality (S)\")\n\nretail_components |&gt; \n  filter(Month &gt; yearmonth(\"2010 Jan\")) |&gt;\n  ggplot(aes(x = Month, y = value)) +\n  geom_line() +\n  autolayer(retail_fc_snaive) +\n  facet_wrap(vars(component), ncol = 1, scales = \"free_y\")"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-28",
+    "href": "slides/decomposition/index.html#section-28",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Decomposition forecasting\n\n\nCode\nretail_fc_ets &lt;- retail_components |&gt; \n  filter(component == \"Seasonally Adjusted (T + R)\") |&gt; \n  model(ETS(value)) |&gt; \n  forecast(h = \"2 years\") |&gt; \n  mutate(component = \"Seasonally Adjusted (T + R)\")\n\nretail_components |&gt; \n  filter(Month &gt; yearmonth(\"2010 Jan\")) |&gt;\n  ggplot(aes(x = Month, y = value)) +\n  geom_line() +\n  autolayer(retail_fc_snaive) +\n  autolayer(retail_fc_ets) +\n  facet_wrap(vars(component), ncol = 1, scales = \"free_y\")"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-29",
+    "href": "slides/decomposition/index.html#section-29",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Decomposition forecasting\n\n\nCode\nretail_fc_dcmp &lt;- retail_components |&gt; \n  filter(component == \"box_cox(Turnover, lambda = 0.2)\") |&gt; \n  model(    \n    decomposition_model(\n      dcmp = STL(value ~ season(window = Inf)),\n      ETS(season_adjust),\n      SNAIVE(season_year)\n    )\n  ) |&gt; \n  forecast(h = \"2 years\") |&gt; \n  mutate(component = \"box_cox(Turnover, lambda = 0.2)\")\n\nretail_components |&gt; \n  filter(Month &gt; yearmonth(\"2010 Jan\")) |&gt;\n  ggplot(aes(x = Month, y = value)) +\n  geom_line() +\n  autolayer(retail_fc_snaive) +\n  autolayer(retail_fc_ets) +\n  autolayer(retail_fc_dcmp) +\n  facet_wrap(vars(component), ncol = 1, scales = \"free_y\")"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-30",
+    "href": "slides/decomposition/index.html#section-30",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Convolutions of forecasts\n\n\nretail_fc_snaive\n\n\n\n# A fable: 24 x 4 [1M]\n# Key:     component, .model [1]\n   component      .model    Month       value\n   &lt;chr&gt;          &lt;chr&gt;     &lt;mth&gt;      &lt;dist&gt;\n 1 Seasonality (… SNAIV… 2019 Jan N(-0.13, 0)\n 2 Seasonality (… SNAIV… 2019 Feb N(-0.79, 0)\n 3 Seasonality (… SNAIV… 2019 Mar N(-0.17, 0)\n 4 Seasonality (… SNAIV… 2019 Apr N(-0.36, 0)\n# ℹ 20 more rows\n# ℹ 1 more variable: .mean &lt;dbl&gt;\n# ℹ Use `print(n = ...)` to see more rows\n\n\n\n\n\n\nretail_fc_ets\n\n\n\n# A fable: 24 x 5 [1M]\n# Key:     component, .model [1]\n   component      .model    Month        value\n   &lt;chr&gt;          &lt;chr&gt;     &lt;mth&gt;       &lt;dist&gt;\n 1 Seasonally Ad… ETS(v… 2019 Jan N(39, 0.019)\n 2 Seasonally Ad… ETS(v… 2019 Feb N(39, 0.021)\n 3 Seasonally Ad… ETS(v… 2019 Mar N(39, 0.022)\n 4 Seasonally Ad… ETS(v… 2019 Apr N(39, 0.023)\n# ℹ 20 more rows\n# ℹ 1 more variable: .mean &lt;dbl&gt;\n# ℹ Use `print(n = ...)` to see more rows\n\n\n\n\n\n\nThese forecasts are normally distributed:\n\\[S_{T+h|T} \\sim N(\\mu_{S,T+h}, \\sigma_{S,T+h}^2)\\]\n\\[(T+R)_{T+h|T} \\sim N(\\mu_{T+R,T+h}, \\sigma_{T+R,T+h}^2)\\]\n\n\n\nThe combined forecast is a convolution.\n\\[Y_{T+h|T} = S_{T+h|T} + (T+R)_{T+h|T}\\]\n\n\nIf the forecasts are independent: \\[Y_{T+h|T} \\sim N(\\mu_{T+R,T+h} + \\mu_{S,T+h},\\ \\sigma_{T+R,T+h}^2 + \\sigma_{S,T+h}^2)\\]\n\n\nIf they’re not independent:\n\\[E(Y_{T+h|T}) = \\mu_{T+R,T+h} + \\mu_{S,T+h}\\]\n\\[\\text{Var}(Y_{T+h|T}) = \\sigma_{T+R,T+h}^2 + \\sigma_{S,T+h}^2 + 2\\sigma_{T+R,S,T+h}\\]"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-31",
+    "href": "slides/decomposition/index.html#section-31",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Convolutions of forecasts\nThe PDF of \\(Z = X + Y\\) is a convolution of:\n\n\n\n\n🎲 Independent variables\n\n\nMarginal densities are sufficient:\n\\[f_Z(z) = (f_X * f_Y)(z) = \\int_{-\\infty}^{\\infty} f_X(x)\\, f_Y(z - x)\\, dx\\]\n\n\n\n\n\n\n\n\n🔗 Dependent variables\n\n\nThe joint density is required:\n\\[f_Z(z) = f_{X,Y}(z) = \\int_{-\\infty}^{\\infty} f_{X,Y}(x,\\, z - x)\\, dx\\]\n(it’s technically not a convolution now, many terms exist)"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-32",
+    "href": "slides/decomposition/index.html#section-32",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Convolutions of forecasts\nWhen a single seasonal window is used, \\(S_{T+h|T}\\) and \\((T+R)_{T+h|T}\\) are independent.\nSince window = Inf, the seasonality is constant and seasonal naive exactly predicts the seasonal component (0 variance).\n\nWe can convolve these distributions together:\n\n\n\nretail_fc_snaive$value[2]\n\n&lt;distribution[1]&gt;\n[1] N(-0.79, 0)\n\n\n\n\nretail_fc_ets$value[2]\n\n&lt;distribution[1]&gt;\n[1] N(39, 0.021)\n\n\n\n\n\n\nretail_fc_snaive$value[1] + retail_fc_ets$value[1]\n\n&lt;distribution[1]&gt;\n[1] N(39, 0.019)"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-33",
+    "href": "slides/decomposition/index.html#section-33",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Convolutions of forecasts\nIn fable, combinations of Gaussian forecasts use correlations between components.\n\n\n\n\n🔢 Covariance structure\n\n\n\\(\\Sigma_h = D_hR_1D_h\\)\nWhere\n\n\\(R_1\\) is the 1-step error correlation matrix, and\n\\(D_h\\) is a diagonal matrix of forecast standard deviations.\n\n\n\n\n\n\n\n\n\n🔔 Gaussian copulas\n\n\nThis is closely related to Gaussian copulas.\nThe correlation matrix is estimated from the joint response residuals of component models."
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-34",
+    "href": "slides/decomposition/index.html#section-34",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Back-transforming forecasts\nLastly, we must undo the transformation to produce forecasts on the original scale.\n\n\n\n\n🔄 Transforming distributions\n\n\nIf \\(X \\sim F\\) and \\(X = g(Y)\\), then the PDF of \\(Y\\) is:\n\\[f_Y(y) = f_X(g^{-1}(y)) \\left| \\frac{d}{dy} g^{-1}(y) \\right|\\]\n\n\n\n\n\n\n\n\n📐 Example: back-transforming \\(log(Y) \\sim N(\\mu, \\sigma^2)\\)\n\n\nIf \\(X \\sim N(\\mu, \\sigma^2)\\) and \\(X = \\log(Y)\\), then \\(g^{-1}(y) = e^y\\) and \\(\\frac{d}{dy}e^y = e^y\\),\n\\[f_Y(y) = f_X(e^y) \\cdot e^y = \\frac{1}{y\\sigma\\sqrt{2\\pi}} \\exp\\!\\left(-\\frac{(\\log y - \\mu)^2}{2\\sigma^2}\\right)\\]\ni.e. \\(Y \\sim \\text{LogNormal}(\\mu, \\sigma^2)\\)."
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-35",
+    "href": "slides/decomposition/index.html#section-35",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Back-transforming forecasts\n\n\nCode\nlibrary(ggdist)\nlibrary(distributional)\n\nmu &lt;- 0.3\nsigma2 &lt;- 0.5\n\ndata.frame(\n  dist = c(dist_normal(mu, sqrt(sigma2)), dist_lognormal(mu, sqrt(sigma2))),\n  label = c(\n    \"X = log(Y) ~ N(\\u03bc, \\u03c3\\u00b2)\",\n    \"Y ~ LogNormal(\\u03bc, \\u03c3\\u00b2)\"\n  )\n) |&gt;\n  ggplot(aes(xdist = dist, y = label)) +\n  labs(x = NULL, y = NULL) +\n  stat_halfeye(point_interval = mean_qi, .width = c(0.5, 0.95)) +\n  geom_vline(xintercept = mu, linetype = \"dashed\", colour = \"grey40\") +\n  geom_vline(xintercept = exp(mu), linetype = \"dashed\", colour = \"grey40\") +\n  annotate(\n    \"segment\",\n    x = mu + 0.05, xend = exp(mu) - 0.05,\n    y = 1.5, yend = 1.5,\n    arrow = arrow(length = unit(0.2, \"cm\"), ends = \"last\", type = \"closed\")\n  ) +\n  annotate(\n    \"text\", x = (mu + exp(mu)) / 2, y = 1.56,\n    label = \"Y = e^X\",\n    hjust = 0.5, size = 4.5, colour = \"grey20\", fontface = \"italic\"\n  ) +\n  annotate(\n    \"text\", x = mu, y = 0.6,\n    label = sprintf(\"\\u03bc = %.1f\", mu),\n    hjust = 0.5, size = 4.5, colour = \"grey20\"\n  ) +\n  annotate(\n    \"text\", x = exp(mu), y = 0.6,\n    label = sprintf(\"e^\\u03bc = %.2f\", exp(mu)),\n    hjust = 0.5, size = 4.5, colour = \"grey20\"\n  ) +\n  coord_cartesian(xlim = c(-1.5, 5)) + \n  theme_minimal(base_size = 14)"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-36",
+    "href": "slides/decomposition/index.html#section-36",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Back-transforming forecasts\n\n\n\n⚖️ “Bias adjustment”\n\n\nQuantiles (incl. medians) can be directly back-transformed:\n\\[Q_p(Y) = g^{-1}(Q_p(X))\\]\nHowever, the mean does not back-transform directly:\n\\[E(Y) = E[g^{-1}(X)] \\neq g^{-1}(E[X])\\]\n\nFor \\(X \\sim N(\\mu, \\sigma^2)\\), a 2nd-order Taylor expansion gives:\n\\[E[g^{-1}(X)] \\approx g^{-1}(\\mu) + \\frac{1}{2}\\sigma^2 \\cdot (g^{-1})''(\\mu)\\]\nFor \\(g^{-1}(x) = e^x\\), this is exact: \\(E(Y) = e^{\\mu + \\sigma^2/2}\\)\nLarger \\(\\sigma^2\\) \\(\\Rightarrow\\) bigger correction."
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-37",
+    "href": "slides/decomposition/index.html#section-37",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Back-transforming forecasts\n\n\nCode\nlibrary(ggdist)\nlibrary(distributional)\n\nmu &lt;- 0.3\nsigma2 &lt;- 0.5\n\ndata.frame(\n  dist = c(dist_normal(mu, sqrt(sigma2)), dist_lognormal(mu, sqrt(sigma2))),\n  label = c(\n    \"X = log(Y) ~ N(\\u03bc, \\u03c3\\u00b2)\",\n    \"Y ~ LogNormal(\\u03bc, \\u03c3\\u00b2)\"\n  )\n) |&gt;\n  ggplot(aes(xdist = dist, y = label)) +\n  labs(x = NULL, y = NULL) +\n  stat_halfeye(point_interval = mean_qi, .width = c(0.5, 0.95)) +\n  geom_vline(xintercept = mu, linetype = \"dashed\", colour = \"grey40\") +\n  geom_vline(xintercept = exp(mu), linetype = \"dashed\", colour = \"grey40\") +\n  geom_vline(xintercept = exp(mu + sigma2/2), linetype = \"dashed\", colour = \"steelblue\") +\n  annotate(\n    \"segment\",\n    x = mu + 0.05, xend = exp(mu) - 0.05,\n    y = 1.5, yend = 1.5,\n    arrow = arrow(length = unit(0.2, \"cm\"), ends = \"last\", type = \"closed\")\n  ) +\n  annotate(\n    \"text\", x = (mu + exp(mu)) / 2, y = 1.56,\n    label = \"Y = e^X\",\n    hjust = 0.5, size = 4.5, colour = \"grey20\", fontface = \"italic\"\n  ) +\n  annotate(\n    \"segment\",\n    x = mu + 0.05, xend = exp(mu + sigma2/2) - 0.05,\n    y = 1.2, yend = 1.2,\n    arrow = arrow(length = unit(0.2, \"cm\"), ends = \"last\", type = \"closed\"),\n    colour = \"steelblue\"\n  ) +\n  annotate(\n    \"text\", x = (mu + exp(mu + sigma2/2)) / 2, y = 1.27,\n    label = \"E(Y) == e^{mu + sigma^2/2}\",\n    parse = TRUE,\n    hjust = 0.5, size = 4.5, colour = \"steelblue\", fontface = \"italic\"\n  ) +\n  annotate(\n    \"text\", x = mu, y = 0.6,\n    label = sprintf(\"\\u03bc = %.1f\", mu),\n    hjust = 0.5, size = 4.5, colour = \"grey20\"\n  ) +\n  annotate(\n    \"text\", x = exp(mu + sigma2/2), y = 0.6,\n    label = sprintf(\"E(Y) = %.2f\", exp(mu + sigma2/2)),\n    hjust = 0.5, size = 4.5, colour = \"steelblue\"\n  ) +\n  coord_cartesian(xlim = c(-1.5, 5)) + \n  theme_minimal(base_size = 14)"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-38",
+    "href": "slides/decomposition/index.html#section-38",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Decomposition forecasting\nDecomposition forecasts are specified with:\n\ndecomposition_model(\n  dcmp = `decomposition`,\n  ... # (models for each component)\n)\n\n\n\n\n\n🔧 decomposition_model() handles everything\n\n\n\ndecomposition of the original series,\nforecasting each decomposed component,\nconvolution to combine forecasts with covariance,\nback-transformation of forecasts to original scale."
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-39",
+    "href": "slides/decomposition/index.html#section-39",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "The Australian retail forecasts were:\n\ndecomposition_model(\n  dcmp = STL(box_cox(Turnover, lambda = 0.2) ~ season(window = Inf)),\n  ETS(season_adjust),\n  SNAIVE(season_year)\n)\n\n\n\nCode\naus_retail_tot &lt;- aus_retail |&gt;\n  summarise(Turnover = sum(Turnover))\naus_retail_tot |&gt; \n  model(    \n    decomposition_model(\n      dcmp = STL(box_cox(Turnover, lambda = 0.2) ~ season(window = Inf)),\n      ETS(season_adjust),\n      SNAIVE(season_year)\n    )\n  ) |&gt; \n  forecast(h = \"2 years\") |&gt; \n  autoplot(aus_retail_tot)"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-40",
+    "href": "slides/decomposition/index.html#section-40",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: STL Decomposition\nForecast Australian Electricity production (aus_production).\naus_production |&gt; \n  model(STL(box_cox(Electricity, 0.5), robust = TRUE))\n\n\n\n\n\n\nYour turn\n\n\n\nEstimate a decomposition forecasting model\n\nDecomposed using the STL model found earlier,\nSNAIVE() for the seasonal component, and\nARIMA() for the seasonally adjusted component.\n\nProduce forecasts and inspect the distribution\nPlot the forecasts with the historical values"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-41",
+    "href": "slides/decomposition/index.html#section-41",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: STL Decomposition\n\nEstimate a decomposition forecasting model\n\n\n\nCode\naus_elec_fit &lt;- aus_production |&gt;\n  model(\n    decomposition_model(\n      STL(box_cox(Electricity, 0.5), robust = TRUE),\n      ARIMA(season_adjust),\n      SNAIVE(season_year)\n    )\n  )\naus_elec_fit\n\n\n# A mable: 1 x 1\n  decomposition_model(STL(box_cox(Electricity, 0.5), robust = TRUE), \\n    ARI…¹\n                                                                         &lt;model&gt;\n1                                                      &lt;STL decomposition model&gt;\n# ℹ abbreviated name:\n#   ¹​`decomposition_model(STL(box_cox(Electricity, 0.5), robust = TRUE), \\n    ARIMA(season_adjust), SNAIVE(season_year))`"
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-42",
+    "href": "slides/decomposition/index.html#section-42",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: STL Decomposition\n\nProduce forecasts and inspect them.\n\n\n\nCode\naus_elec_fc &lt;- aus_elec_fit |&gt;\n  forecast(h = \"5 years\")\naus_elec_fc\n\n\n# A fable: 20 x 4 [1Q]\n# Key:     .model [1]\n   .model                                           Quarter   Electricity  .mean\n   &lt;chr&gt;                                              &lt;qtr&gt;        &lt;dist&gt;  &lt;dbl&gt;\n 1 \"decomposition_model(STL(box_cox(Electricity, 0… 2010 Q3 t(N(488, 11)) 60042.\n 2 \"decomposition_model(STL(box_cox(Electricity, 0… 2010 Q4 t(N(478, 14)) 57536.\n 3 \"decomposition_model(STL(box_cox(Electricity, 0… 2011 Q1 t(N(486, 18)) 59536.\n 4 \"decomposition_model(STL(box_cox(Electricity, 0… 2011 Q2 t(N(487, 21)) 59793.\n 5 \"decomposition_model(STL(box_cox(Electricity, 0… 2011 Q3 t(N(495, 27)) 61748.\n 6 \"decomposition_model(STL(box_cox(Electricity, 0… 2011 Q4 t(N(484, 31)) 58997.\n 7 \"decomposition_model(STL(box_cox(Electricity, 0… 2012 Q1 t(N(492, 36)) 61112.\n 8 \"decomposition_model(STL(box_cox(Electricity, 0… 2012 Q2 t(N(494, 40)) 61425.\n 9 \"decomposition_model(STL(box_cox(Electricity, 0… 2012 Q3 t(N(501, 44)) 63376.\n10 \"decomposition_model(STL(box_cox(Electricity, 0… 2012 Q4 t(N(490, 49)) 60589.\n11 \"decomposition_model(STL(box_cox(Electricity, 0… 2013 Q1 t(N(499, 53)) 62731.\n12 \"decomposition_model(STL(box_cox(Electricity, 0… 2013 Q2 t(N(500, 58)) 63049.\n13 \"decomposition_model(STL(box_cox(Electricity, 0… 2013 Q3 t(N(508, 62)) 65024.\n14 \"decomposition_model(STL(box_cox(Electricity, 0… 2013 Q4 t(N(497, 67)) 62201.\n15 \"decomposition_model(STL(box_cox(Electricity, 0… 2014 Q1 t(N(505, 71)) 64372.\n16 \"decomposition_model(STL(box_cox(Electricity, 0… 2014 Q2 t(N(507, 76)) 64694.\n17 \"decomposition_model(STL(box_cox(Electricity, 0… 2014 Q3 t(N(514, 80)) 66694.\n18 \"decomposition_model(STL(box_cox(Electricity, 0… 2014 Q4 t(N(503, 85)) 63835.\n19 \"decomposition_model(STL(box_cox(Electricity, 0… 2015 Q1 t(N(512, 89)) 66034.\n20 \"decomposition_model(STL(box_cox(Electricity, 0… 2015 Q2 t(N(513, 94)) 66359."
+  },
+  {
+    "objectID": "slides/decomposition/index.html#section-43",
+    "href": "slides/decomposition/index.html#section-43",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: STL Decomposition\n\nPlot the forecasts with the historical values\n\n\n\nCode\naus_elec_fc |&gt;\n  autoplot(aus_production)"
   },
   {
     "objectID": "slides/decomposition/index.html#time-for-a-break",
     "href": "slides/decomposition/index.html#time-for-a-break",
     "title": "Forecast combinations",
-    "section": "⏰ Time for a break!",
-    "text": "⏰ Time for a break!\n\n\n\n\n\n\n\n\nUp next…\n\n\n…\n\n\n\n\n\n\n\n\n\n\nUseful links\n\n\n social.mitchelloharawild.com\n workshop.nectric.com.au/isf2026/\n mitchelloharawild/workshop-isf2026"
+    "section": "⏰ Time for a break",
+    "text": "⏰ Time for a break\n\n\nAsk me questions!\n\n\n\n\n\n\nUp next… ensembles\n\n\n\n3 methods for averaging distributions\nWeighting strategies for ensembles\n\n\n\n\n\n\n\n\n\n\n\nUseful links\n\n\n social.mitchelloharawild.com\n workshop.nectric.com.au/isf2026/\n mitchelloharawild/workshop-isf2026"
   },
   {
     "objectID": "license.html",
@@ -26,20 +607,6 @@
     "title": "License",
     "section": "",
     "text": "This work is licensed under a Creative Commons Attribution 4.0 International License."
-  },
-  {
-    "objectID": "exercises.html",
-    "href": "exercises.html",
-    "title": "Exercises",
-    "section": "",
-    "text": "The pedestrian dataset contains hourly pedestrian counts from 2015-01-01 to 2016-12-31 at 4 sensors in the city of Melbourne.\nThe data is shown below:\n\n\n# A tibble: 66,037 × 5\n   Sensor         Date_Time           Date        Time Count\n   &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;\n 1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630\n 2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826\n 3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567\n 4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264\n 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139\n 6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77\n 7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44\n 8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56\n 9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113\n10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166\n# ℹ 66,027 more rows\n\n\n\n\n\n\n\n\nCautionYour turn!\n\n\n\nIdentify the index variable, key variable(s), and measured variable(s) of this dataset.\n\n\n\n\n\n\n\n\nTipHint\n\n\n\n\nThe index variable contains the complete time information\nThe key variable(s) identify each time series\nThe measured variable(s) are what you want to explore/forecast."
-  },
-  {
-    "objectID": "exercises.html#exercise-1",
-    "href": "exercises.html#exercise-1",
-    "title": "Exercises",
-    "section": "",
-    "text": "The pedestrian dataset contains hourly pedestrian counts from 2015-01-01 to 2016-12-31 at 4 sensors in the city of Melbourne.\nThe data is shown below:\n\n\n# A tibble: 66,037 × 5\n   Sensor         Date_Time           Date        Time Count\n   &lt;chr&gt;          &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;int&gt;\n 1 Birrarung Marr 2015-01-01 00:00:00 2015-01-01     0  1630\n 2 Birrarung Marr 2015-01-01 01:00:00 2015-01-01     1   826\n 3 Birrarung Marr 2015-01-01 02:00:00 2015-01-01     2   567\n 4 Birrarung Marr 2015-01-01 03:00:00 2015-01-01     3   264\n 5 Birrarung Marr 2015-01-01 04:00:00 2015-01-01     4   139\n 6 Birrarung Marr 2015-01-01 05:00:00 2015-01-01     5    77\n 7 Birrarung Marr 2015-01-01 06:00:00 2015-01-01     6    44\n 8 Birrarung Marr 2015-01-01 07:00:00 2015-01-01     7    56\n 9 Birrarung Marr 2015-01-01 08:00:00 2015-01-01     8   113\n10 Birrarung Marr 2015-01-01 09:00:00 2015-01-01     9   166\n# ℹ 66,027 more rows\n\n\n\n\n\n\n\n\nCautionYour turn!\n\n\n\nIdentify the index variable, key variable(s), and measured variable(s) of this dataset.\n\n\n\n\n\n\n\n\nTipHint\n\n\n\n\nThe index variable contains the complete time information\nThe key variable(s) identify each time series\nThe measured variable(s) are what you want to explore/forecast."
   },
   {
     "objectID": "index.html#course-overview",
@@ -63,38 +630,297 @@
     "text": "Instructor\n Mitchell O’Hara-Wild (he/him) is a PhD candidate at Monash University, creating new techniques and tools for forecasting large collections of time series with Rob Hyndman and George Athanasopoulos. He is the lead developer of the tidy time-series forecasting tools fable and feasts, and has co-developed the widely used forecast package since 2015. He is an award-winning educator, and has taught applied forecasting at Monash University and various forecasting workshops around the world."
   },
   {
-    "objectID": "index.html#required-equipment",
-    "href": "index.html#required-equipment",
+    "objectID": "index.html#assumed-knowledge",
+    "href": "index.html#assumed-knowledge",
     "title": "Forecast combinations",
-    "section": "Required equipment",
-    "text": "Required equipment\nPlease bring your own laptop capable of running R."
+    "section": "Assumed Knowledge",
+    "text": "Assumed Knowledge\n\nUnivariate time series forecasting: some experience with common forecasting models (e.g. SNAIVE, ETS, ARIMA) is assumed, as the workshop combines forecasts from these models.\nProbability distributions: familiarity with basic distributional concepts (mean, variance, quantiles, densities) will help you follow the theory behind probabilistic forecast combinations.\nR and the tidyverse: some experience with R and tidyverse packages (dplyr, ggplot2, tibble) is needed to complete the hands-on exercises.\nTidy forecasting with fable: familiarity with tsibble and fable will help you get the most out of the practical exercises; see the preparation resources above if you need a refresher."
   },
   {
-    "objectID": "index.html#required-software",
-    "href": "index.html#required-software",
+    "objectID": "index.html#requirements",
+    "href": "index.html#requirements",
     "title": "Forecast combinations",
-    "section": "Required software",
-    "text": "Required software\nTo be able to complete the exercises of this workshop, please install a suitable IDE (such as RStudio), a recent version of R (4.1+) and the following packages.\n\nTime series packages and extensions\n\nfpp3\nggtime\n\n\nThe following code will install the main packages needed for the workshop.\ninstall.packages(c(\"fpp3\", \"ggtime\"))\nPlease have the required software installed and pre-work completed before attending the workshop."
+    "section": "Requirements",
+    "text": "Requirements\nTo be able to complete the exercises of this workshop, please bring your own laptop with a suitable IDE (such as Positron or RStudio), a recent version of R (4.1+), and the following packages.\n\nTime series packages and extensions\n\nfpp3\ndistributional\n\n\nThe following code will install the main packages needed for the workshop.\ninstall.packages(c(\"fpp3\", \"distributional\"))\nPlease have the required software installed and pre-work completed before attending the workshop."
   },
   {
-    "objectID": "slides/combination/index.html#section",
-    "href": "slides/combination/index.html#section",
+    "objectID": "slides/basics/index.html#section",
+    "href": "slides/basics/index.html#section",
     "title": "Forecast combinations",
     "section": "",
-    "text": "Forecast combinations\n\n\nTBC\n\n\n28th June 2026 @ ISF\n\nMitchell O’Hara-Wild, Nectric\n\n\n\n\n\n\n\nUseful links\n\n\n social.mitchelloharawild.com\n workshop.nectric.com.au/isf2026/\n mitchelloharawild/workshop-isf2026"
+    "text": "Forecast combinations\n\n\nWelcome\n\n\n28th June 2026 @ ISF - Montreal, Canada\n\nMitchell O’Hara-Wild, Nectric\n\n\n\n\n\n\n\nUseful links\n\n\n social.mitchelloharawild.com\n workshop.nectric.com.au/isf2026/\n mitchelloharawild/workshop-isf2026"
   },
   {
-    "objectID": "slides/combination/index.html#section-1",
-    "href": "slides/combination/index.html#section-1",
+    "objectID": "slides/basics/index.html#section-1",
+    "href": "slides/basics/index.html#section-1",
     "title": "Forecast combinations",
     "section": "",
-    "text": "…"
+    "text": "Welcome! 👋\n\n\n\n\n\n🎯 Today’s goals\n\n\n\nLearn how to combine forecasts in three ways\nUnderstand the underlying probability theory\n\n\n\n\n\n\n\n\n🌻 Expectations\n\n\n\nFollow the code of conduct.\nBe kind and respectful.\nAsk relevant questions any time, Q&A during breaks.\nMake mistakes and learn!\n\n\n\n\n\nhttps://workshop.nectric.com.au/isf2026/"
   },
   {
-    "objectID": "slides/combination/index.html#thats-all-for-now",
-    "href": "slides/combination/index.html#thats-all-for-now",
+    "objectID": "slides/basics/index.html#section-2",
+    "href": "slides/basics/index.html#section-2",
     "title": "Forecast combinations",
-    "section": "⏰ That’s all for now!",
-    "text": "⏰ That’s all for now!\n\n\n\n\n\n\n\n\nFinal remarks\n\n\n…\n\n\n\n\n\n\n\n\n\n\nUseful links\n\n\n social.mitchelloharawild.com\n workshop.nectric.com.au/isf2026/\n mitchelloharawild/workshop-isf2026"
+    "section": "",
+    "text": "Why should we combine forecasts?\n\n\n\n\n\nBetter accuracy\n\n\n\n🎯 Better accuracy: averaging reduces forecast error\n🛡️ More robust: less sensitive single model failures\n🔍 Interpretability: explain forecasts by components\n🤔 Model uncertainty: average over many models\n📊 Coherent forecasts: consistency across hierarchies"
+  },
+  {
+    "objectID": "slides/basics/index.html#section-3",
+    "href": "slides/basics/index.html#section-3",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "How do we combine forecasts?\n\n\n\nA simple average?\n\\[\\hat{Y}_t = \\frac{1}{n}\\left(\\hat{Y}_{1,t} + \\hat{Y}_{2,t} + \\cdots + \\hat{Y}_{n,t}\\right)\\]\n\n\n\nA weighted average?\n\\[\\hat{Y}_t = w_1\\hat{Y}_{1,t} + w_2\\hat{Y}_{2,t} + \\cdots + w_n\\hat{Y}_{n,t}\\]\nwhere \\(\\sum_{i=1}^{n} w_i = 1\\)."
+  },
+  {
+    "objectID": "slides/basics/index.html#section-4",
+    "href": "slides/basics/index.html#section-4",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Many types of combinations\nForecasts combinations appear in:\n\n\n\n\n🧩 Decomposition forecasting\n\n\nCombine separate forecasts of decomposed components.\n\n\n\n\n\n\n\n\n🧮 Ensembles\n\n\nCombine forecasts from multiple models.\n\n\n\n\n\n\n\n\n🔗 Reconciliation\n\n\nEnsure forecast coherency across related time series.\n\n\n\n\n\nToday we’ll cover the basics of probabilistic forecast combination for each type of combination model."
+  },
+  {
+    "objectID": "slides/basics/index.html#section-5",
+    "href": "slides/basics/index.html#section-5",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Probabilistic forecast combinations\n\n\n\n\n\n\nIt’s 2026 📅\n\n\nHopefully we’ve all moved on from point forecasting.\nWe need to combine forecasts probabilistically.\n\n\n\n\nFor this, we’ll learn about:\n\n➕ Convolutions: sums of random variables\n\n\n🍸 Mixtures: averaging distribution statistics\n\n\n⛓️ Copulas: joint distribution from marginals"
+  },
+  {
+    "objectID": "slides/basics/index.html#section-6",
+    "href": "slides/basics/index.html#section-6",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Software\nExamples & exercises focus on tidy R tools.\n\n\n\n\n📦 R packages\n\n\n\nfpp3: tidy forecasting tools for R\nWhich bundles together:\n\ntsibble: temporal data structures\nfeasts: features & decomposition models\nfable: forecasting models\nfabletools: combination tools\n\ndistributional: probability distributions\n\n\n\n\n\n\nWhere possible, I’ll also point to the equivalent tools in Python 🐍."
+  },
+  {
+    "objectID": "slides/basics/index.html#lets-get-started",
+    "href": "slides/basics/index.html#lets-get-started",
+    "title": "Forecast combinations",
+    "section": "⏰ Let’s get started",
+    "text": "⏰ Let’s get started\n\n\n\n\n\n\n\n\nUp next…\n\n\n\nDecomposing time series\nForecasting components\nConvolutions of component forecasts\n\n\n\n\n\n\n\n\n\n\n\nUseful links\n\n\n social.mitchelloharawild.com\n workshop.nectric.com.au/isf2026/\n mitchelloharawild/workshop-isf2026"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section",
+    "href": "slides/ensemble/index.html#section",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Forecast combinations\n\n\nEnsembles\n\n\n28th June 2026 @ ISF\n\nMitchell O’Hara-Wild, Nectric\n\n\n\n\n\n\n\nUseful links\n\n\n social.mitchelloharawild.com\n workshop.nectric.com.au/isf2026/\n mitchelloharawild/workshop-isf2026"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-1",
+    "href": "slides/ensemble/index.html#section-1",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Single-series combinations\n\n\n\n\n🧩 Decomposition forecasting\n\n\nCombining forecasts for components of a time series.\n\n\n\n\n\n\n\n\n🎛️ Ensemble forecasting\n\n\nAveraging different forecasts of the same time series."
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-2",
+    "href": "slides/ensemble/index.html#section-2",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Why use ensemble forecasts?\n\n\n\n\n✅ Advantages\n\n\nThe fundamental benefit of ensembling is that it averages over model uncertainty. This produces forecasts that are:\n\nMore accurate: generally better than any single model\nMore robust: less sensitive to any single model\nBetter calibrated: forecast uncertainty incorporates uncertainty of model specification.\n\n\n\n\n\n\n\n\n\n⚠️ Downsides\n\n\n\nMore complex: to specify, tune, and interpret\nMore expensive: many models to fit and forecast"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-3",
+    "href": "slides/ensemble/index.html#section-3",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Three ways to average forecasts\n\n\n\n\n🎲 Mean of random variables\n\n\n\\[\\bar{X} = \\sum_{i} w_i X_i\\]\nAveraging outcomes (samples)\n\n\n\n\n\n\n\n\n🔀 Probability Mixture (linear pooling)\n\n\n\\[ F(x) = \\sum_{i=1}^{n} w_i \\cdot F_i(x), \\hspace{1em} f(x) = \\sum_{i=1}^{n} w_i \\cdot f_i(x) \\]\nAveraging probabilities (PDF/CDF)\n\n\n\n\n\n\n\n\n📊 Quantile Mixture (Vincentization)\n\n\n\\[ F^{-1}(p) = \\sum_{i=1}^{n} w_i \\cdot F_i^{-1}(p) \\]\nAveraging quantiles (inverse CDF)"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-4",
+    "href": "slides/ensemble/index.html#section-4",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Ensemble weights \\(w_i\\)\n\n\n\n\n⚖️ Equal weighting\n\n\n\\[w_i = 1/N\\]\nDefault; robust when model ranking is uncertain.\n\n\n\n\n\n\n\n\n📉 Performance-based weighting\n\n\n\\[w_i \\propto 1/\\hat\\sigma^2_i \\quad \\text{or} \\quad w_i \\propto 1/\\widehat{\\text{MSE}}_i\\]\nWeight by inverse variance or inverse MSE.\n\n\n\n\n\n\n\n\n🗺️ Feature-based weighting\n\n\n\\[w_i = f(\\text{series features})\\]\nFFORMS selects a single model (\\(w_i \\in \\{0,1\\}\\));\nFFORMA estimates weights from series features (\\(w_i \\in [0,1]\\))."
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-5",
+    "href": "slides/ensemble/index.html#section-5",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Other weighting strategies\n\n\n\n\n⏳ Time-varying weights\n\n\nSome models are better short-term, others long-term.\n\n\n\n\n\n\n\n\n🔄 Online / adaptive weights\n\n\nWeights updated iteratively as new observations arrive.\n\n\n\n\n\n\n\n\n🧑‍💼 Expert judgement\n\n\nWeights reflect model credibility rather than past performance alone."
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-6",
+    "href": "slides/ensemble/index.html#section-6",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Australian ambulance costs\n\n\n\nCode\nlibrary(fable)\nlibrary(tsibble)\nlibrary(ggplot2)\nambulance &lt;- tsibble(\n  Year = 2005:2024, \n  Revenue = c(2.25, 2.38, 2.47, 2.67, 2.9, 2.99, 3.09, \n              3.25, 3.45, 3.48, 3.44, 3.66, 3.96, 4.26,\n              4.46, 4.64, 5, 5.29, 5.74, 5.64),\n  index = Year\n)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFuture trend?\n\n\nThe trend changed in 2015 after a drop.\nWill it change again following the 2024 drop?"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-7",
+    "href": "slides/ensemble/index.html#section-7",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Australian ambulance costs\n\n\nCode\nambulance_fc &lt;- ambulance |&gt;\n  model(\n    ETS = ETS(Revenue),\n    `TSLM Piecewise` = TSLM(Revenue ~ trend(knots = 2015))\n  ) |&gt;\n  mutate(\n    `Mean of RV` = (ETS + `TSLM Piecewise`)/2L\n  ) |&gt; \n  forecast(h = \"10 years\")\navg_ensemble &lt;- ambulance_fc |&gt;\n  filter(.model == \"Mean of RV\")\nambulance_fc &lt;- ambulance_fc |&gt;\n  filter(.model != \"Mean of RV\")\nambulance_fc |&gt;\n  autoplot(ambulance) +\n  theme(legend.position = \"bottom\")"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-8",
+    "href": "slides/ensemble/index.html#section-8",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Australian ambulance costs\n\n\nCode\nlibrary(ggdist)\nambulance_fc |&gt; \n  filter(Year == 2030) |&gt; \n  ggplot(aes(y = .model, xdist = Revenue)) + \n  stat_slab() + \n  labs(x = \"Revenue\", y = NULL, title = \"Forecasts of ambulance costs in 2030\")"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-9",
+    "href": "slides/ensemble/index.html#section-9",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Australian ambulance costs"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-10",
+    "href": "slides/ensemble/index.html#section-10",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Three ways to average forecasts\n\n\n\n🎲 Mean of random variables (averaging outcomes)\n\n\ncombination_ensemble(ETS, ARIMA) # OR (ETS + ARIMA)/2L\n\\[\\bar{X} = \\sum_{i} w_i X_i\\]\n\n\n\n\n\n\n\n🔀 Probability Mixture (averaging probabilities)\n\n\ndist_mixture(fc1, fc2, type = \"probability\", weights = c(0.5, 0.5))\n\\[ F(x) = \\sum_{i=1}^{n} w_i \\cdot F_i(x), \\hspace{1em} f(x) = \\sum_{i=1}^{n} w_i \\cdot f_i(x) \\]\n\n\n\n\n\n\n\n\n📊 Quantile Mixture (averaging quantiles)\n\n\ndist_mixture(fc1, fc2, type = \"quantile\", weights = c(0.5, 0.5))\n\\[ F^{-1}(p) = \\sum_{i=1}^{n} w_i \\cdot F_i^{-1}(p) \\]"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-11",
+    "href": "slides/ensemble/index.html#section-11",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Mean of random variables"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-12",
+    "href": "slides/ensemble/index.html#section-12",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Mean of random variables"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-13",
+    "href": "slides/ensemble/index.html#section-13",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Three ways to average forecasts\n\n\n\n🎲 Mean of random variables (averaging outcomes)\n\n\ncombination_ensemble(ETS, ARIMA) # OR (ETS + ARIMA)/2L\n\\[\\bar{X} = \\sum_{i} w_i X_i\\]\n\n\n\n\n\n\n🔀 Probability Mixture (averaging probabilities)\n\n\ndist_mixture(fc1, fc2, type = \"probability\", weights = c(0.5, 0.5))\n\\[ F(x) = \\sum_{i=1}^{n} w_i \\cdot F_i(x), \\hspace{1em} f(x) = \\sum_{i=1}^{n} w_i \\cdot f_i(x) \\]\n\n\n\n\n\n\n\n📊 Quantile Mixture (averaging quantiles)\n\n\ndist_mixture(fc1, fc2, type = \"quantile\", weights = c(0.5, 0.5))\n\\[ F^{-1}(p) = \\sum_{i=1}^{n} w_i \\cdot F_i^{-1}(p) \\]"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-14",
+    "href": "slides/ensemble/index.html#section-14",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Probability mixtures"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-15",
+    "href": "slides/ensemble/index.html#section-15",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Probability mixtures"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-16",
+    "href": "slides/ensemble/index.html#section-16",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Three ways to average forecasts\n\n\n\n🎲 Mean of random variables (averaging outcomes)\n\n\ncombination_ensemble(ETS, ARIMA) # OR (ETS + ARIMA)/2L\n\\[\\bar{X} = \\sum_{i} w_i X_i\\]\n\n\n\n\n\n\n🔀 Probability Mixture (averaging probabilities)\n\n\ndist_mixture(fc1, fc2, type = \"probability\", weights = c(0.5, 0.5))\n\\[ F(x) = \\sum_{i=1}^{n} w_i \\cdot F_i(x), \\hspace{1em} f(x) = \\sum_{i=1}^{n} w_i \\cdot f_i(x) \\]\n\n\n\n\n\n\n📊 Quantile Mixture (averaging quantiles)\n\n\ndist_mixture(fc1, fc2, type = \"quantile\", weights = c(0.5, 0.5))\n\\[ F^{-1}(p) = \\sum_{i=1}^{n} w_i \\cdot F_i^{-1}(p) \\]"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-17",
+    "href": "slides/ensemble/index.html#section-17",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Quantile mixtures"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-18",
+    "href": "slides/ensemble/index.html#section-18",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Quantile mixtures"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-19",
+    "href": "slides/ensemble/index.html#section-19",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Ensemble methods"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-20",
+    "href": "slides/ensemble/index.html#section-20",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Ensemble forecasts"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-21",
+    "href": "slides/ensemble/index.html#section-21",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Demo"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-22",
+    "href": "slides/ensemble/index.html#section-22",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: Ensemble forecasting\nProduce an ensemble for Australian Electricity Production (aus_production).\naus_production |&gt; autoplot(Electricity)\n\n\n\n\n\n\nYour turn\n\n\n\nFit several models for electricity production\nCombine them into an equal-weighted ensemble\n(averaging random variables is currently simplest)\nCompare the accuracy of the ensemble with individual models\nExperiment with unequal weights.\nCan you beat equal weighting?"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-23",
+    "href": "slides/ensemble/index.html#section-23",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: Ensemble forecasting\nProduce an ensemble for Australian Electricity Production (aus_production).\n\nFit several models for electricity production\n\n\n\nCode\nfit &lt;- aus_production |&gt;\n  model(\n    ETS   = ETS(Electricity),\n    ARIMA = ARIMA(sqrt(Electricity))\n  )\nfit\n\n\n# A mable: 1 x 2\n           ETS                    ARIMA\n       &lt;model&gt;                  &lt;model&gt;\n1 &lt;ETS(M,A,M)&gt; &lt;ARIMA(1,1,4)(0,1,1)[4]&gt;"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-24",
+    "href": "slides/ensemble/index.html#section-24",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: Ensemble forecasting\n\nCombine them into an equal-weighted ensemble\n\n\n\nCode\nfit_ensemble &lt;- fit |&gt;\n  mutate(\n    Ensemble = combination_ensemble(ETS, ARIMA)\n    # Ensemble = (ETS + ARIMA) / 2L\n  )\nfit_ensemble |&gt;\n  forecast(h = \"2 years\") |&gt;\n  autoplot(tail(aus_production, 20), alpha = 0.3)"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-25",
+    "href": "slides/ensemble/index.html#section-25",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: Ensemble forecasting\n\nCompare the accuracy of the ensemble with individual models\n\n\n\nCode\nfit_ensemble |&gt;\n  accuracy() |&gt;\n  arrange(RMSE)\n\n\n# A tibble: 3 × 10\n  .model   .type        ME  RMSE   MAE     MPE  MAPE  MASE RMSSE    ACF1\n  &lt;chr&gt;    &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;\n1 ARIMA    Training -38.6   708.  445. -0.0136  1.45 0.394 0.513 -0.0387\n2 Ensemble Training -17.6   718.  449.  0.0627  1.42 0.398 0.520 -0.0305\n3 ETS      Training   3.44  753.  474.  0.139   1.48 0.420 0.545 -0.0145"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-26",
+    "href": "slides/ensemble/index.html#section-26",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: Ensemble forecasting\n\nExperiment with unequal weights\nCan you beat equal weighting?\n\n\n\nCode\nfit_ensemble |&gt;\n  mutate(\n    W_Ensemble = combination_ensemble(ETS, ARIMA, weights = \"inv_var\")\n  ) |&gt;\n  accuracy() |&gt;\n  arrange(RMSE)\n\n\n# A tibble: 4 × 10\n  .model     .type        ME  RMSE   MAE     MPE  MAPE  MASE RMSSE    ACF1\n  &lt;chr&gt;      &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;\n1 ARIMA      Training -38.6   708.  445. -0.0136  1.45 0.394 0.513 -0.0387\n2 W_Ensemble Training -18.9   717.  448.  0.0579  1.42 0.397 0.519 -0.0313\n3 Ensemble   Training -17.6   718.  449.  0.0627  1.42 0.398 0.520 -0.0305\n4 ETS        Training   3.44  753.  474.  0.139   1.48 0.420 0.545 -0.0145"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-27",
+    "href": "slides/ensemble/index.html#section-27",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Exercise: Ensemble forecasting\n\nExperiment with unequal weights\nCan you beat equal weighting?\n\n\n\nCode\naus_production |&gt;\n  stretch_tsibble(.init = 40, .step = 4) |&gt;\n  model(\n    ETS   = ETS(Electricity),\n    ARIMA = ARIMA(sqrt(Electricity))\n  ) |&gt;\n  mutate(\n    Ensemble   = combination_ensemble(ETS, ARIMA),\n    W_Ensemble = combination_ensemble(ETS, ARIMA, weights = \"inv_var\")\n  ) |&gt;\n  forecast(h = 4) |&gt;\n  accuracy(aus_production) |&gt;\n  arrange(RMSE)\n\n\n# A tibble: 4 × 10\n  .model     .type      ME  RMSE   MAE     MPE  MAPE  MASE RMSSE  ACF1\n  &lt;chr&gt;      &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 Ensemble   Test   -78.0  1005.  646. -0.0880  1.77 0.569 0.724 0.425\n2 W_Ensemble Test   -83.9  1006.  647. -0.102   1.77 0.569 0.725 0.426\n3 ETS        Test     3.43 1010.  657.  0.0956  1.78 0.578 0.728 0.430\n4 ARIMA      Test  -159.   1024.  658. -0.272   1.81 0.579 0.738 0.428\n\n\n\n\n\n\n\n\nOut-of-sample evaluation\n\n\nIn-sample accuracy is unrealistic for actual forecasting performance.\nWhat about cross-validated accuracy?"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-28",
+    "href": "slides/ensemble/index.html#section-28",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Forecast combination puzzle\nFinding ensemble weights that outperform equal weights is surprisingly difficult.\n(Even when models clearly differ in quality.)\n\n\n\n\n✅ Solving the puzzle\n\n\nFrazier, Covey, Martin & Poskitt (2023) solve the puzzle and explain the root cause."
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-29",
+    "href": "slides/ensemble/index.html#section-29",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Forecast combination puzzle\n\n\n\n\n🪜 The two-step workflow\n\n\n\nEstimate component models\nEstimate combination weights\n\nEach step ignores uncertainty from the other.\n\n\n\n\n\nFrazier, Covey, Martin & Poskitt (2023) explore jointly estimating models with weights.\n\n\n\n\n\n🔗 Joint estimation\n\n\nEstimate model parameters and weights together:\n\\[(\\hat\\theta, \\hat w) = \\arg\\min_{\\theta,\\, w} \\mathcal{L}(y, \\textstyle\\sum_i w_i f_i(\\theta_i))\\]\nJoint estimation produces better results with unequal weights."
+  },
+  {
+    "objectID": "slides/ensemble/index.html#section-30",
+    "href": "slides/ensemble/index.html#section-30",
+    "title": "Forecast combinations",
+    "section": "",
+    "text": "Aside: Synthetic data for LFMs\nWeighted ensembles are used to simulate synthetic time series for training large forecasting models (LFMs).\n\n\n\n\n🎲 Simulating from an ensemble\n\n\nGenerate diverse synthetic time series with different weighted combinations of component model simulations.\n\n\n\n\n\n\n\n\n📐 Why this is useful\n\n\n\nFoundation models learn unequal weights of models\nEssentially learns combinations without the puzzle\nCovers a wider range of temporal structures"
+  },
+  {
+    "objectID": "slides/ensemble/index.html#time-for-a-short-break",
+    "href": "slides/ensemble/index.html#time-for-a-short-break",
+    "title": "Forecast combinations",
+    "section": "⏰ Time for a (short) break!",
+    "text": "⏰ Time for a (short) break!\n\n\n\n\n\n\n\n\nUp next… reconciliation\n\n\n\nCombine forecasts across multiple series\nArchetypes for common coherency constraints\nLearn various reconciliation methods and weights\n\n\n\n\n\n\n\n\n\n\n\nUseful links\n\n\n social.mitchelloharawild.com\n workshop.nectric.com.au/isf2026/\n mitchelloharawild/workshop-isf2026"
   }
 ]

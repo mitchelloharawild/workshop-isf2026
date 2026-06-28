@@ -8,7 +8,7 @@
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-contrib/custom-callouts-0.1.0/custom-callouts.css" rel="stylesheet"><meta charset="utf-8">
+<link href="../../site_libs/quarto-contrib/custom-callouts-0.1.0/custom-callouts.scss" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.26">
 
   <title>Forecast combinations – index</title>
@@ -29,10 +29,74 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-8e28095ca6dd81caf6e8869d2af3eae1.css">
-  <link rel="stylesheet" href="theme.css">
-  <link rel="stylesheet" href="hex.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-3d043b1863240985e1d15fa0e7c8ac53.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -151,10 +215,10 @@
 <p>Forecast combinations</p>
 </div>
 <div class="subtitle" data-id="subtitle">
-<p>TBC</p>
+<p>Decomposition</p>
 </div>
 <div class="dateplace">
-<p>28th June 2026 @ ISF</p>
+<p>28th June 2026 @ ISF - Montreal, Canada</p>
 </div>
 <h5 id="mitchell-ohara-wild-nectric">Mitchell O’Hara-Wild, Nectric</h5>
 <div class="callout-link">
@@ -181,60 +245,1439 @@
 <h2></h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<div class="callout callout-none no-icon callout-titled callout-style-simple">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong><span class="emoji" data-emoji="dart">🎯</span> Today’s goals</strong></p>
-</div>
-<div class="callout-content">
-<ol type="1">
-<li>Decompose time series into trend, seasonal, and remainder components</li>
-<li>Learn how to probablistically combine forecasts from:
-<ul>
-<li>A set of components (decomposition forecasting),</li>
-<li>Multiple models (ensemble), and</li>
-<li>Related time series (reconciliation)</li>
-</ul></li>
-<li>Understand the distributional statistics underpinning forecast combinations</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="fragment">
-<div class="callout callout-none no-icon callout-titled callout-style-simple">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong><span class="emoji" data-emoji="sunflower">🌻</span> Expectations</strong></p>
-</div>
-<div class="callout-content">
-<ol type="1">
-<li>Follow the code of conduct.</li>
-<li>Be kind and respectful.</li>
-<li>Ask relevant questions any time, Q&amp;A during breaks.</li>
-<li>Make mistakes and learn!</li>
-</ol>
-</div>
-</div>
-</div>
-</div>
-<p><span class="fragment"><a href="https://workshop.nectric.com.au/isf2026/" class="uri">https://workshop.nectric.com.au/isf2026/</a></span></p>
-</div></div>
-
-<img data-src="../backgrounds/balint-mendlik-4-ORHffEh3I-unsplash.jpg" class="image-right r-stretch"></section>
-<section id="time-for-a-break" class="slide level2">
-<h2><span class="emoji" data-emoji="alarm_clock">⏰</span> Time for a break!</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
+<h3 id="time-series-decomposition">Time series decomposition</h3>
+<p>A decomposition model decomposes a time series into multiple components.</p>
+<p>Usual components include:</p>
+<p>trend (<span class="math inline">\(T\)</span>), seasonality (<span class="math inline">\(S\)</span>), remainder (<span class="math inline">\(R\)</span>)</p>
 <div class="callout callout-tip callout-titled callout-style-simple">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Up next…</strong></p>
+<p><strong>Why decompose data?</strong></p>
 </div>
 <div class="callout-content">
-<p>…</p>
+<ul>
+<li>Explore constituent patterns in a time series</li>
+<li>Seasonal adjustment for long-term decision making</li>
+<li>Simplifies modelling of complex patterns</li>
+</ul>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="decomposition-structure">Decomposition structure</h3>
+<p>Decomposition models are usually either</p>
+<ul>
+<li><p>Additive: <span class="math inline">\(Y = T + S + R\)</span></p></li>
+<li><p>Multiplicative: <span class="math inline">\(Y = T \times S \times R\)</span></p></li>
+</ul>
+<div class="fragment fade-up">
+<div class="callout callout-none no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong><span class="emoji" data-emoji="bulb">💡</span> The sum of its parts</strong></p>
+</div>
+<div class="callout-content">
+<p>We can forecast each component independently, then combine to forecast the original series.</p>
+<div class="fragment">
+<p>Probablistic forecasts are convolutions of additive parts.</p>
+<p><span class="math display">\[y_{T+h|T} = T_{T+h|T} + S_{T+h|T} + R_{T+h|T}\]</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-3" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="decomposition-models">Decomposition models</h3>
+<ul>
+<li>Classical decomposition</li>
+<li><span class="fragment custom fragment-bold">STL decomposition</span></li>
+<li>X11 decomposition</li>
+<li>SEATS decomposition</li>
+<li>STR decomposition</li>
+<li>… and more.</li>
+</ul>
+</div></div>
+
+<img data-src="../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-4" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="mstl-decomposition">(M)STL Decomposition</h3>
+<p><strong>S</strong>easonal and<br>
+<strong>T</strong>rend decomposition using<br>
+<strong>L</strong>oess</p>
+<div class="callout callout-tip callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Additive decomposition via STL</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[ y_t = S_t + T_t + R_t \]</span></p>
+<ul>
+<li><span class="math inline">\(y_t=\)</span> data at time <span class="math inline">\(t\)</span></li>
+<li><span class="math inline">\(T_t=\)</span> trend-cycle component at time <span class="math inline">\(t\)</span></li>
+<li><span class="math inline">\(S_t=\)</span> seasonal component at time <span class="math inline">\(t\)</span></li>
+<li><span class="math inline">\(R_t=\)</span> remainder component at time <span class="math inline">\(t\)</span></li>
+</ul>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/calum-lewis-vA1L1jRTM70-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-5" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="mstl-decomposition-1">(M)STL Decomposition</h3>
+<div class="callout callout-tip callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Advantages</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Handles any seasonality of any periodicity.</li>
+<li>Allows seasonality and trend to change over time.</li>
+<li>Change sensitivity can be tuned via window sizes.</li>
+<li>Optionally robust to outliers.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Disadvantages</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Additive decomposition only.</li>
+<li>Simplistic model (no trading day or holiday effects).</li>
+</ul>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/calum-lewis-vA1L1jRTM70-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-6" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="time-series-components">Time series components</h3>
+<p>Consider these (synthetic) components.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a></a></span>
+<span id="cb1-3"><a></a>i <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">119</span></span>
+<span id="cb1-4"><a></a>pattern_types_demo <span class="ot">&lt;-</span> <span class="fu">tsibble</span>(</span>
+<span id="cb1-5"><a></a>  <span class="at">time =</span> <span class="fu">yearmonth</span>(i),</span>
+<span id="cb1-6"><a></a>  <span class="at">season =</span> <span class="fu">sin</span>(i<span class="sc">*</span><span class="dv">2</span><span class="sc">*</span>pi<span class="sc">/</span><span class="dv">12</span>),</span>
+<span id="cb1-7"><a></a>  <span class="at">trend =</span> i,</span>
+<span id="cb1-8"><a></a>  <span class="at">remainder =</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(i)),</span>
+<span id="cb1-9"><a></a>  <span class="at">index =</span> time</span>
+<span id="cb1-10"><a></a>)</span>
+<span id="cb1-11"><a></a>pattern_types_demo <span class="sc">|&gt;</span> </span>
+<span id="cb1-12"><a></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="fu">c</span>(season, trend, remainder)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-13"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> value, <span class="at">group =</span> name)) <span class="sc">+</span></span>
+<span id="cb1-14"><a></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb1-15"><a></a>  <span class="fu">facet_grid</span>(<span class="fu">vars</span>(name), <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span> </span>
+<span id="cb1-16"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-2-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/laura-geror-lGeAZjIhQyo-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-7" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="additive-patterns">Additive patterns</h3>
+<p><span class="math display">\[y_t = S_t + T_t + R_t\]</span></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>pattern_types_demo <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a></a>  <span class="fu">autoplot</span>(trend <span class="sc">+</span> <span class="dv">10</span> <span class="sc">*</span> season <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> remainder)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-3-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/laura-geror-lGeAZjIhQyo-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-8" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="multiplicative-patterns">Multiplicative patterns</h3>
+<p><span class="math display">\[y_t = S_t \times T_t \times R_t\]</span></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>pattern_types_demo <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a></a>  <span class="fu">autoplot</span>((<span class="dv">2</span> <span class="sc">+</span> season) <span class="sc">*</span> trend <span class="sc">*</span> (<span class="dv">5</span> <span class="sc">+</span> remainder))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-4-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/laura-geror-lGeAZjIhQyo-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-9" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="additive-or-multiplicative">Additive or multiplicative?</h3>
+<p>Pharmaceutical benefit scheme (PBS) scripts.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-5-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Additive!</strong></p>
+</div>
+<div class="callout-content">
+<p>The variation is roughly constant over time.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-10" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="additive-or-multiplicative-1">Additive or multiplicative?</h3>
+<p>Total Australian retail turnover.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Multiplicative!</strong></p>
+</div>
+<div class="callout-content">
+<p>The variation increases with the level of the series.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-11" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="decomposing-multiplicative-data">Decomposing multiplicative data</h3>
+<p>STL can’t decompose multiplicative patterns.</p>
+<p>This isn’t a problem though, since we<br>
+have a <em>transformational</em> trick <span class="emoji" data-emoji="magic_wand">🪄</span></p>
+<div class="fragment fade-in">
+<span class="math display">\[\begin{aligned}
+\log(Y) &amp;= \log(T \times S \times R) \\
+        &amp;= \log(T) + \log(S) + \log(R)
+\end{aligned}\]</span>
+<p>We must transform multiplicative patterns to additive patterns before STL decomposition.</p>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-12" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="decomposing-multiplicative-data-1">Decomposing multiplicative data</h3>
+<p>Total Australian retail turnover is multiplicative, so we cannot use STL directly.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>aus_retail <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a></a>  <span class="fu">summarise</span>(<span class="at">Turnover =</span> <span class="fu">sum</span>(Turnover)) <span class="sc">|&gt;</span> </span>
+<span id="cb4-3"><a></a>  <span class="fu">autoplot</span>(Turnover)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-13" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="decomposing-multiplicative-data-2">Decomposing multiplicative data</h3>
+<p>Log transform the data to make multiplicative patterns additive.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>aus_retail <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a></a>  <span class="fu">summarise</span>(<span class="at">Turnover =</span> <span class="fu">sum</span>(Turnover)) <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a></a>  <span class="fu">autoplot</span>(<span class="fu">log</span>(Turnover))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-8-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-14" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="decomposing-multiplicative-data-3">Decomposing multiplicative data</h3>
+<p>Box-Cox transformations are more flexible.<br>
+<span class="math inline">\(\lambda = 0\)</span> is <span class="math inline">\(f(x) = \log(x)\)</span>, <span class="math inline">\(\lambda = 1\)</span> is <span class="math inline">\(f(x) = x\)</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>aus_retail <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a></a>  <span class="fu">summarise</span>(<span class="at">Turnover =</span> <span class="fu">sum</span>(Turnover)) <span class="sc">|&gt;</span> </span>
+<span id="cb6-3"><a></a>  <span class="fu">autoplot</span>(<span class="fu">box_cox</span>(Turnover, <span class="at">lambda =</span> <span class="fl">0.2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-15" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="stl-decomposition">STL Decomposition</h3>
+<p>The STL model decomposes a time series into trend, seasonal, and remainder components.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>aus_retail <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a></a>  <span class="fu">summarise</span>(<span class="at">Turnover =</span> <span class="fu">sum</span>(Turnover)) <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a></a>  <span class="fu">model</span>(<span class="fu">STL</span>(<span class="fu">box_cox</span>(Turnover, <span class="at">lambda =</span> <span class="fl">0.2</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb7-4"><a></a>  <span class="fu">components</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A dable: 441 x 7 [1M]
+# Key:     .model [1]
+# :        box_cox(Turnover, lambda = 0.2) = trend + season_year + remainder
+   .model               Month box_cox(Turnover, la…¹ trend season_year remainder
+   &lt;chr&gt;                &lt;mth&gt;                  &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1 STL(box_cox(Turn… 1982 Apr                   23.7  23.8     -0.293     0.156 
+ 2 STL(box_cox(Turn… 1982 May                   23.8  23.9      0.0587   -0.0933
+ 3 STL(box_cox(Turn… 1982 Jun                   23.6  23.9     -0.365     0.0873
+ 4 STL(box_cox(Turn… 1982 Jul                   23.9  24.0     -0.176     0.0747
+ 5 STL(box_cox(Turn… 1982 Aug                   23.6  24.0     -0.180    -0.179 
+ 6 STL(box_cox(Turn… 1982 Sep                   23.8  24.0     -0.261     0.0143
+ 7 STL(box_cox(Turn… 1982 Oct                   24.0  24.1      0.0413   -0.146 
+ 8 STL(box_cox(Turn… 1982 Nov                   24.4  24.1      0.293    -0.0205
+ 9 STL(box_cox(Turn… 1982 Dec                   26.1  24.2      1.97     -0.0228
+10 STL(box_cox(Turn… 1983 Jan                   23.8  24.2     -0.310    -0.144 
+# ℹ 431 more rows
+# ℹ abbreviated name: ¹​`box_cox(Turnover, lambda = 0.2)`
+# ℹ 1 more variable: season_adjust &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-16" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="stl-decomposition-1">STL Decomposition</h3>
+<p><code>autoplot()</code> plots the components.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>aus_retail <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a></a>  <span class="fu">summarise</span>(<span class="at">Turnover =</span> <span class="fu">sum</span>(Turnover)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a></a>  <span class="fu">model</span>(<span class="fu">STL</span>(<span class="fu">box_cox</span>(Turnover, <span class="at">lambda =</span> <span class="fl">0.2</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb9-4"><a></a>  <span class="fu">components</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb9-5"><a></a>  <span class="fu">autoplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-11-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-17" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="stl-decomposition-2">STL Decomposition</h3>
+<p><code>window</code> sizes adjust the fit.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>aus_retail <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a></a>  <span class="fu">summarise</span>(<span class="at">Turnover =</span> <span class="fu">sum</span>(Turnover)) <span class="sc">|&gt;</span> </span>
+<span id="cb10-3"><a></a>  <span class="fu">model</span>(<span class="fu">STL</span>(<span class="fu">box_cox</span>(Turnover, <span class="at">lambda =</span> <span class="fl">0.2</span>) <span class="sc">~</span> <span class="fu">season</span>(<span class="at">window =</span> <span class="cn">Inf</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb10-4"><a></a>  <span class="fu">components</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb10-5"><a></a>  <span class="fu">autoplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-12-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-18" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-stl-decomposition">Exercise: STL Decomposition</h3>
+<p>Decompose Australian Electricity production (<code>aus_production</code>).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>aus_production <span class="sc">|&gt;</span> <span class="fu">autoplot</span>(Electricity)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-caution callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Your turn</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li>Find a suitable transformation if needed</li>
+<li>Estimate an STL decomposition model</li>
+<li>Extract and plot the components</li>
+<li>Tune the STL model as needed</li>
+</ol>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-19" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-stl-decomposition-1">Exercise: STL Decomposition</h3>
+<p>Decompose Australian Electricity production. (<code>aus_production</code>).</p>
+<ol type="1">
+<li>Find a suitable transformation if needed</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>aus_production <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a></a>  <span class="fu">autoplot</span>(Electricity)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-13-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg" class="image-left"></p>
+</section>
+<section id="section-20" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-stl-decomposition-2">Exercise: STL Decomposition</h3>
+<p>Decompose Australian Electricity production. (<code>aus_production</code>).</p>
+<ol type="1">
+<li>Find a suitable transformation if needed</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>aus_production <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a></a>  <span class="fu">autoplot</span>(<span class="fu">log</span>(Electricity))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-14-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg" class="image-left"></p>
+</section>
+<section id="section-21" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-stl-decomposition-3">Exercise: STL Decomposition</h3>
+<p>Decompose Australian Electricity production. (<code>aus_production</code>).</p>
+<ol type="1">
+<li>Find a suitable transformation if needed</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>aus_production <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a></a>  <span class="fu">autoplot</span>(<span class="fu">box_cox</span>(Electricity, <span class="fl">0.5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg" class="image-left"></p>
+</section>
+<section id="section-22" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-stl-decomposition-4">Exercise: STL Decomposition</h3>
+<p>Decompose Australian Electricity production. (<code>aus_production</code>).</p>
+<ol start="2" type="1">
+<li>Estimate an STL decomposition model</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>aus_production <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a></a>  <span class="fu">model</span>(<span class="fu">STL</span>(<span class="fu">box_cox</span>(Electricity, <span class="fl">0.5</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A mable: 1 x 1
+  `STL(box_cox(Electricity, 0.5))`
+                           &lt;model&gt;
+1                            &lt;STL&gt;</code></pre>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-23" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-stl-decomposition-5">Exercise: STL Decomposition</h3>
+<p>Decompose Australian Electricity production. (<code>aus_production</code>).</p>
+<ol start="3" type="1">
+<li>Extract and plot the components</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>aus_production <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a></a>  <span class="fu">model</span>(<span class="fu">STL</span>(<span class="fu">box_cox</span>(Electricity, <span class="fl">0.5</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb17-3"><a></a>  <span class="fu">components</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb17-4"><a></a>  <span class="fu">autoplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg" class="image-left"></p>
+</section>
+<section id="section-24" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-stl-decomposition-6">Exercise: STL Decomposition</h3>
+<p>Decompose Australian Electricity production. (<code>aus_production</code>).</p>
+<ol start="4" type="1">
+<li>Tune the STL model as needed</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>aus_production <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a></a>  <span class="fu">model</span>(<span class="fu">STL</span>(<span class="fu">box_cox</span>(Electricity, <span class="fl">0.5</span>), <span class="at">robust =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb18-3"><a></a>  <span class="fu">components</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb18-4"><a></a>  <span class="fu">autoplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-18-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg" class="image-left"></p>
+</section>
+<section id="section-25" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="decomposition-forecasting">Decomposition forecasting</h3>
+<p>Forecast components with simple models, then combine the component forecasts.</p>
+<div class="fragment fade-up">
+<div class="callout callout-tip callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Seasonal adjustment</strong></p>
+</div>
+<div class="callout-content">
+<p>We usually model/forecast trend (<span class="math inline">\(T\)</span>) and remainder (<span class="math inline">\(R\)</span>) together using a single model - this is known seasonally adjusted.</p>
+<p><span class="math display">\[
+y_{T+h|T} = (T+R)_{T+h|T} + S_{T+h|T}
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/calum-lewis-vA1L1jRTM70-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-26" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="decomposition-forecasting-1">Decomposition forecasting</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>retail_components <span class="ot">&lt;-</span> aus_retail <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a></a>  <span class="fu">summarise</span>(<span class="at">Turnover =</span> <span class="fu">sum</span>(Turnover)) <span class="sc">|&gt;</span> </span>
+<span id="cb19-3"><a></a>  <span class="fu">model</span>(<span class="fu">STL</span>(<span class="fu">box_cox</span>(Turnover, <span class="at">lambda =</span> <span class="fl">0.2</span>) <span class="sc">~</span> <span class="fu">season</span>(<span class="at">window =</span> <span class="cn">Inf</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb19-4"><a></a>  <span class="fu">components</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb19-5"><a></a>  <span class="fu">transmute</span>(<span class="st">`</span><span class="at">box_cox(Turnover, lambda = 0.2)</span><span class="st">`</span>, <span class="st">`</span><span class="at">Seasonally Adjusted (T + R)</span><span class="st">`</span> <span class="ot">=</span> season_adjust, <span class="st">`</span><span class="at">Seasonality (S)</span><span class="st">`</span> <span class="ot">=</span> season_year) <span class="sc">|&gt;</span> </span>
+<span id="cb19-6"><a></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(<span class="st">`</span><span class="at">box_cox(Turnover, lambda = 0.2)</span><span class="st">`</span>, <span class="st">`</span><span class="at">Seasonally Adjusted (T + R)</span><span class="st">`</span>, <span class="st">`</span><span class="at">Seasonality (S)</span><span class="st">`</span>), <span class="at">names_to =</span> <span class="st">"component"</span>)</span>
+<span id="cb19-7"><a></a></span>
+<span id="cb19-8"><a></a>retail_components <span class="sc">|&gt;</span> </span>
+<span id="cb19-9"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Month, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb19-10"><a></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb19-11"><a></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(component), <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-19-1.png" width="720"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-27" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="decomposition-forecasting-2">Decomposition forecasting</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>retail_fc_snaive <span class="ot">&lt;-</span> retail_components <span class="sc">|&gt;</span> </span>
+<span id="cb20-2"><a></a>  <span class="fu">filter</span>(component <span class="sc">==</span> <span class="st">"Seasonality (S)"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb20-3"><a></a>  <span class="fu">model</span>(<span class="fu">SNAIVE</span>(value)) <span class="sc">|&gt;</span> </span>
+<span id="cb20-4"><a></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="st">"2 years"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb20-5"><a></a>  <span class="fu">mutate</span>(<span class="at">component =</span> <span class="st">"Seasonality (S)"</span>)</span>
+<span id="cb20-6"><a></a></span>
+<span id="cb20-7"><a></a>retail_components <span class="sc">|&gt;</span> </span>
+<span id="cb20-8"><a></a>  <span class="fu">filter</span>(Month <span class="sc">&gt;</span> <span class="fu">yearmonth</span>(<span class="st">"2010 Jan"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb20-9"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Month, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb20-10"><a></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb20-11"><a></a>  <span class="fu">autolayer</span>(retail_fc_snaive) <span class="sc">+</span></span>
+<span id="cb20-12"><a></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(component), <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-20-1.png" width="720"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-28" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="decomposition-forecasting-3">Decomposition forecasting</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>retail_fc_ets <span class="ot">&lt;-</span> retail_components <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a></a>  <span class="fu">filter</span>(component <span class="sc">==</span> <span class="st">"Seasonally Adjusted (T + R)"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb21-3"><a></a>  <span class="fu">model</span>(<span class="fu">ETS</span>(value)) <span class="sc">|&gt;</span> </span>
+<span id="cb21-4"><a></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="st">"2 years"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb21-5"><a></a>  <span class="fu">mutate</span>(<span class="at">component =</span> <span class="st">"Seasonally Adjusted (T + R)"</span>)</span>
+<span id="cb21-6"><a></a></span>
+<span id="cb21-7"><a></a>retail_components <span class="sc">|&gt;</span> </span>
+<span id="cb21-8"><a></a>  <span class="fu">filter</span>(Month <span class="sc">&gt;</span> <span class="fu">yearmonth</span>(<span class="st">"2010 Jan"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb21-9"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Month, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb21-10"><a></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb21-11"><a></a>  <span class="fu">autolayer</span>(retail_fc_snaive) <span class="sc">+</span></span>
+<span id="cb21-12"><a></a>  <span class="fu">autolayer</span>(retail_fc_ets) <span class="sc">+</span></span>
+<span id="cb21-13"><a></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(component), <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-21-1.png" width="720"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-29" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="decomposition-forecasting-4">Decomposition forecasting</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>retail_fc_dcmp <span class="ot">&lt;-</span> retail_components <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a></a>  <span class="fu">filter</span>(component <span class="sc">==</span> <span class="st">"box_cox(Turnover, lambda = 0.2)"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb22-3"><a></a>  <span class="fu">model</span>(    </span>
+<span id="cb22-4"><a></a>    <span class="fu">decomposition_model</span>(</span>
+<span id="cb22-5"><a></a>      <span class="at">dcmp =</span> <span class="fu">STL</span>(value <span class="sc">~</span> <span class="fu">season</span>(<span class="at">window =</span> <span class="cn">Inf</span>)),</span>
+<span id="cb22-6"><a></a>      <span class="fu">ETS</span>(season_adjust),</span>
+<span id="cb22-7"><a></a>      <span class="fu">SNAIVE</span>(season_year)</span>
+<span id="cb22-8"><a></a>    )</span>
+<span id="cb22-9"><a></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb22-10"><a></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="st">"2 years"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb22-11"><a></a>  <span class="fu">mutate</span>(<span class="at">component =</span> <span class="st">"box_cox(Turnover, lambda = 0.2)"</span>)</span>
+<span id="cb22-12"><a></a></span>
+<span id="cb22-13"><a></a>retail_components <span class="sc">|&gt;</span> </span>
+<span id="cb22-14"><a></a>  <span class="fu">filter</span>(Month <span class="sc">&gt;</span> <span class="fu">yearmonth</span>(<span class="st">"2010 Jan"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb22-15"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Month, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb22-16"><a></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb22-17"><a></a>  <span class="fu">autolayer</span>(retail_fc_snaive) <span class="sc">+</span></span>
+<span id="cb22-18"><a></a>  <span class="fu">autolayer</span>(retail_fc_ets) <span class="sc">+</span></span>
+<span id="cb22-19"><a></a>  <span class="fu">autolayer</span>(retail_fc_dcmp) <span class="sc">+</span></span>
+<span id="cb22-20"><a></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(component), <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-22-1.png" width="720"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-30" class="slide level2 fragment-remove">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="convolutions-of-forecasts">Convolutions of forecasts</h3>
+<div class="fragment fade-out" data-fragment-index="1">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>retail_fc_snaive</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A fable: 24 x 4 [1M]
+# Key:     component, .model [1]
+   component      .model    Month       value
+   &lt;chr&gt;          &lt;chr&gt;     &lt;mth&gt;      &lt;dist&gt;
+ 1 Seasonality (… SNAIV… 2019 Jan N(-0.13, 0)
+ 2 Seasonality (… SNAIV… 2019 Feb N(-0.79, 0)
+ 3 Seasonality (… SNAIV… 2019 Mar N(-0.17, 0)
+ 4 Seasonality (… SNAIV… 2019 Apr N(-0.36, 0)
+# ℹ 20 more rows
+# ℹ 1 more variable: .mean &lt;dbl&gt;
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment fade-out" data-fragment-index="2">
+<div class="fragment fade-up" data-fragment-index="1">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>retail_fc_ets</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A fable: 24 x 5 [1M]
+# Key:     component, .model [1]
+   component      .model    Month        value
+   &lt;chr&gt;          &lt;chr&gt;     &lt;mth&gt;       &lt;dist&gt;
+ 1 Seasonally Ad… ETS(v… 2019 Jan N(39, 0.019)
+ 2 Seasonally Ad… ETS(v… 2019 Feb N(39, 0.021)
+ 3 Seasonally Ad… ETS(v… 2019 Mar N(39, 0.022)
+ 4 Seasonally Ad… ETS(v… 2019 Apr N(39, 0.023)
+# ℹ 20 more rows
+# ℹ 1 more variable: .mean &lt;dbl&gt;
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-out" data-fragment-index="4">
+<div class="fragment fade-up" data-fragment-index="2">
+<p>These forecasts are normally distributed:</p>
+<p><span class="math display">\[S_{T+h|T} \sim N(\mu_{S,T+h}, \sigma_{S,T+h}^2)\]</span></p>
+<p><span class="math display">\[(T+R)_{T+h|T} \sim N(\mu_{T+R,T+h}, \sigma_{T+R,T+h}^2)\]</span></p>
+</div>
+</div>
+<div class="fragment fade-up" data-fragment-index="3">
+<p>The combined forecast is a convolution.</p>
+<p><span class="math display">\[Y_{T+h|T} = S_{T+h|T} + (T+R)_{T+h|T}\]</span></p>
+</div>
+<div class="fragment fade-up" data-fragment-index="4">
+<p>If the forecasts are independent: <span class="math display">\[Y_{T+h|T} \sim N(\mu_{T+R,T+h} + \mu_{S,T+h},\ \sigma_{T+R,T+h}^2 + \sigma_{S,T+h}^2)\]</span></p>
+</div>
+<div class="fragment fade-up" data-fragment-index="5">
+<p>If they’re <strong>not</strong> independent:</p>
+<p><span class="math display">\[E(Y_{T+h|T}) = \mu_{T+R,T+h} + \mu_{S,T+h}\]</span></p>
+<p><span class="math display">\[\text{Var}(Y_{T+h|T}) = \sigma_{T+R,T+h}^2 + \sigma_{S,T+h}^2 + 2\sigma_{T+R,S,T+h}\]</span></p>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/calum-lewis-vA1L1jRTM70-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-31" class="slide level2 fragment-remove">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="convolutions-of-forecasts-1">Convolutions of forecasts</h3>
+<p>The PDF of <span class="math inline">\(Z = X + Y\)</span> is a convolution of:</p>
+<div class="fragment fade-up">
+<div class="callout callout-none no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🎲 Independent variables</strong></p>
+</div>
+<div class="callout-content">
+<p>Marginal densities are sufficient:</p>
+<p><span class="math display">\[f_Z(z) = (f_X * f_Y)(z) = \int_{-\infty}^{\infty} f_X(x)\, f_Y(z - x)\, dx\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-up">
+<div class="callout callout-none no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🔗 Dependent variables</strong></p>
+</div>
+<div class="callout-content">
+<p>The joint density is required:</p>
+<p><span class="math display">\[f_Z(z) = f_{X,Y}(z) = \int_{-\infty}^{\infty} f_{X,Y}(x,\, z - x)\, dx\]</span></p>
+<p>(it’s technically not a convolution now, many terms exist)</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/calum-lewis-vA1L1jRTM70-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-32" class="slide level2 fragment-remove">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="convolutions-of-forecasts-2">Convolutions of forecasts</h3>
+<p>When a single seasonal window is used, <span class="math inline">\(S_{T+h|T}\)</span> and <span class="math inline">\((T+R)_{T+h|T}\)</span> are independent.</p>
+<p><span class="fragment fade-up">Since <code>window = Inf</code>, the seasonality is constant and seasonal naive exactly predicts the seasonal component (0 variance).</span></p>
+<div class="fragment fade-up">
+<p>We can convolve these distributions together:</p>
+<div class="columns">
+<div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>retail_fc_snaive<span class="sc">$</span>value[<span class="dv">2</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;distribution[1]&gt;
+[1] N(-0.79, 0)</code></pre>
+</div>
+</div>
+</div><div class="column">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>retail_fc_ets<span class="sc">$</span>value[<span class="dv">2</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;distribution[1]&gt;
+[1] N(39, 0.021)</code></pre>
+</div>
+</div>
+</div></div>
+</div>
+<div class="fragment fade-up">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a>retail_fc_snaive<span class="sc">$</span>value[<span class="dv">1</span>] <span class="sc">+</span> retail_fc_ets<span class="sc">$</span>value[<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;distribution[1]&gt;
+[1] N(39, 0.019)</code></pre>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/luis-arias-j0aQvd0zIyg-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-33" class="slide level2 fragment-remove">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="convolutions-of-forecasts-3">Convolutions of forecasts</h3>
+<p>In <code>fable</code>, combinations of Gaussian forecasts use correlations between components.</p>
+<div class="fragment fade-up">
+<div class="callout callout-none no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🔢 Covariance structure</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math inline">\(\Sigma_h = D_hR_1D_h\)</span></p>
+<p>Where</p>
+<ul>
+<li><span class="math inline">\(R_1\)</span> is the 1-step error correlation matrix, and</li>
+<li><span class="math inline">\(D_h\)</span> is a diagonal matrix of forecast standard deviations.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-up">
+<div class="callout callout-none no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🔔 Gaussian copulas</strong></p>
+</div>
+<div class="callout-content">
+<p>This is closely related to Gaussian copulas.</p>
+<p>The correlation matrix is estimated from the joint response residuals of component models.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/luis-arias-j0aQvd0zIyg-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-34" class="slide level2 fragment-remove">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="back-transforming-forecasts">Back-transforming forecasts</h3>
+<p>Lastly, we must undo the transformation to produce forecasts on the original scale.</p>
+<div class="fragment fade-up" data-fragment-index="1">
+<div class="callout callout-none no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🔄 Transforming distributions</strong></p>
+</div>
+<div class="callout-content">
+<p>If <span class="math inline">\(X \sim F\)</span> and <span class="math inline">\(X = g(Y)\)</span>, then the PDF of <span class="math inline">\(Y\)</span> is:</p>
+<p><span class="math display">\[f_Y(y) = f_X(g^{-1}(y)) \left| \frac{d}{dy} g^{-1}(y) \right|\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment fade-up" data-fragment-index="2">
+<div class="callout callout-none no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>📐 Example: back-transforming <span class="math inline">\(log(Y) \sim N(\mu, \sigma^2)\)</span></strong></p>
+</div>
+<div class="callout-content">
+<p>If <span class="math inline">\(X \sim N(\mu, \sigma^2)\)</span> and <span class="math inline">\(X = \log(Y)\)</span>, then <span class="math inline">\(g^{-1}(y) = e^y\)</span> and <span class="math inline">\(\frac{d}{dy}e^y = e^y\)</span>,</p>
+<p><span class="math display">\[f_Y(y) = f_X(e^y) \cdot e^y = \frac{1}{y\sigma\sqrt{2\pi}} \exp\!\left(-\frac{(\log y - \mu)^2}{2\sigma^2}\right)\]</span></p>
+<p>i.e.&nbsp;<span class="math inline">\(Y \sim \text{LogNormal}(\mu, \sigma^2)\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-35" class="slide level2 fragment-remove">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="back-transforming-forecasts-1">Back-transforming forecasts</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a><span class="fu">library</span>(ggdist)</span>
+<span id="cb33-2"><a></a><span class="fu">library</span>(distributional)</span>
+<span id="cb33-3"><a></a></span>
+<span id="cb33-4"><a></a>mu <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
+<span id="cb33-5"><a></a>sigma2 <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb33-6"><a></a></span>
+<span id="cb33-7"><a></a><span class="fu">data.frame</span>(</span>
+<span id="cb33-8"><a></a>  <span class="at">dist =</span> <span class="fu">c</span>(<span class="fu">dist_normal</span>(mu, <span class="fu">sqrt</span>(sigma2)), <span class="fu">dist_lognormal</span>(mu, <span class="fu">sqrt</span>(sigma2))),</span>
+<span id="cb33-9"><a></a>  <span class="at">label =</span> <span class="fu">c</span>(</span>
+<span id="cb33-10"><a></a>    <span class="st">"X = log(Y) ~ N(\u03bc, \u03c3\u00b2)"</span>,</span>
+<span id="cb33-11"><a></a>    <span class="st">"Y ~ LogNormal(\u03bc, \u03c3\u00b2)"</span></span>
+<span id="cb33-12"><a></a>  )</span>
+<span id="cb33-13"><a></a>) <span class="sc">|&gt;</span></span>
+<span id="cb33-14"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">xdist =</span> dist, <span class="at">y =</span> label)) <span class="sc">+</span></span>
+<span id="cb33-15"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb33-16"><a></a>  <span class="fu">stat_halfeye</span>(<span class="at">point_interval =</span> mean_qi, <span class="at">.width =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.95</span>)) <span class="sc">+</span></span>
+<span id="cb33-17"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> mu, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey40"</span>) <span class="sc">+</span></span>
+<span id="cb33-18"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">exp</span>(mu), <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey40"</span>) <span class="sc">+</span></span>
+<span id="cb33-19"><a></a>  <span class="fu">annotate</span>(</span>
+<span id="cb33-20"><a></a>    <span class="st">"segment"</span>,</span>
+<span id="cb33-21"><a></a>    <span class="at">x =</span> mu <span class="sc">+</span> <span class="fl">0.05</span>, <span class="at">xend =</span> <span class="fu">exp</span>(mu) <span class="sc">-</span> <span class="fl">0.05</span>,</span>
+<span id="cb33-22"><a></a>    <span class="at">y =</span> <span class="fl">1.5</span>, <span class="at">yend =</span> <span class="fl">1.5</span>,</span>
+<span id="cb33-23"><a></a>    <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">"cm"</span>), <span class="at">ends =</span> <span class="st">"last"</span>, <span class="at">type =</span> <span class="st">"closed"</span>)</span>
+<span id="cb33-24"><a></a>  ) <span class="sc">+</span></span>
+<span id="cb33-25"><a></a>  <span class="fu">annotate</span>(</span>
+<span id="cb33-26"><a></a>    <span class="st">"text"</span>, <span class="at">x =</span> (mu <span class="sc">+</span> <span class="fu">exp</span>(mu)) <span class="sc">/</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="fl">1.56</span>,</span>
+<span id="cb33-27"><a></a>    <span class="at">label =</span> <span class="st">"Y = e^X"</span>,</span>
+<span id="cb33-28"><a></a>    <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">4.5</span>, <span class="at">colour =</span> <span class="st">"grey20"</span>, <span class="at">fontface =</span> <span class="st">"italic"</span></span>
+<span id="cb33-29"><a></a>  ) <span class="sc">+</span></span>
+<span id="cb33-30"><a></a>  <span class="fu">annotate</span>(</span>
+<span id="cb33-31"><a></a>    <span class="st">"text"</span>, <span class="at">x =</span> mu, <span class="at">y =</span> <span class="fl">0.6</span>,</span>
+<span id="cb33-32"><a></a>    <span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"\u03bc = %.1f"</span>, mu),</span>
+<span id="cb33-33"><a></a>    <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">4.5</span>, <span class="at">colour =</span> <span class="st">"grey20"</span></span>
+<span id="cb33-34"><a></a>  ) <span class="sc">+</span></span>
+<span id="cb33-35"><a></a>  <span class="fu">annotate</span>(</span>
+<span id="cb33-36"><a></a>    <span class="st">"text"</span>, <span class="at">x =</span> <span class="fu">exp</span>(mu), <span class="at">y =</span> <span class="fl">0.6</span>,</span>
+<span id="cb33-37"><a></a>    <span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"e^\u03bc = %.2f"</span>, <span class="fu">exp</span>(mu)),</span>
+<span id="cb33-38"><a></a>    <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">4.5</span>, <span class="at">colour =</span> <span class="st">"grey20"</span></span>
+<span id="cb33-39"><a></a>  ) <span class="sc">+</span></span>
+<span id="cb33-40"><a></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">5</span>)) <span class="sc">+</span> </span>
+<span id="cb33-41"><a></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-30-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-36" class="slide level2 fragment-remove">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="back-transforming-forecasts-2">Back-transforming forecasts</h3>
+<div class="callout callout-none no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>⚖️ “Bias adjustment”</strong></p>
+</div>
+<div class="callout-content">
+<p>Quantiles (incl.&nbsp;medians) can be directly back-transformed:</p>
+<p><span class="math display">\[Q_p(Y) = g^{-1}(Q_p(X))\]</span></p>
+<p><strong>However</strong>, the mean does not back-transform directly:</p>
+<p><span class="math display">\[E(Y) = E[g^{-1}(X)] \neq g^{-1}(E[X])\]</span></p>
+<div class="fragment fade-up" data-fragment-index="1">
+<p>For <span class="math inline">\(X \sim N(\mu, \sigma^2)\)</span>, a 2nd-order Taylor expansion gives:</p>
+<p><span class="math display">\[E[g^{-1}(X)] \approx g^{-1}(\mu) + \frac{1}{2}\sigma^2 \cdot (g^{-1})''(\mu)\]</span></p>
+<p>For <span class="math inline">\(g^{-1}(x) = e^x\)</span>, this is exact: <span class="math inline">\(E(Y) = e^{\mu + \sigma^2/2}\)</span></p>
+<p>Larger <span class="math inline">\(\sigma^2\)</span> <span class="math inline">\(\Rightarrow\)</span> bigger correction.</p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-37" class="slide level2 fragment-remove">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="back-transforming-forecasts-3">Back-transforming forecasts</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a><span class="fu">library</span>(ggdist)</span>
+<span id="cb34-2"><a></a><span class="fu">library</span>(distributional)</span>
+<span id="cb34-3"><a></a></span>
+<span id="cb34-4"><a></a>mu <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
+<span id="cb34-5"><a></a>sigma2 <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb34-6"><a></a></span>
+<span id="cb34-7"><a></a><span class="fu">data.frame</span>(</span>
+<span id="cb34-8"><a></a>  <span class="at">dist =</span> <span class="fu">c</span>(<span class="fu">dist_normal</span>(mu, <span class="fu">sqrt</span>(sigma2)), <span class="fu">dist_lognormal</span>(mu, <span class="fu">sqrt</span>(sigma2))),</span>
+<span id="cb34-9"><a></a>  <span class="at">label =</span> <span class="fu">c</span>(</span>
+<span id="cb34-10"><a></a>    <span class="st">"X = log(Y) ~ N(\u03bc, \u03c3\u00b2)"</span>,</span>
+<span id="cb34-11"><a></a>    <span class="st">"Y ~ LogNormal(\u03bc, \u03c3\u00b2)"</span></span>
+<span id="cb34-12"><a></a>  )</span>
+<span id="cb34-13"><a></a>) <span class="sc">|&gt;</span></span>
+<span id="cb34-14"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">xdist =</span> dist, <span class="at">y =</span> label)) <span class="sc">+</span></span>
+<span id="cb34-15"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb34-16"><a></a>  <span class="fu">stat_halfeye</span>(<span class="at">point_interval =</span> mean_qi, <span class="at">.width =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.95</span>)) <span class="sc">+</span></span>
+<span id="cb34-17"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> mu, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey40"</span>) <span class="sc">+</span></span>
+<span id="cb34-18"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">exp</span>(mu), <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey40"</span>) <span class="sc">+</span></span>
+<span id="cb34-19"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">exp</span>(mu <span class="sc">+</span> sigma2<span class="sc">/</span><span class="dv">2</span>), <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb34-20"><a></a>  <span class="fu">annotate</span>(</span>
+<span id="cb34-21"><a></a>    <span class="st">"segment"</span>,</span>
+<span id="cb34-22"><a></a>    <span class="at">x =</span> mu <span class="sc">+</span> <span class="fl">0.05</span>, <span class="at">xend =</span> <span class="fu">exp</span>(mu) <span class="sc">-</span> <span class="fl">0.05</span>,</span>
+<span id="cb34-23"><a></a>    <span class="at">y =</span> <span class="fl">1.5</span>, <span class="at">yend =</span> <span class="fl">1.5</span>,</span>
+<span id="cb34-24"><a></a>    <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">"cm"</span>), <span class="at">ends =</span> <span class="st">"last"</span>, <span class="at">type =</span> <span class="st">"closed"</span>)</span>
+<span id="cb34-25"><a></a>  ) <span class="sc">+</span></span>
+<span id="cb34-26"><a></a>  <span class="fu">annotate</span>(</span>
+<span id="cb34-27"><a></a>    <span class="st">"text"</span>, <span class="at">x =</span> (mu <span class="sc">+</span> <span class="fu">exp</span>(mu)) <span class="sc">/</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="fl">1.56</span>,</span>
+<span id="cb34-28"><a></a>    <span class="at">label =</span> <span class="st">"Y = e^X"</span>,</span>
+<span id="cb34-29"><a></a>    <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">4.5</span>, <span class="at">colour =</span> <span class="st">"grey20"</span>, <span class="at">fontface =</span> <span class="st">"italic"</span></span>
+<span id="cb34-30"><a></a>  ) <span class="sc">+</span></span>
+<span id="cb34-31"><a></a>  <span class="fu">annotate</span>(</span>
+<span id="cb34-32"><a></a>    <span class="st">"segment"</span>,</span>
+<span id="cb34-33"><a></a>    <span class="at">x =</span> mu <span class="sc">+</span> <span class="fl">0.05</span>, <span class="at">xend =</span> <span class="fu">exp</span>(mu <span class="sc">+</span> sigma2<span class="sc">/</span><span class="dv">2</span>) <span class="sc">-</span> <span class="fl">0.05</span>,</span>
+<span id="cb34-34"><a></a>    <span class="at">y =</span> <span class="fl">1.2</span>, <span class="at">yend =</span> <span class="fl">1.2</span>,</span>
+<span id="cb34-35"><a></a>    <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">"cm"</span>), <span class="at">ends =</span> <span class="st">"last"</span>, <span class="at">type =</span> <span class="st">"closed"</span>),</span>
+<span id="cb34-36"><a></a>    <span class="at">colour =</span> <span class="st">"steelblue"</span></span>
+<span id="cb34-37"><a></a>  ) <span class="sc">+</span></span>
+<span id="cb34-38"><a></a>  <span class="fu">annotate</span>(</span>
+<span id="cb34-39"><a></a>    <span class="st">"text"</span>, <span class="at">x =</span> (mu <span class="sc">+</span> <span class="fu">exp</span>(mu <span class="sc">+</span> sigma2<span class="sc">/</span><span class="dv">2</span>)) <span class="sc">/</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="fl">1.27</span>,</span>
+<span id="cb34-40"><a></a>    <span class="at">label =</span> <span class="st">"E(Y) == e^{mu + sigma^2/2}"</span>,</span>
+<span id="cb34-41"><a></a>    <span class="at">parse =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb34-42"><a></a>    <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">4.5</span>, <span class="at">colour =</span> <span class="st">"steelblue"</span>, <span class="at">fontface =</span> <span class="st">"italic"</span></span>
+<span id="cb34-43"><a></a>  ) <span class="sc">+</span></span>
+<span id="cb34-44"><a></a>  <span class="fu">annotate</span>(</span>
+<span id="cb34-45"><a></a>    <span class="st">"text"</span>, <span class="at">x =</span> mu, <span class="at">y =</span> <span class="fl">0.6</span>,</span>
+<span id="cb34-46"><a></a>    <span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"\u03bc = %.1f"</span>, mu),</span>
+<span id="cb34-47"><a></a>    <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">4.5</span>, <span class="at">colour =</span> <span class="st">"grey20"</span></span>
+<span id="cb34-48"><a></a>  ) <span class="sc">+</span></span>
+<span id="cb34-49"><a></a>  <span class="fu">annotate</span>(</span>
+<span id="cb34-50"><a></a>    <span class="st">"text"</span>, <span class="at">x =</span> <span class="fu">exp</span>(mu <span class="sc">+</span> sigma2<span class="sc">/</span><span class="dv">2</span>), <span class="at">y =</span> <span class="fl">0.6</span>,</span>
+<span id="cb34-51"><a></a>    <span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"E(Y) = %.2f"</span>, <span class="fu">exp</span>(mu <span class="sc">+</span> sigma2<span class="sc">/</span><span class="dv">2</span>)),</span>
+<span id="cb34-52"><a></a>    <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">4.5</span>, <span class="at">colour =</span> <span class="st">"steelblue"</span></span>
+<span id="cb34-53"><a></a>  ) <span class="sc">+</span></span>
+<span id="cb34-54"><a></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">5</span>)) <span class="sc">+</span> </span>
+<span id="cb34-55"><a></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-31-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-38" class="slide level2 fragment-remove">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<h3 id="decomposition-forecasting-5">Decomposition forecasting</h3>
+<p>Decomposition forecasts are specified with:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a><span class="fu">decomposition_model</span>(</span>
+<span id="cb35-2"><a></a>  <span class="at">dcmp =</span> <span class="st">`</span><span class="at">decomposition</span><span class="st">`</span>,</span>
+<span id="cb35-3"><a></a>  ... <span class="co"># (models for each component)</span></span>
+<span id="cb35-4"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment fade-up">
+<div class="callout callout-none no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>🔧 <code>decomposition_model()</code> handles everything</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><strong>decomposition</strong> of the original series,</li>
+<li><strong>forecasting</strong> each decomposed component,</li>
+<li><strong>convolution</strong> to combine forecasts with covariance,</li>
+<li><strong>back-transformation</strong> of forecasts to original scale.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/laura-geror-lGeAZjIhQyo-unsplash.jpg" class="image-right r-stretch"></section>
+<section id="section-39" class="slide level2 fragment-remove">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p>The Australian retail forecasts were:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a><span class="fu">decomposition_model</span>(</span>
+<span id="cb36-2"><a></a>  <span class="at">dcmp =</span> <span class="fu">STL</span>(<span class="fu">box_cox</span>(Turnover, <span class="at">lambda =</span> <span class="fl">0.2</span>) <span class="sc">~</span> <span class="fu">season</span>(<span class="at">window =</span> <span class="cn">Inf</span>)),</span>
+<span id="cb36-3"><a></a>  <span class="fu">ETS</span>(season_adjust),</span>
+<span id="cb36-4"><a></a>  <span class="fu">SNAIVE</span>(season_year)</span>
+<span id="cb36-5"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a>aus_retail_tot <span class="ot">&lt;-</span> aus_retail <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a></a>  <span class="fu">summarise</span>(<span class="at">Turnover =</span> <span class="fu">sum</span>(Turnover))</span>
+<span id="cb37-3"><a></a>aus_retail_tot <span class="sc">|&gt;</span> </span>
+<span id="cb37-4"><a></a>  <span class="fu">model</span>(    </span>
+<span id="cb37-5"><a></a>    <span class="fu">decomposition_model</span>(</span>
+<span id="cb37-6"><a></a>      <span class="at">dcmp =</span> <span class="fu">STL</span>(<span class="fu">box_cox</span>(Turnover, <span class="at">lambda =</span> <span class="fl">0.2</span>) <span class="sc">~</span> <span class="fu">season</span>(<span class="at">window =</span> <span class="cn">Inf</span>)),</span>
+<span id="cb37-7"><a></a>      <span class="fu">ETS</span>(season_adjust),</span>
+<span id="cb37-8"><a></a>      <span class="fu">SNAIVE</span>(season_year)</span>
+<span id="cb37-9"><a></a>    )</span>
+<span id="cb37-10"><a></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb37-11"><a></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="st">"2 years"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb37-12"><a></a>  <span class="fu">autoplot</span>(aus_retail_tot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-34-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg" class="image-right"></p>
+</section>
+<section id="section-40" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-stl-decomposition-7">Exercise: STL Decomposition</h3>
+<p>Forecast Australian Electricity production (<code>aus_production</code>).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a>aus_production <span class="sc">|&gt;</span> </span>
+<span id="cb38-2"><a></a>  <span class="fu">model</span>(<span class="fu">STL</span>(<span class="fu">box_cox</span>(Electricity, <span class="fl">0.5</span>), <span class="at">robust =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-caution callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Your turn</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li><p>Estimate a decomposition forecasting model</p>
+<ul>
+<li>Decomposed using the STL model found earlier,</li>
+<li><code>SNAIVE()</code> for the seasonal component, and</li>
+<li><code>ARIMA()</code> for the seasonally adjusted component.</li>
+</ul></li>
+<li><p>Produce forecasts and inspect the distribution</p></li>
+<li><p>Plot the forecasts with the historical values</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-41" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-stl-decomposition-8">Exercise: STL Decomposition</h3>
+<ol type="1">
+<li>Estimate a decomposition forecasting model</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>aus_elec_fit <span class="ot">&lt;-</span> aus_production <span class="sc">|&gt;</span></span>
+<span id="cb39-2"><a></a>  <span class="fu">model</span>(</span>
+<span id="cb39-3"><a></a>    <span class="fu">decomposition_model</span>(</span>
+<span id="cb39-4"><a></a>      <span class="fu">STL</span>(<span class="fu">box_cox</span>(Electricity, <span class="fl">0.5</span>), <span class="at">robust =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb39-5"><a></a>      <span class="fu">ARIMA</span>(season_adjust),</span>
+<span id="cb39-6"><a></a>      <span class="fu">SNAIVE</span>(season_year)</span>
+<span id="cb39-7"><a></a>    )</span>
+<span id="cb39-8"><a></a>  )</span>
+<span id="cb39-9"><a></a>aus_elec_fit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A mable: 1 x 1
+  decomposition_model(STL(box_cox(Electricity, 0.5), robust = TRUE), \n    ARI…¹
+                                                                         &lt;model&gt;
+1                                                      &lt;STL decomposition model&gt;
+# ℹ abbreviated name:
+#   ¹​`decomposition_model(STL(box_cox(Electricity, 0.5), robust = TRUE), \n    ARIMA(season_adjust), SNAIVE(season_year))`</code></pre>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-42" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-stl-decomposition-9">Exercise: STL Decomposition</h3>
+<ol start="2" type="1">
+<li>Produce forecasts and inspect them.</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a>aus_elec_fc <span class="ot">&lt;-</span> aus_elec_fit <span class="sc">|&gt;</span></span>
+<span id="cb41-2"><a></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="st">"5 years"</span>)</span>
+<span id="cb41-3"><a></a>aus_elec_fc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A fable: 20 x 4 [1Q]
+# Key:     .model [1]
+   .model                                           Quarter   Electricity  .mean
+   &lt;chr&gt;                                              &lt;qtr&gt;        &lt;dist&gt;  &lt;dbl&gt;
+ 1 "decomposition_model(STL(box_cox(Electricity, 0… 2010 Q3 t(N(488, 11)) 60042.
+ 2 "decomposition_model(STL(box_cox(Electricity, 0… 2010 Q4 t(N(478, 14)) 57536.
+ 3 "decomposition_model(STL(box_cox(Electricity, 0… 2011 Q1 t(N(486, 18)) 59536.
+ 4 "decomposition_model(STL(box_cox(Electricity, 0… 2011 Q2 t(N(487, 21)) 59793.
+ 5 "decomposition_model(STL(box_cox(Electricity, 0… 2011 Q3 t(N(495, 27)) 61748.
+ 6 "decomposition_model(STL(box_cox(Electricity, 0… 2011 Q4 t(N(484, 31)) 58997.
+ 7 "decomposition_model(STL(box_cox(Electricity, 0… 2012 Q1 t(N(492, 36)) 61112.
+ 8 "decomposition_model(STL(box_cox(Electricity, 0… 2012 Q2 t(N(494, 40)) 61425.
+ 9 "decomposition_model(STL(box_cox(Electricity, 0… 2012 Q3 t(N(501, 44)) 63376.
+10 "decomposition_model(STL(box_cox(Electricity, 0… 2012 Q4 t(N(490, 49)) 60589.
+11 "decomposition_model(STL(box_cox(Electricity, 0… 2013 Q1 t(N(499, 53)) 62731.
+12 "decomposition_model(STL(box_cox(Electricity, 0… 2013 Q2 t(N(500, 58)) 63049.
+13 "decomposition_model(STL(box_cox(Electricity, 0… 2013 Q3 t(N(508, 62)) 65024.
+14 "decomposition_model(STL(box_cox(Electricity, 0… 2013 Q4 t(N(497, 67)) 62201.
+15 "decomposition_model(STL(box_cox(Electricity, 0… 2014 Q1 t(N(505, 71)) 64372.
+16 "decomposition_model(STL(box_cox(Electricity, 0… 2014 Q2 t(N(507, 76)) 64694.
+17 "decomposition_model(STL(box_cox(Electricity, 0… 2014 Q3 t(N(514, 80)) 66694.
+18 "decomposition_model(STL(box_cox(Electricity, 0… 2014 Q4 t(N(503, 85)) 63835.
+19 "decomposition_model(STL(box_cox(Electricity, 0… 2015 Q1 t(N(512, 89)) 66034.
+20 "decomposition_model(STL(box_cox(Electricity, 0… 2015 Q2 t(N(513, 94)) 66359.</code></pre>
+</div>
+</div>
+</div></div>
+
+<img data-src="../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg" class="image-left r-stretch"></section>
+<section id="section-43" class="slide level2">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+
+</div><div class="column" style="width:60%;">
+<h3 id="exercise-stl-decomposition-10">Exercise: STL Decomposition</h3>
+<ol start="3" type="1">
+<li>Plot the forecasts with the historical values</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a>aus_elec_fc <span class="sc">|&gt;</span></span>
+<span id="cb43-2"><a></a>  <span class="fu">autoplot</span>(aus_production)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-37-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<p><img data-src="../backgrounds/randy-fath-R5_1N6ZgCOo-unsplash.jpg" class="image-left"></p>
+</section>
+<section id="time-for-a-break" class="slide level2">
+<h2><span class="emoji" data-emoji="alarm_clock">⏰</span> Time for a break</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p>Ask me questions!</p>
+<div class="callout callout-tip callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Up next… ensembles</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>3 methods for averaging distributions</li>
+<li>Weighting strategies for ensembles</li>
+</ul>
 </div>
 </div>
 </div>
