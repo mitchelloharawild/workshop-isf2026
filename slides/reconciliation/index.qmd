@@ -1118,7 +1118,7 @@ They choose one level of the hierarchy. The other levels are forecasted by aggre
 :::
 :::
 
-![](../backgrounds/aaron-burden-y3VfIVhskks-unsplash){.image-left}
+![](../backgrounds/aaron-burden-y3VfIVhskks-unsplash.jpg){.image-left}
 
 ## {}
 
@@ -1362,6 +1362,7 @@ tourism_purpose_fc |>
 :::
 
 ![](../backgrounds/johnny-bhalla-DLbCETd599Y-unsplash.jpg){.image-right}
+
 ## {}
 
 ::: columns
@@ -1483,7 +1484,6 @@ Reconcile the base forecasting models for `PBS` using minimum trace.
 2. Produce base and coherent forecasts for each series.
 3. Visually compare the base and coherent forecasts.  
    Hint: `filter(is_aggregated(ATC1))` to just viz aggregations.
-4. Is reconciliation more accurate?
 
 :::
 
@@ -1571,40 +1571,11 @@ fit_pbs |>
 #| label: exercise-coherent-plot
 fit_pbs |> 
   forecast(h = "2 years") |> 
-  filter(if_any(c(ATC1, ATC2, Concession), is_aggregated)) |>
+  filter(if_all(c(ATC1, ATC2, Concession), is_aggregated)) |>
   autoplot(
     pbs_atc |> filter(Month > yearmonth("2000 Jan")),
     alpha = 0.4
   )
-```
-
-:::
-:::
-
-![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-left}
-
-## {}
-
-::: columns
-::: {.column width="40%"}
-:::
-::: {.column width="60%"}
-
-### Exercise: Coherent forecasting
-
-4. Which is more accurate? Use a test-set.
-
-```{r}
-#| echo: true
-#| code-fold: true
-#| label: exercise-coherent-acc
-pbs_atc |> 
-  # 2-year training set
-  filter(Month <= yearmonth("2006 Jun")) |>
-  model(ets = ETS(Scripts)) |> 
-  reconcile(mint = min_trace(ets, method = "mint_shrink")) |> 
-  forecast(h = "2 years") |> 
-  accuracy(pbs_atc)
 ```
 
 :::
