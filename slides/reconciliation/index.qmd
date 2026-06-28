@@ -17,6 +17,7 @@ editor_options:
 ---
 
 ```{r}
+#| label: setup
 #| include: false
 library(fpp3)
 library(distributional)
@@ -96,70 +97,173 @@ Reconciliation
 
 ![](../backgrounds/sander-weeteling-KABfjuSOx74-unsplash.jpg){.image-left}
 
-
 ## {}
 
 ::: columns
 ::: {.column width="60%"}
 
-### Forecast reconciliation
-
-Forecast reconciliation combines forecasts from:
-
-* a **single** model, for
-* **each related** series.
+### Forecast combinations
 
 :::{.fragment .fade-up}
+:::{.callout-note icon=false}
+## 1️⃣ Single-series
 
-:::{.callout-tip}
-## Improved accuracy
-
-This shares information across related series and enforces coherency.
+Decomposition and ensemble forecasting combines models to forecast a **single series**.
+:::
 :::
 
-:::
+:::{.fragment .fade-up}
+:::{.callout-tip icon=false}
+## 🔢 Multi-series
 
+Reconciliation combines forecasts across **many related series**, sharing information by enforcing coherency constraints.
+:::
+:::
 
 :::
 :::
 
 ![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-right}
 
-
 ## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Coherent combinations
+
+Independent models produce **incoherent** base forecasts $\hat{\mathbf{y}}_h$ - i.e. they don't add up.
+
+Reconciling base forecasts produces **coherent** forecasts $\tilde{\mathbf{y}}_h$ that do add up.
+
+:::{.fragment .fade-up}
+:::{.callout-important icon=false}
+## 📡 Forecast reconciliation
+
+The adjustment generally **improves accuracy**, propagating information across the hierarchy.
+:::
+:::
+
+:::{.fragment .fade-up}
+:::{.callout-tip icon=false}
+## ✅ Independently coherent?
+
+Some independent models can produce forecasts that are already coherent.
+
+How is this possible?
+:::
+:::
+
+:::
+:::
+
+![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-right}
+
+## {.fragment-remove}
 
 ::: columns
 ::: {.column width="60%"}
 
 ### Coherency constraints
 
-The relationships between each time series form constraints.
+The structural relationships between each time series form constraints.
 
 :::{.fragment .fade-up}
 
 :::{.callout-note}
-## For example...
+## For example... `tourism` 🏖️
 
-The **total Australian infections** must equal the **sum of infections by jurisdiction**.
+The **total visitors** must be the **sum of visitors by purpose**.
+
+$$\text{Total}_t = \text{Business}_t + \text{Holiday}_t + \text{Other}_t + \text{Visiting}_t$$
+
+```{r}
+#| label: tourism-coherency-constraint
+#| echo: true
+tourism |> 
+  aggregate_key(Purpose, Trips = sum(Trips)) |> 
+  filter(Quarter == yearquarter("2015 Q1"))
+```
+
 :::
-:::
-
-:::{.fragment .fade-up}
-
-:::{.callout-tip}
-## Imposing constraints
-
-These forecasts do not add up.
-
-Reconciliation adjusts them for *coherency*.
-:::
-
 :::
 
 :::
 :::
 
 ![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-right}
+
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Forecasting tourism
+
+ETS forecasts for each series are **incoherent**.
+
+```{r}
+#| label: tourism-purpose-fc
+#| fig-height: 5
+#| fig-width: 7
+#| echo: true
+#| code-fold: true
+tourism_purpose <- tourism |> 
+  aggregate_key(Purpose, Trips = sum(Trips))
+tourism_purpose_fc <- tourism_purpose |> 
+  model(ETS(Trips)) |> 
+  forecast(h = "2 years")
+tourism_purpose_fc |> 
+  autoplot(tourism_purpose |> filter(Quarter >= yearquarter("2010 Q1")))
+```
+
+:::
+:::
+
+![](../backgrounds/johnny-bhalla-DLbCETd599Y-unsplash.jpg){.image-right}
+
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Forecasting tourism
+
+The sum of forecasts for each Purpose (convolution) is **not equal** to the total.
+
+```{r}
+#| label: tourism-convolution-comparison
+#| fig-height: 4.5
+#| fig-width: 7
+#| warning: false
+#| echo: true
+#| code-fold: true
+library(distributional)
+tourism_purpose_fc |>
+  # Compute the convolution of the base forecasts by Purpose
+  filter(!is_aggregated(Purpose)) |>
+  group_by(.model) |> 
+  summarise(.model = "Sum of base forecasts", Trips = sum(Trips)) |>
+  # sum() is invalid somehow? Likely a distributional bug. Recreate it.
+  mutate(Trips = dist_normal(mean(Trips), sqrt(variance(Trips)))) |> 
+  # Add back the base forecast for total
+  bind_rows(
+    tourism_purpose_fc |>
+      filter(is_aggregated(Purpose)) |>
+      transmute(.model = "Forecast of total", Trips)
+  ) |>
+  # Plot forecasts against the actual total
+  autoplot(tourism_purpose |> filter(is_aggregated(Purpose), Quarter >= yearquarter("2010 Q1")) |> select(-Purpose)) +
+  facet_grid(vars(.model), scales = "free_y") +
+  theme(legend.position = "bottom")
+```
+
+:::
+:::
+
+![](../backgrounds/johnny-bhalla-DLbCETd599Y-unsplash.jpg){.image-right}
 
 ## {}
 
@@ -333,30 +437,600 @@ digraph G {
 
 ## {}
 
-### PBS scripts by ATC 1 classification
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+### Hierarchical aggregation
+
+::: {.callout-note}
+## Each aggregate has a single constraint
+
+The basic constraint shown before is '[**hierarchical**]{.term}'
 
 ```{r}
-pbs_atc1 <- tsibbledata::PBS |> 
-  aggregate_key(ATC1, Scripts = sum(Scripts))
-pbs_atc1 |> 
-  filter(Month > yearmonth("2000 Jan")) |> 
-  ggplot(aes(x = Month, y = Scripts)) +
-  geom_line() + 
-  facet_wrap(vars(ATC1), scales = "free_y")
+#| echo: false
+#| output: hide
+tidygraph::tbl_graph(
+  nodes = tibble(label = c("Attendees", "Academic", "Industry")),
+  edges = tibble(from = c(1, 1), to = c(2, 3))
+) |>
+  visnetwork_hierarchy(width = 600, height = 300)
 ```
+:::
+
+:::
+:::
+
+![](../backgrounds/emma-gossett-B645igbiKCw-unsplash.jpg){.image-left}
+
 
 ## {}
 
-### Produce forecasts on each series
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+### Hierarchical aggregation
+
+::: {.callout-note}
+## Each aggregate has a single constraint
+
+[**Hierarchical**]{.term} series often have multiple layers
 
 ```{r}
-pbs_atc1_fc <- pbs_atc1 |> 
-  model(ETS(Scripts)) |> 
-  forecast(h = "5 years")
-pbs_atc1_fc |> 
-  autoplot(pbs_atc1 |> filter(Month > yearmonth("2000 Jan"))) + 
-  facet_wrap(vars(ATC1), scales = "free_y")
+#| echo: false
+#| output: hide
+tidygraph::tbl_graph(
+  nodes = tibble(label = c("Attendees", "Academic", "Industry", "Students", "Staff")),
+  edges = tibble(from = c(1, 1, 2, 2), to = c(2, 3, 4, 5))
+) |>
+  visnetwork_hierarchy(width = 600, height = 400)
 ```
+
+:::
+
+:::
+:::
+
+![](../backgrounds/emma-gossett-B645igbiKCw-unsplash.jpg){.image-left}
+
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+### Grouped aggregation
+
+There are many ways to disaggregate a series.
+
+Consider where attendees have travelled from, **domestic** or **international**?
+
+::: {.fragment .fade-in}
+```{r}
+tidygraph::tbl_graph(
+  nodes = tibble(label = c("Attendees", "Domestic", "International")),
+  edges = tibble(from = c(1, 1), to = c(2, 3))
+) |>
+  visnetwork_hierarchy(width = 600, height = 300)
+```
+:::
+
+
+:::
+:::
+
+![](../backgrounds/zach-callahan--i51Ke0ROTo-unsplash.jpg){.image-right}
+
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+### Grouped aggregation
+
+::: {.callout-note}
+## Considering origin and workplace
+
+Attendance can be disaggregated by both **origin** and **workplace**...
+
+::: columns
+::: {.column width="50%"}
+```{r}
+tidygraph::tbl_graph(
+  nodes = tibble(label = c("Attendees", "Domestic", "International")),
+  edges = tibble(from = c(1, 1), to = c(2, 3))
+) |>
+  visnetwork_hierarchy(width = 300, height = 300)
+```
+:::
+::: {.column width="50%"}
+```{r}
+tidygraph::tbl_graph(
+  nodes = tibble(label = c("Attendees", "Academia", "Industry")),
+  edges = tibble(from = c(1, 1), to = c(2, 3))
+) |>
+  visnetwork_hierarchy(width = 300, height = 300)
+```
+:::
+:::
+:::
+:::
+:::
+
+![](../backgrounds/zach-callahan--i51Ke0ROTo-unsplash.jpg){.image-right}
+
+
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+### Grouped aggregation
+
+::: {.callout-note}
+## Considering origin and workplace
+
+and then further disaggregated by the other.
+
+::: columns
+::: {.column width="50%"}
+```{r}
+tidygraph::tbl_graph(
+  nodes = tibble(label = c("Attendees", "Domestic", "International", "Domestic\n& Academia", "Domestic\n& Industry", "International\n& Academia", "International\n& Industry")),
+  edges = tibble(from = c(1, 1, 2, 2, 3, 3), to = c(2, 3, 4, 5, 6, 7))
+) |>
+  visnetwork_hierarchy(width = 300, height = 400)
+```
+:::
+::: {.column width="50%"}
+```{r}
+tidygraph::tbl_graph(
+  nodes = tibble(label = c("Attendees", "Academia", "Industry", "Academia\n& Domestic", "Academia\n& International", "Industry\n& Domestic", "Industry\n& International")),
+  edges = tibble(from = c(1, 1, 2, 2, 3, 3), to = c(2, 3, 4, 5, 6, 7))
+) |>
+  visnetwork_hierarchy(width = 300, height = 400)
+```
+:::
+:::
+
+A [**grouped**]{.term} structure has the same top and bottom series.
+
+:::
+:::
+:::
+
+![](../backgrounds/zach-callahan--i51Ke0ROTo-unsplash.jpg){.image-right}
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+### Grouped aggregation
+
+::: {.callout-note}
+## Considering origin and workplace
+
+The [**grouped**]{.term} structure can be plotted in a single graph.
+
+```{r}
+tidygraph::tbl_graph(
+  nodes = tibble(label = c("Attendees", "Domestic", "International", "Academia", "Industry", "Domestic\n& Academia", "Domestic\n& Industry", "International\n& Academia", "International\n& Industry")),
+  edges = tibble(
+    from  = c(1, 1, 1, 1, 2, 4, 2, 5, 3, 4, 3, 5), 
+    to    = c(2, 3, 4, 5, 6, 6, 7, 7, 8, 8, 9, 9),
+    color = hcl.colors(3, "Dark2")[c(1,1,2,2,1,2,1,2,1,2,1,2)]
+  )
+) |>
+  visnetwork_graph(width = 600, height = 400)
+```
+
+:::
+
+:::
+:::
+
+![](../backgrounds/zach-callahan--i51Ke0ROTo-unsplash.jpg){.image-right}
+
+## {.fragment-remove}
+
+::: columns
+::: {.column width="60%"}
+
+### Cross-sectional aggregation
+
+`aggregate_key()` produces hierarchical and grouped aggregations of the data.
+
+::: {.fragment .fade-out fragment-index=1}
+```{r}
+#| label: tourism-pre-aggregate
+#| echo: true
+tourism
+```
+:::
+
+::: {.fragment .fade-up fragment-index=1}
+```r
+tourism |> 
+  aggregate_key(Purpose * (State / Region), Trips = sum(Trips))
+```
+
+::: {.fragment .fade-out fragment-index=2}
+```{r}
+#| label: tourism-aggregate-key
+#| echo: false
+tourism |> 
+  aggregate_key(Purpose * (State / Region), Trips = sum(Trips))
+```
+:::
+:::
+
+
+::: {.fragment .fade-up fragment-index=2}
+::: {.callout-note icon=false}
+## Symbolic factors
+
+Symbolic factors concisely encode the structure:
+
+* `parent/child` encodes **hierarchical** structure (nested)
+* `A*B` encodes **grouped** structure (crossed)
+
+:::
+:::
+
+:::
+:::
+
+![](../backgrounds/luis-arias-j0aQvd0zIyg-unsplash.jpg){.image-right}
+
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+### Temporal aggregation
+
+Aggregations can also be computed over temporal granularities.
+
+```{r}
+tidygraph::tbl_graph(
+  nodes = tibble(label = c("Year", "Q1", "Q2", "Q3", "Q4", month.abb)),
+  edges = tibble(from = c(rep(1, 4), rep(2:5, each = 3)), to = c(2:17))
+) |>
+  visnetwork_hierarchy(width = 600, height = 200) |> 
+  visNodes(font = list(size = 40))
+```
+
+:::
+:::
+
+![](../backgrounds/courtney-smith-pCLKkPHpCz0-unsplash.jpg){.image-left}
+
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+### Temporal aggregation
+
+Many granules can aggregate time.
+
+```{r}
+tidygraph::tbl_graph(
+  nodes = tibble(label = c("Year", "Q1", "Q2", "Q3", "Q4", month.abb)),
+  edges = tibble(from = c(rep(1, 4), rep(2:5, each = 3)), to = c(2:17))
+) |>
+  visnetwork_hierarchy(width = 700, height = 200) |> 
+  visNodes(font = list(size = 40))
+```
+
+
+```{r}
+tidygraph::tbl_graph(
+  nodes = tibble(label = c("Year", "Jan-Apr", "May-Aug", "Sep-Dec", month.abb)),
+  edges = tibble(from = c(rep(1, 3), rep(2:4, each = 4)), to = c(2:16))
+) |>
+  visnetwork_hierarchy(width = 700, height = 200) |> 
+  visNodes(font = list(size = 40))
+```
+
+:::
+:::
+
+![](../backgrounds/courtney-smith-pCLKkPHpCz0-unsplash.jpg){.image-left}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+### Temporal aggregation
+
+::: {.callout-tip}
+
+A single graph can represent both temporal hierarchies.
+
+```{r}
+tidygraph::tbl_graph(
+  nodes = tibble(label = c("Year", "Q1", "Q2", "Q3", "Q4", "Jan-Apr", "May-Aug", "Sep-Dec", month.abb)),
+  edges = tibble(
+    from = c(rep(1, 7), rep(2:5, each = 3), rep(6:8, each = 4)), 
+    to = c(2:8, 9:20, 9:20),
+    grp = c(rep(1, 4), rep(2, 3), rep(1, 12), rep(2, 12)),
+    color = hcl.colors(3, "Dark2")[grp]
+  )
+) |>
+  visnetwork_graph(width = 700, height = 500) |> 
+  visNodes(font = list(size = 30))
+```
+:::
+
+:::
+:::
+
+![](../backgrounds/courtney-smith-pCLKkPHpCz0-unsplash.jpg){.image-left}
+
+
+## {.fragment-remove}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Temporal aggregation
+
+`aggregate_index()` produces temporal aggregations of the data (*experimental!*).
+
+::: {.fragment .fade-out fragment-index=1}
+```{r}
+#| label: tourism-pre-t-aggregate
+#| echo: true
+tourism
+```
+:::
+
+::: {.fragment .fade-up fragment-index=1}
+```r
+tourism |> 
+  aggregate_index(list(quarter(1L), year(1L)), Trips = sum(Trips))
+```
+
+::: {.fragment .fade-out fragment-index=2}
+```{r}
+#| label: tourism-aggregate-index
+#| echo: false
+tourism |> 
+  aggregate_index(list(quarter(1L), year(1L)), Trips = sum(Trips))
+```
+:::
+:::
+
+
+::: {.fragment .fade-up fragment-index=2}
+::: {.callout-note icon=false}
+## 🕰️ Time granules
+
+The time granules are defined in the `mixtime` package.
+
+They are calendar specific, and can be n-length  
+(e.g. `cal_gregorian$month(4L)` for 4-month bins).
+
+:::
+:::
+
+::: {.fragment .fade-up fragment-index=3}
+::: {.callout-important icon=false}
+## 🚧 In-development
+
+The `mixtime` package is *fresh*!
+
+It will take some time for `tsibble` and `fable` to fully support it (and consequently temporal reconciliation is 'coming soon').
+
+:::
+:::
+
+
+
+:::
+:::
+
+![](../backgrounds/jon-tyson-FlHdnPO6dlw-unsplash.jpg){.image-left}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+### Cross-Temporal aggregation
+
+::: {.callout-note}
+
+Both temporal and cross-sectional aggregation together.
+
+::: columns
+::: {.column width="50%"}
+```{r}
+tidygraph::tbl_graph(
+  nodes = tibble(label = c("Year", "Q1", "Q2", "Q3", "Q4", "Jan-Apr", "May-Aug", "Sep-Dec", month.abb)),
+  edges = tibble(
+    from = c(rep(1, 7), rep(2:5, each = 3), rep(6:8, each = 4)), 
+    to = c(2:8, 9:20, 9:20),
+    grp = c(rep(1, 4), rep(2, 3), rep(1, 12), rep(2, 12)),
+    color = hcl.colors(3, "Dark2")[grp]
+  )
+) |>
+  visnetwork_graph(width = 300, height = 300) |> 
+  visNodes(font = list(size = 30))
+```
+:::
+::: {.column width="50%"}
+```{r}
+tidygraph::tbl_graph(
+  nodes = tibble(label = c("Attendees", "Domestic", "International", "Academia", "Industry", "Domestic\n& Academia", "Domestic\n& Industry", "International\n& Academia", "International\n& Industry")),
+  edges = tibble(
+    from  = c(1, 1, 1, 1, 2, 4, 2, 5, 3, 4, 3, 5), 
+    to    = c(2, 3, 4, 5, 6, 6, 7, 7, 8, 8, 9, 9),
+    color = hcl.colors(4, "Dark2")[c(1,1,2,2,1,2,1,2,1,2,1,2) + 2]
+  )
+) |>
+  visnetwork_graph(width = 300, height = 300)
+```
+:::
+:::
+:::
+
+:::
+:::
+
+![](../backgrounds/aleksandar-radovanovic-mXKXJI98aTE-unsplash.jpg){.image-left}
+
+## {}
+
+:::{.image-full}
+```{r}
+# ── Cross-sectional sub-layout (relative to each cluster centre) ────────────
+cs_x_rel <- c(0, -3, -1, 1, 3, -2, -0.67, 0.67, 2)
+cs_y_rel <- c(3,  0,  0, 0, 0, -3,  -3,   -3,  -3)
+
+cs_from  <- c(1, 1, 1, 1, 2, 4, 2, 5, 3, 4, 3, 5)
+cs_to    <- c(2, 3, 4, 5, 6, 6, 7, 7, 8, 8, 9, 9)
+cs_grp   <- c(1, 1, 2, 2, 1, 2, 1, 2, 1, 2, 1, 2) + 2   # groups 3 & 4
+
+# ── Temporal cluster centres ────────────────────────────────────────────────
+temp_labels <- c("Year", "Q1", "Q2", "Q3", "Q4",
+                 "Jan–Apr", "May–Aug", "Sep–Dec", month.abb)
+temp_from   <- c(rep(1, 7), rep(2:5, each = 3), rep(6:8, each = 4))
+temp_to     <- c(2:8, 9:20, 9:20)
+temp_grp    <- c(rep(1, 4), rep(2, 3), rep(1, 12), rep(2, 12))
+
+month_x <- seq(0, 11 * 8, by = 8)
+temp_cx <- c(
+  mean(month_x),                                                  # Year
+  mean(month_x[1:3]),  mean(month_x[4:6]),                       # Q1, Q2
+  mean(month_x[7:9]),  mean(month_x[10:12]),                     # Q3, Q4
+  mean(month_x[1:4]),  mean(month_x[5:8]),  mean(month_x[9:12]),# Jan–Apr/May–Aug/Sep–Dec
+  month_x                                                         # months
+)
+temp_cy <- c(38, rep(22, 4), rep(16, 3), rep(0, 12))
+
+n_temp <- 20; n_cs <- 9
+
+# ── Combined nodes ──────────────────────────────────────────────────────────
+nodes_raw <- tibble(
+  temp_id = rep(1:n_temp, each = n_cs),
+  cs_id   = rep(1:n_cs,   times = n_temp)
+) |>
+  mutate(
+    id    = (temp_id - 1) * n_cs + cs_id,
+    # Label the 'total' (Attendees) node at each temporal cluster with the period name
+    label = if_else(cs_id == 1, temp_labels[temp_id], ""),
+    x_raw = temp_cx[temp_id] + cs_x_rel[cs_id],
+    y_raw = temp_cy[temp_id] + cs_y_rel[cs_id],
+    color = case_when(
+      cs_id == 1            ~ "#444444",
+      cs_id %in% 2:3        ~ hcl.colors(4, "Dark2")[1],
+      cs_id %in% 4:5        ~ hcl.colors(4, "Dark2")[2],
+      cs_id %in% c(6, 8)   ~ hcl.colors(4, "Dark2")[3],
+      TRUE                  ~ hcl.colors(4, "Dark2")[4]
+    ),
+    size = if_else(cs_id == 1, 14, 9)
+  )
+
+# Scale to vis.js pixel space (y flipped so Year is at top)
+x_r <- range(nodes_raw$x_raw); y_r <- range(nodes_raw$y_raw)
+nodes <- nodes_raw |>
+  transmute(
+    id, label, color, size,
+    font.size = if_else(cs_id == 1, 18, 0),
+    x = (x_raw - mean(x_r)) / diff(x_r) * 1800,
+    y = -(y_raw - mean(y_r)) / diff(y_r) * 900,
+    physics = FALSE
+  )
+
+# ── Combined edges ──────────────────────────────────────────────────────────
+temp_edges_comb <- expand_grid(te = seq_along(temp_from), cs_j = 1:n_cs) |>
+  transmute(
+    from  = (temp_from[te] - 1) * n_cs + cs_j,
+    to    = (temp_to[te]   - 1) * n_cs + cs_j,
+    color = hcl.colors(4, "Dark2")[temp_grp[te]]
+  )
+
+cs_edges_comb <- expand_grid(t_i = 1:n_temp, ce = seq_along(cs_from)) |>
+  transmute(
+    from  = (t_i - 1) * n_cs + cs_from[ce],
+    to    = (t_i - 1) * n_cs + cs_to[ce],
+    color = hcl.colors(4, "Dark2")[cs_grp[ce]]
+  )
+
+edges <- bind_rows(temp_edges_comb, cs_edges_comb)
+
+# ── Render ──────────────────────────────────────────────────────────────────
+visNetwork(nodes, edges, width = "100%", height = "800px") |>
+  visPhysics(enabled = FALSE) |>
+  visEdges(width = 1.5, arrows = "to",
+           smooth = list(enabled = TRUE, type = "continuous", roundness = 0.1)) |>
+  visNodes(borderWidth = 0, font = list(size = 18))
+```
+:::
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: Forecasting aggregates
+
+Explore the `PBS` dataset and produce cross-sectional aggregations of `Scripts`. Then produce base forecasts for each series.
+
+::: {.callout-caution}
+## Your turn
+
+1. Identify a suitable hierarchical/grouped structure using `ATC1`, `ATC2`, and `Concession`
+2. Aggregate the data with `aggregate_key()`
+3. Fit models to each series in the hierarchy
+4. Produce base forecasts for each series
+
+:::
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-left}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: Forecasting aggregates
+
+A suitable grouped structure is  
+`Concession * (ATC1 / ATC2)`.
+
+```{r}
+#| echo: true
+#| code-fold: true
+pbs_atc <- PBS |> 
+  aggregate_key(Concession * (ATC1 / ATC2), Scripts = sum(Scripts))
+
+pbs_atc
+```
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-left}
 
 
 ## {}
@@ -366,21 +1040,18 @@ pbs_atc1_fc |>
 :::
 ::: {.column width="60%"}
 
-### Forecasts aren't coherent
+### Exercise: Forecasting aggregates
+
+Keeping it simple, base forecasts with `ETS()`.
 
 ```{r}
-#| fig-height: 6
-#| fig-width: 7
-pbs_atc1_fc |> 
-  filter(!is_aggregated(ATC1)) |> 
-  summarise(.model = "Sum of ATC1", Scripts = sum(Scripts)) |> 
-  # sum() is invalid somehow? recreate it.
-  mutate(Scripts = dist_normal(mean(Scripts), sqrt(variance(Scripts)))) |> 
-  as_fable(key = .model) |> 
-  bind_rows(pbs_atc1_fc |> filter(is_aggregated(ATC1)) |> transmute(.model = "Forecast of total", Scripts)) |> 
-  autoplot(pbs_atc1 |> filter(is_aggregated(ATC1), Month > yearmonth("2000 Jan")) |> as_tsibble(key = NULL)) + 
-  facet_grid(vars(.model), scales = "free_y") + 
-  theme(legend.position = "bottom")
+#| echo: true
+#| code-fold: true
+#| label: exercise-ets-model
+fit_pbs <- pbs_atc |> 
+  model(ets = ETS(Scripts))
+fit_pbs |> 
+  forecast(h = "2 years")
 ```
 
 :::
@@ -393,32 +1064,52 @@ pbs_atc1_fc |>
 ::: columns
 ::: {.column width="60%"}
 
-### Why these forecasts disagree
+### Forecast reconciliation
 
-The two curves answer different questions.
+Now that we have incoherent base forecasts, how can we reconcile them?
 
-The total forecast comes from a model fit to the aggregate.
-The sum of ATC1 forecasts comes from forecasts at the bottom level.
-
-::: {.callout-note}
-## Coherency
-A coherent forecast adds up at every level of the hierarchy.
+::: {.fragment .fade-up}
+```r
+data |> 
+  aggregate_key(A * B / C, sum(???)) |>
+  model(base = ETS(???)) |>
+  reconcile(coherent = ???(base)) |>
+  forecast()
+```
 :::
 
+:::{.fragment .fade-up}
+::: {.callout-important icon=false}
+## Single-level methods
+
+Traditionally coherent forecasts were made with only one level of base forecasts from the hierarchy.
 :::
 :::
 
-![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-left}
+:::{.fragment .fade-up}
+::: {.callout-note icon=false}
+## All-level methods
+
+Fortunately better methods exist that use information from all base forecasts across the hierarchy.
+:::
+:::
+
+
+:::
+:::
+
+![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-right}
 
 ## {}
 
 ::: columns
+::: {.column width="40%"}
+:::
 ::: {.column width="60%"}
 
 ### Single-level approaches
 
-They choose one level of the hierarchy.
-Then they fill in the rest by aggregation or disaggregation.
+They choose one level of the hierarchy. The other levels are forecasted by aggregation or disaggregation of this level.
 
 * **Bottom-up**
 * **Top-down**
@@ -427,7 +1118,7 @@ Then they fill in the rest by aggregation or disaggregation.
 :::
 :::
 
-![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-right}
+![](../backgrounds/aaron-burden-y3VfIVhskks-unsplash){.image-left}
 
 ## {}
 
@@ -436,138 +1127,370 @@ Then they fill in the rest by aggregation or disaggregation.
 :::
 ::: {.column width="60%"}
 
-### Bottom-up
+### Bottom-up: `bottom_up()`
 
 Forecast every bottom-level series.
-Add them to get the higher levels.
+Add them to get the higher levels (convolution).
 
-This keeps the bottom-level detail.
-It also keeps the bottom-level noise.
-
-```{r}
-pbs_atc1 |>
-  filter(!is_aggregated(ATC1)) |>
-  model(ets = ETS(Scripts)) |>
-  reconcile(bu = bottom_up(ets)) |>
-  forecast(h = "5 years")
-```
+This uses the bottom-level information (and noise), but ignores other forecasts.
 
 :::
 :::
 
-![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-left}
+![](../backgrounds/elimende-inagella-hb4tZuQRNBc-unsplash.jpg){.image-left}
 
 ## {}
 
 ::: columns
+::: {.column width="40%"}
+:::
 ::: {.column width="60%"}
 
-### Top-down
+### Top-down: `top_down()`
 
-Forecast the total.
-Split that forecast across the bottom series with proportions.
+Forecast the total. Split that forecast across the bottom series with proportions.
 
-`top_down()` offers three common choices:
+::: {.fragment .fade-up}
+::: {.callout-note icon=false}
+## Weighting strategies
+
+`top_down()` offers three weight strategies:
 
 * `average_proportions`
-* `proportion_averages`
-* `forecast_proportions`
+  Average of data ratios across time.
 
-`forecast_proportions` uses the base forecasts to update the shares.
-It is the default in `fabletools`.
+* `proportion_averages`
+  Ratio of data averages across time.
+
+* `forecast_proportions` (default)
+  Ratio of forecast means over horizon.
+
+:::
+:::
+
+:::
+:::
+
+![](../backgrounds/anatolii-bazarov-yllwTbmLJ04-unsplash.jpg){.image-left}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Middle-out: `middle_out()`
+
+Choose a middle level of the hierarchy.  
+⬆️ Aggregate upward with bottom-up.  
+⬇️ Disaggregate downward with top-down.
+
+::: {.fragment .fade-up}
+::: {.callout-note icon=false}
+## ℹ️ Minimum depth
+
+Middle out requires >2 levels of the hierarchy.
+
+(otherwise it is just bottom-up or top-down!).
+:::
+:::
+
+
+:::
+:::
+
+![](../backgrounds/hans-UaBK3fkTZ-Q-unsplash.jpg){.image-left}
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### 'Optimal' forecast reconciliation
+
+::: {.callout-important icon=false}
+## ⚠️ Sub-optimal single-level strategies
+
+Single-level approaches are clearly **sub-optimal**.
+
+They ignore information from other levels of the hierarchy!
+:::
+
+::: {.fragment .fade-up}
+::: {.callout-tip icon=false}
+## 🎯 'Optimal' multi-level strategies
+
+How can we use information from all base forecasts?
+
+[Solve the incoherency with a cross-sectional model!]{.fragment}
+:::
+:::
+
+:::
+:::
+
+![](../backgrounds/sung-jin-cho--S87hxapFvU-unsplash.jpg){.image-right}
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Constraint matrices
+
+$$\text{Total}_t = \text{Business}_t + \text{Holiday}_t + \text{Other}_t + \text{Visiting}_t$$
+
+:::{.fragment .fade-up}
+:::{.callout-note icon=false}
+## 📐 Structural form: $\mathbf{y}_t = \mathbf{S}\mathbf{b}_t$, `coherent_smat()`
+
+$$\mathbf{S} = \begin{bmatrix} 1 & 1 & 1 & 1 \\ 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
+
+$\mathbf{S}$ maps the $n_b$ bottom-level series $\mathbf{b}_t$ to all $n$ series.
+:::
+:::
+
+:::{.fragment .fade-up}
+:::{.callout-tip icon=false}
+## 🔗 Zero-constrained form: $\mathbf{C}\mathbf{y}_t = \mathbf{0}$, `coherent_cmat()`
+
+$$\mathbf{C} = \begin{bmatrix} 1 & -1 & -1 & -1 & -1 \end{bmatrix}$$
+
+$\mathbf{C}$ encodes $n_a$ constraints for coherent forecasts.
+:::
+:::
+
+::: {.fragment .fade-up}
+In most cases, $\mathbf{C}$ is more efficient ($n_a < n_b$).
+:::
+
+:::
+:::
+
+![](../backgrounds/sung-jin-cho--S87hxapFvU-unsplash.jpg){.image-right}
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Regression models: `min_trace()`
+
+These matrices form the basis of a regression.
+
+::: {.callout-tip icon=false}
+## Ordinary Least Squares (OLS)
+$$\tilde{\mathbf{y}}_h=\mathbf{S}(\mathbf{S}'\mathbf{S})^{-1}\mathbf{S}'\hat{\mathbf{y}}_h$$
+$$\tilde{\mathbf{y}}_h=(\mathbf{I}_n-\mathbf{C}'(\mathbf{C}\mathbf{C}')^{-1}\mathbf{C})\hat{\mathbf{y}}_h$$
+:::
+
+
+::: {.callout-tip icon=false}
+## Weighted Least Squares (WLS)
+$$\tilde{\mathbf{y}}_h=\mathbf{S}(\mathbf{S}'\mathbf{W}_h^{-1}\mathbf{S})^{-1}\mathbf{S}'\mathbf{W}_h^{-1}\hat{\mathbf{y}}_h$$
+$$\tilde{\mathbf{y}}_h=(\mathbf{I}_n-\mathbf{W}\mathbf{C}'(\mathbf{C}\mathbf{W}\mathbf{C}')^{-1}\mathbf{C})\hat{\mathbf{y}}_h$$
+:::
+
+::: {.fragment .fade-up}
+::: {.callout-note icon=false}
+## Minimum Trace (MinT)
+
+This was first described in Wickramasuriya et al. (2019) and termed 'minimum trace'. Several weight options exist.
+
+:::
+:::
+
+:::
+:::
+
+![](../backgrounds/sung-jin-cho--S87hxapFvU-unsplash.jpg){.image-right}
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Choosing weights (again)
+
+The matrix **W** encodes the error structure.
+
+::: {.incremental}
+* `ols`: identity matrix
+* `wls_var`: diagonal in-sample errors
+* `wls_struct`: diagonal number of sums
+* `mint_cov`: full sample covariance
+* `mint_shrink`: regularised covariance
+:::
+
+::: {.fragment .fade-up}
+::: {.callout-note}
+## Coherency with copulas
+The weight matrix is analagous to choosing a copula, the weights incorporate covariance structure between the series. The result is a coherent multivariate distribution.
+:::
+:::
+
+:::
+:::
+
+![](../backgrounds/elena-mozhvilo-j06gLuKK0GM-unsplash.jpg){.image-right}
+
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Forecasting tourism
+
+From start to finish...
 
 ```{r}
-pbs_atc1 |>
-  model(ets = ETS(Scripts)) |>
-  reconcile(td = top_down(ets, method = "forecast_proportions")) |>
-  forecast(h = "5 years")
+#| label: tourism-rec-1
+#| fig-height: 5
+#| fig-width: 7
+#| echo: true
+tourism |> 
+  aggregate_key(Purpose, Trips = sum(Trips))
+tourism_purpose_fc <- tourism_purpose |> 
+  model(ETS(Trips)) |> 
+  forecast(h = "2 years")
+tourism_purpose_fc |> 
+  autoplot(tourism_purpose |> filter(Quarter >= yearquarter("2010 Q1")))
 ```
 
 :::
 :::
 
-![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-right}
+![](../backgrounds/johnny-bhalla-DLbCETd599Y-unsplash.jpg){.image-right}
+## {}
+
+::: columns
+::: {.column width="60%"}
+
+### Forecasting tourism
+
+Compute cross-sectional aggregates.
+
+```{r}
+#| label: tourism-rec-2
+#| fig-height: 5
+#| fig-width: 7
+#| echo: true
+toursim_agg <- tourism |> 
+  aggregate_key(Purpose * (State / Region), Trips = sum(Trips))
+toursim_agg
+```
+
+:::
+:::
+
+![](../backgrounds/johnny-bhalla-DLbCETd599Y-unsplash.jpg){.image-right}
 
 ## {}
 
 ::: columns
 ::: {.column width="60%"}
 
-### Middle-out
+### Forecasting tourism
 
-Choose a middle level.
-Aggregate upward with bottom-up.
-Disaggregate downward with top-down.
+Estimate base forecasting models.
 
-This needs a deeper hierarchy than the PBS example.
-There is no middle level in this two-level tree.
+```{r}
+#| label: tourism-rec-3
+#| fig-height: 5
+#| fig-width: 7
+#| echo: true
+tourism_agg <- tourism |> 
+  aggregate_key(Purpose * (State / Region), Trips = sum(Trips))
+tourism_agg |> 
+  model(ets = ETS(Trips))
+```
 
 :::
 :::
 
-![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-left}
+![](../backgrounds/johnny-bhalla-DLbCETd599Y-unsplash.jpg){.image-right}
 
 ## {}
 
 ::: columns
 ::: {.column width="60%"}
 
-### Single-level limits
+### Forecasting tourism
 
-They use one level only.
+Transform local `ets` model to global coherent model.
 
-The other forecasts do not enter the adjustment step.
-
-MinT uses every base forecast at once.
+```{r}
+#| label: tourism-rec-4
+#| fig-height: 5
+#| fig-width: 7
+#| echo: true
+tourism_agg <- tourism |> 
+  aggregate_key(Purpose * (State / Region), Trips = sum(Trips))
+tourism_agg |> 
+  model(ets = ETS(Trips)) |> 
+  reconcile(mint = min_trace(ets, method = "mint_shrink"))
+```
 
 :::
 :::
 
-![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-right}
+![](../backgrounds/johnny-bhalla-DLbCETd599Y-unsplash.jpg){.image-right}
+
 
 ## {}
 
 ::: columns
 ::: {.column width="60%"}
 
-### MinT: WLS
+### Forecasting tourism
 
-$\tilde{\mathbf{y}}_h=\mathbf{S}(\mathbf{S}'\mathbf{W}_h^{-1}\mathbf{S})^{-1}\mathbf{S}'\mathbf{W}_h^{-1}\hat{\mathbf{y}}_h.$
+Produce coherent forecasts! :tada:
 
-Where:
-
-* $\mathbf{S}$ defines the coherency structure, and
-* $\mathbf{W}_h$ is estimated with **weighted least squares**.
+```{r}
+#| label: tourism-rec-5
+#| fig-height: 5
+#| fig-width: 7
+#| echo: true
+tourism_agg <- tourism |> 
+  aggregate_key(Purpose * (State / Region), Trips = sum(Trips))
+tourism_agg |> 
+  model(ets = ETS(Trips)) |> 
+  reconcile(mint = min_trace(ets, method = "mint_shrink")) |> 
+  forecast(h = "2 years")
+```
 
 :::
 :::
+
+![](../backgrounds/johnny-bhalla-DLbCETd599Y-unsplash.jpg){.image-right}
 
 ## {}
 
 ::: columns
+::: {.column width="40%"}
+:::
 ::: {.column width="60%"}
 
-### Choosing **W**
+### Exercise: Coherent forecasting
 
-The weight matrix **W** encodes the error structure.
+Reconcile the base forecasting models for `PBS` using minimum trace.
 
-::: {.incremental}
-* **OLS**: identity
-* **WLS (series variance)**: diagonal from in-sample errors
-* **WLS (structural)**: diagonal from hierarchy level
-* **MinT**: full sample covariance
-* **MinT (shrinkage)**: regularised covariance
-:::
+::: {.callout-caution}
+## Your turn
 
-::: {.callout-note}
-## Gaussian dependence
-Using a covariance matrix assumes a **Gaussian copula** for the forecast errors. That captures linear dependence, but not heavy joint tails.
+1. Use `reconcile()` and `min_trace()` to specify a coherent forecasting model.
+2. Produce base and coherent forecasts for each series.
+3. Visually compare the base and coherent forecasts.  
+   Hint: `filter(is_aggregated(ATC1))` to just viz aggregations.
+4. Is reconciliation more accurate?
+
 :::
 
 :::
 :::
 
-![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-left}
 
 
 ## {}
@@ -577,18 +1500,53 @@ Using a covariance matrix assumes a **Gaussian copula** for the forecast errors.
 :::
 ::: {.column width="60%"}
 
-### Coherent forecasts with WLS
+### Exercise: Coherent forecasting
+
+1. Reconcile the base forecasting model with `min_trace()`.
 
 ```{r}
-#| fig-height: 6
-#| fig-width: 7
-pbs_coherent_fc <- pbs_atc1 |>
-  model(ets = ETS(Scripts)) |>
-  reconcile(ets = min_trace(ets, method = "wls_var")) |>
-  forecast(h = "5 years")
-pbs_coherent_fc |>
-  filter(is_aggregated(ATC1)) |>
-  autoplot(pbs_atc1 |> filter(Month > yearmonth("2000 Jan")))
+#| echo: true
+#| eval: false
+#| code-fold: true
+pbs_atc <- PBS |> 
+  aggregate_key(Concession * (ATC1 / ATC2), Scripts = sum(Scripts))
+fit_pbs <- pbs_atc |> 
+  model(ets = ETS(Scripts)) |> 
+  reconcile(mint = min_trace(ets, method = "mint_shrink"))
+fit_pbs
+```
+
+```{r}
+#| label: exercise-coherent-model
+fit_pbs <- fit_pbs |> 
+  reconcile(mint = min_trace(ets, method = "mint_shrink"))
+fit_pbs
+```
+
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-left}
+
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: Coherent forecasting
+
+2. Produce base and coherent forecasts.
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| label: exercise-coherent-fc
+fit_pbs |> 
+  forecast()
 ```
 
 :::
@@ -598,13 +1556,61 @@ pbs_coherent_fc |>
 
 ## {}
 
-### All forecasts are adjusted for coherency
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: Coherent forecasting
+
+3. Visually compare base and coherent forecasts.
 
 ```{r}
-pbs_coherent_fc |> 
-  autoplot(pbs_atc1 |> filter(Month > yearmonth("2000 Jan"))) + 
-  facet_wrap(vars(ATC1), scales = "free_y")
+#| echo: true
+#| code-fold: true
+#| label: exercise-coherent-plot
+fit_pbs |> 
+  forecast(h = "2 years") |> 
+  filter(if_any(c(ATC1, ATC2, Concession), is_aggregated)) |>
+  autoplot(
+    pbs_atc |> filter(Month > yearmonth("2000 Jan")),
+    alpha = 0.4
+  )
 ```
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-left}
+
+## {}
+
+::: columns
+::: {.column width="40%"}
+:::
+::: {.column width="60%"}
+
+### Exercise: Coherent forecasting
+
+4. Which is more accurate? Use a test-set.
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| label: exercise-coherent-acc
+pbs_atc |> 
+  # 2-year training set
+  filter(Month <= yearmonth("2006 Jun")) |>
+  model(ets = ETS(Scripts)) |> 
+  reconcile(mint = min_trace(ets, method = "mint_shrink")) |> 
+  forecast(h = "2 years") |> 
+  accuracy(pbs_atc)
+```
+
+:::
+:::
+
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-left}
 
 ## :alarm_clock: That's all for now!
 
@@ -615,7 +1621,10 @@ pbs_coherent_fc |>
 ::: {.callout-tip}
 ## Final remarks
 
-...
+* Reconciliation is useful whenever forecasting many related series.
+* Take care in finding the 'base' level of aggregation.
+* Decomposition forecasts are great for simplifying forecasting.
+* Ensemble forecasts 
 :::
 
 ::: {.callout-link}
