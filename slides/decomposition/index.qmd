@@ -168,7 +168,7 @@ $$ y_t = S_t + T_t + R_t $$
 :::
 :::
 
-![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
+![](../backgrounds/calum-lewis-vA1L1jRTM70-unsplash.jpg){.image-right}
 
 ## {}
 
@@ -196,7 +196,7 @@ $$ y_t = S_t + T_t + R_t $$
 :::
 :::
 
-![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
+![](../backgrounds/calum-lewis-vA1L1jRTM70-unsplash.jpg){.image-right}
 
 ## {}
 
@@ -304,7 +304,7 @@ The variation is roughly constant over time.
 :::
 :::
 
-![](../backgrounds/laura-geror-lGeAZjIhQyo-unsplash.jpg){.image-right}
+![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
 
 ## {}
 
@@ -336,7 +336,7 @@ The variation increases with the level of the series.
 :::
 :::
 
-![](../backgrounds/laura-geror-lGeAZjIhQyo-unsplash.jpg){.image-right}
+![](../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg){.image-right}
 
 ## {}
 
@@ -387,7 +387,7 @@ aus_retail |>
 :::
 :::
 
-![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
+![](../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg){.image-right}
 
 
 ## {}
@@ -410,7 +410,7 @@ aus_retail |>
 :::
 :::
 
-![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
+![](../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg){.image-right}
 
 
 ## {}
@@ -434,7 +434,7 @@ aus_retail |>
 :::
 :::
 
-![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
+![](../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg){.image-right}
 
 
 ## {}
@@ -458,7 +458,7 @@ aus_retail |>
 :::
 :::
 
-![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
+![](../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg){.image-right}
 
 
 ## {}
@@ -483,7 +483,7 @@ aus_retail |>
 :::
 :::
 
-![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
+![](../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg){.image-right}
 
 
 ## {}
@@ -508,7 +508,7 @@ aus_retail |>
 :::
 :::
 
-![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
+![](../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg){.image-right}
 
 
 ## {}
@@ -725,7 +725,7 @@ $$
 :::
 :::
 
-![](../backgrounds/steven-wright-mq8QogEBy00-unsplash.jpg){.image-right}
+![](../backgrounds/calum-lewis-vA1L1jRTM70-unsplash.jpg){.image-right}
 
 
 ## {}
@@ -758,7 +758,7 @@ retail_components |>
 :::
 :::
 
-![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+![](../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg){.image-right}
 
 ## {}
 
@@ -791,7 +791,7 @@ retail_components |>
 :::
 :::
 
-![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+![](../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg){.image-right}
 
 ## {}
 
@@ -825,7 +825,7 @@ retail_components |>
 :::
 :::
 
-![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+![](../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg){.image-right}
 
 
 ## {}
@@ -867,7 +867,7 @@ retail_components |>
 :::
 :::
 
-![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+![](../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg){.image-right}
 
 
 ## {.fragment-remove}
@@ -958,7 +958,7 @@ $$\text{Var}(Y_{T+h|T}) = \sigma_{T+R,T+h}^2 + \sigma_{S,T+h}^2 + 2\sigma_{T+R,S
 :::
 :::
 
-![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+![](../backgrounds/calum-lewis-vA1L1jRTM70-unsplash.jpg){.image-right}
 
 
 ## {.fragment-remove}
@@ -998,7 +998,7 @@ $$f_Z(z) = f_{X,Y}(z) = \int_{-\infty}^{\infty} f_{X,Y}(x,\, z - x)\, dx$$
 :::
 :::
 
-![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+![](../backgrounds/calum-lewis-vA1L1jRTM70-unsplash.jpg){.image-right}
 
 
 ## {.fragment-remove}
@@ -1046,7 +1046,7 @@ retail_fc_snaive$value[1] + retail_fc_ets$value[1]
 :::
 :::
 
-![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+![](../backgrounds/luis-arias-j0aQvd0zIyg-unsplash.jpg){.image-right}
 
 
 ## {.fragment-remove}
@@ -1088,7 +1088,7 @@ The correlation matrix is estimated from the joint response residuals of compone
 :::
 :::
 
-![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+![](../backgrounds/luis-arias-j0aQvd0zIyg-unsplash.jpg){.image-right}
 
 
 ## {.fragment-remove}
@@ -1128,7 +1128,7 @@ i.e. $Y \sim \text{LogNormal}(\mu, \sigma^2)$.
 :::
 :::
 
-![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-right}
 
 
 ## {.fragment-remove}
@@ -1190,7 +1190,7 @@ data.frame(
 :::
 :::
 
-![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-right}
 
 
 
@@ -1230,7 +1230,7 @@ Larger $\sigma^2$ $\Rightarrow$ bigger correction.
 :::
 :::
 
-![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-right}
 
 
 ## {.fragment-remove}
@@ -1306,7 +1306,7 @@ data.frame(
 :::
 :::
 
-![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+![](../backgrounds/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg){.image-right}
 
 
 
@@ -1345,7 +1345,7 @@ decomposition_model(
 :::
 :::
 
-![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+![](../backgrounds/laura-geror-lGeAZjIhQyo-unsplash.jpg){.image-right}
 
 
 ## {.fragment-remove}
@@ -1387,7 +1387,7 @@ aus_retail_tot |>
 :::
 :::
 
-![](../backgrounds/roberto-sorin-RS0-h_pyByk-unsplash.jpg){.image-right}
+![](../backgrounds/brooke-cagle-9fHMo1-5Io8-unsplash.jpg){.image-right}
 
 ## {}
 

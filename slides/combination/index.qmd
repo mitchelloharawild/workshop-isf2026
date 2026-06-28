@@ -283,7 +283,7 @@ FFORMA estimates weights from series features ($w_i \in [0,1]$).
 :::
 :::
 
-![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+![](../backgrounds/elena-mozhvilo-j06gLuKK0GM-unsplash.jpg){.image-right}
 
 ## {}
 
@@ -325,7 +325,7 @@ Weights reflect model credibility rather than past performance alone.
 :::
 :::
 
-![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+![](../backgrounds/elena-mozhvilo-j06gLuKK0GM-unsplash.jpg){.image-right}
 
 ## {.fragment-remove}
 
@@ -1100,7 +1100,7 @@ Frazier, Covey, Martin & Poskitt (2023) solve the puzzle and explain the root ca
 :::
 :::
 
-![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+![](../backgrounds/nathalia-segato-V9qc-JVKIBo-unsplash.jpg){.image-right}
 
 ## {}
 
@@ -1140,7 +1140,7 @@ Joint estimation produces better results with unequal weights.
 :::
 :::
 
-![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+![](../backgrounds/nathalia-segato-V9qc-JVKIBo-unsplash.jpg){.image-right}
 
 ## {}
 
@@ -1181,7 +1181,7 @@ Generate diverse synthetic time series with different weighted combinations of c
 :::
 :::
 
-![](../backgrounds/andrik-langfield-0rTCXZM7Xfo-unsplash.jpg){.image-right}
+![](../backgrounds/rock-n-roll-monkey-FTfjMijq-Ws-unsplash.jpg){.image-right}
 
 
 ## :alarm_clock: Time for a (short) break!
