@@ -40,7 +40,7 @@ website:
         - text: Decomposition forecasting
           href: slides/decomposition/
         - text: Ensemble forecasting
-          href: slides/combination/
+          href: slides/ensemble/
         - text: Forecast reconciliation
           href: slides/reconciliation/
     # - text: Feedback
