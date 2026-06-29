@@ -53,10 +53,10 @@ website:
         menu:
           - text: Everything
             href: 'https://github.com/mitchelloharawild/workshop-isf2026/archive/refs/heads/main.zip'
-          # - text: Slides
-            # href: 'slides.zip'
-          - text: Lab sessions
-            href: 'labs.zip'
+          - text: Slides (PDF)
+            href: 'slides.zip'
+          - text: Lab code
+            href: 'labs.R'
       - icon: file-certificate
         href: license.qmd
       - icon: github

@@ -254,6 +254,7 @@ Where possible, I'll also point to the equivalent tools in Python :snake:.
 * `statsforecast` + `HierarchicalForecast`
 * `darts`
 * `sktime`
+* `aeon` - decomposition, ensembles
 ::: -->
 :::
 
